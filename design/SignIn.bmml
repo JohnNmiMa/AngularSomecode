@@ -1,0 +1,307 @@
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1048" measuredH="629" mockupW="974" mockupH="629">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="106" y="82" w="939" h="547" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>15658734</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>15658734</color>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Title" x="114" y="238" w="129" h="-1" measuredW="102" measuredH="16" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <bold>true</bold>
+        <size>14</size>
+        <text>Class%20variables</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::TextArea" x="113" y="254" w="482" h="122" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>15658734</borderColor>
+        <color>15658734</color>
+        <text>Class%20variables%20in%20python%20are%20shared%20among%20all%20of%20the%20class%20instances.%0A*%20If%20you%20change%20the%20class%20variable%20with%20the%20class%20object%20%28class.attr%20%3D%20value%29%2C%20the%20value%20is%20changed%20in%20all%20existing%20and%20future%20class%20instances%20%28Dog.sound%20%3D%20%27yip%27%29.%0A*%20If%20you%20change%20the%20variable%20through%20a%20class%20instance%20%28big_dog.sound%20%3D%20%27growl%27%29%20a%20local%20variable%20is%20created%20for%20that%20instance%20and%20added%20to%20the%20instance%27s%20dictionary.</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::SearchBox" x="364" y="11" w="373" h="-1" measuredW="120" measuredH="25" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Class</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::TextArea" x="104" y="53" w="265" h="24" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>16777215</borderColor>
+        <size>16</size>
+        <text>%22Class%22%20search</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Label" x="87" y="8" w="245" h="-1" measuredW="126" measuredH="31" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>SomeCode</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Canvas" x="78" y="0" w="967" h="47" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>16777215</borderColor>
+        <color>15658734</color>
+      </controlProperties>
+    </control>
+    <control controlID="105" controlTypeID="com.balsamiq.mockups::Canvas" x="622" y="254" w="415" h="186" measuredW="100" measuredH="70" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>15658734</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>16370588</color>
+      </controlProperties>
+    </control>
+    <control controlID="107" controlTypeID="com.balsamiq.mockups::TextArea" x="630" y="261" w="399" h="171" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <borderColor>16370588</borderColor>
+        <color>16370588</color>
+        <italic>false</italic>
+        <size>12</size>
+        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%20bark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20bark%20bark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20yip%20yip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20growl%20yip</text>
+      </controlProperties>
+    </control>
+    <control controlID="108" controlTypeID="com.balsamiq.mockups::HRule" x="637" y="297" w="393" h="-1" measuredW="100" measuredH="10" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>11184810</color>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::Button" x="657" y="14" w="68" h="18" measuredW="68" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16370588</color>
+        <text>243%2C121</text>
+      </controlProperties>
+    </control>
+    <control controlID="124" controlTypeID="com.balsamiq.mockups::TextArea" x="113" y="115" w="482" h="123" measuredW="200" measuredH="140" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>15658734</borderColor>
+        <color>15658734</color>
+        <text>Classes%20are%20used%20to%20create%20user%20defined%20datatypes.%0A*%20By%20convention%2C%20they%20are%20capitalized.%0A*%20A%20class%20is%20a%20python%20object%2C%20and%20is%20a%20template%20used%20to%20create%20class%20instances.%20A%20class%20instance%20is%20created%20by%20instantiation%20%28inst%20%3D%20class%28%29%29.%0A*%20Classes%20can%20have%20docstrings.%0A*%20Use%20the%20pass%20statement%20to%20define%20a%20null%20class.</text>
+      </controlProperties>
+    </control>
+    <control controlID="125" controlTypeID="com.balsamiq.mockups::Title" x="113" y="97" w="108" h="-1" measuredW="105" measuredH="16" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <bold>true</bold>
+        <size>14</size>
+        <text>Class%20definition</text>
+      </controlProperties>
+    </control>
+    <control controlID="126" controlTypeID="com.balsamiq.mockups::Canvas" x="622" y="113" w="419" h="124" measuredW="100" measuredH="70" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>15658734</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>16370588</color>
+      </controlProperties>
+    </control>
+    <control controlID="127" controlTypeID="com.balsamiq.mockups::TextArea" x="630" y="119" w="403" h="112" measuredW="200" measuredH="140" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <borderColor>16370588</borderColor>
+        <color>16370588</color>
+        <italic>false</italic>
+        <size>12</size>
+        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%3E%3E%3E%20%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%20%27</text>
+      </controlProperties>
+    </control>
+    <control controlID="128" controlTypeID="com.balsamiq.mockups::HRule" x="637" y="166" w="389" h="-1" measuredW="100" measuredH="10" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>11184810</color>
+      </controlProperties>
+    </control>
+    <control controlID="136" controlTypeID="com.balsamiq.mockups::Arrow" x="392" y="466" w="127" h="72" measuredW="150" measuredH="100" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <curvature>-1</curvature>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <rightArrow>true</rightArrow>
+      </controlProperties>
+    </control>
+    <control controlID="171" controlTypeID="com.balsamiq.mockups::StickyNote" x="820" y="113" w="121" h="53" measuredW="109" measuredH="123" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add%20new%20snippet%20to%20current%20topic</text>
+      </controlProperties>
+    </control>
+    <control controlID="172" controlTypeID="__group__" x="994" y="118" w="39" h="16" measuredW="39" measuredH="16" zOrder="17" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Icon" x="0" y="0" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="0" locked="false" isInGroup="172">
+          <controlProperties>
+            <color>0</color>
+            <icon>ColumnsIcon%7Cxsmall</icon>
+            <rotation>180</rotation>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="23" y="0" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="1" locked="false" isInGroup="172">
+          <controlProperties>
+            <color>13421772</color>
+            <icon>ColumnsIcon%7Cxsmall</icon>
+            <rotation>270</rotation>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="180" controlTypeID="__group__" x="945" y="118" w="39" h="16" measuredW="39" measuredH="16" zOrder="18" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Icon" x="0" y="0" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="0" locked="false" isInGroup="180">
+          <controlProperties>
+            <color>13421772</color>
+            <icon>CircledPlusIcon%7Cxsmall</icon>
+            <rotation>180</rotation>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="23" y="0" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="1" locked="false" isInGroup="180">
+          <controlProperties>
+            <color>13421772</color>
+            <icon>CircledMinusIcon%7Cxsmall</icon>
+            <rotation>180</rotation>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="181" controlTypeID="__group__" x="945" y="262" w="39" h="16" measuredW="39" measuredH="16" zOrder="19" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Icon" x="0" y="0" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="0" locked="false" isInGroup="181">
+          <controlProperties>
+            <color>13421772</color>
+            <icon>CircledPlusIcon%7Cxsmall</icon>
+            <rotation>180</rotation>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Icon" x="23" y="0" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="1" locked="false" isInGroup="181">
+          <controlProperties>
+            <color>13421772</color>
+            <icon>CircledMinusIcon%7Cxsmall</icon>
+            <rotation>180</rotation>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="186" controlTypeID="com.balsamiq.mockups::Icon" x="1012" y="11" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <icon>GearIcon%7Csmall</icon>
+        <rotation>90</rotation>
+      </controlProperties>
+    </control>
+    <control controlID="187" controlTypeID="com.balsamiq.mockups::Canvas" x="938" y="9" w="58" h="28" measuredW="100" measuredH="70" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>13421772</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>14934971</color>
+      </controlProperties>
+    </control>
+    <control controlID="188" controlTypeID="com.balsamiq.mockups::Label" x="944" y="13" w="45" h="-1" measuredW="41" measuredH="20" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <color>6710886</color>
+        <text>Sign%20In</text>
+      </controlProperties>
+    </control>
+    <control controlID="191" controlTypeID="com.balsamiq.mockups::Canvas" x="74" y="0" w="974" h="629" measuredW="100" measuredH="70" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <borderColor>13421772</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>3355443</color>
+        <href>LoggedOutSearch%26bm%3BLoggedOutSearch.bmml%26bm%3BLoggedOutSearch.bmml%26bm%3BLoggedOutSearch.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%220%2C0%2C974%2C629%22%20href%3D%22LoggedOutSearch.bmml%22%20alt%3D%22LoggedOutSearch%22%20id%3D%22191%22/%3E</map>
+      </controlProperties>
+    </control>
+    <control controlID="199" controlTypeID="com.balsamiq.mockups::Canvas" x="432" y="151" w="293" h="310" measuredW="100" measuredH="70" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>15658734</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>15658734</color>
+      </controlProperties>
+    </control>
+    <control controlID="200" controlTypeID="com.balsamiq.mockups::Label" x="459" y="179" w="-1" h="-1" measuredW="88" measuredH="34" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>28</size>
+        <text>Sign%20In</text>
+      </controlProperties>
+    </control>
+    <control controlID="201" controlTypeID="com.balsamiq.mockups::Button" x="459" y="237" w="243" h="57" measuredW="230" measuredH="48" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <color>4039124</color>
+        <href>Desktop%20SippetHorz%26bm%3BDesktop%20SippetHorz.bmml%26bm%3BDesktop%20SippetHorz.bmml%26bm%3BDesktop%20SippetHorz.bmml</href>
+        <icon>FacebookIcon%7Clarge</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22385%2C237%2C628%2C294%22%20href%3D%22Desktop%2520SippetHorz.bmml%22%20alt%3D%22Desktop%20SippetHorz%22%20id%3D%22201%22/%3E</map>
+        <size>16</size>
+        <text>Sign%20In%20with%20Facebook</text>
+      </controlProperties>
+    </control>
+    <control controlID="202" controlTypeID="com.balsamiq.mockups::Button" x="459" y="301" w="243" h="57" measuredW="206" measuredH="48" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <color>6794460</color>
+        <href>Desktop%20SippetHorz%26bm%3BDesktop%20SippetHorz.bmml%26bm%3BDesktop%20SippetHorz.bmml%26bm%3BDesktop%20SippetHorz.bmml</href>
+        <icon>TwitterIcon%7Clarge</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22385%2C301%2C628%2C358%22%20href%3D%22Desktop%2520SippetHorz.bmml%22%20alt%3D%22Desktop%20SippetHorz%22%20id%3D%22202%22/%3E</map>
+        <size>16</size>
+        <text>Sign%20In%20with%20Twitter</text>
+      </controlProperties>
+    </control>
+    <control controlID="203" controlTypeID="com.balsamiq.mockups::Button" x="459" y="366" w="243" h="57" measuredW="211" measuredH="48" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <color>14502713</color>
+        <href>Desktop%20SippetHorz%26bm%3BDesktop%20SippetHorz.bmml%26bm%3BDesktop%20SippetHorz.bmml%26bm%3BDesktop%20SippetHorz.bmml</href>
+        <icon>GoogleIcon%7Clarge</icon>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22385%2C366%2C628%2C423%22%20href%3D%22Desktop%2520SippetHorz.bmml%22%20alt%3D%22Desktop%20SippetHorz%22%20id%3D%22203%22/%3E</map>
+        <size>16</size>
+        <text>Sign%20In%20with%20Google</text>
+      </controlProperties>
+    </control>
+    <control controlID="216" controlTypeID="com.balsamiq.mockups::StickyNote" x="87" y="176" w="324" h="426" measuredW="109" measuredH="123" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>9684093</color>
+        <text>Modal%20Sign-in%20Dialog%0A%20%0ASomeCode%20user%20authentication%20is%20done%20using%20OAuth%20on%20the%20backend.%20Any%20number%20of%20OAuth%20providers%20can%20be%20implemented.%20The%20SomeCode%20accounts%20are%20tied%20to%20a%20user%27s%20OAuth%20ID%20estabilshed%20by%20the%20provider.%20If%20it%20is%20found%20that%20the%20email%20addr%20associated%20with%20the%20user%27s%20profile%20at%20providerA%20is%20the%20same%20email%20addr%20associated%20with%20the%20user%27s%20profile%20at%20providerB%2C%20then%20the%20user%27s%20SomeCode%20account%20will%20be%20linked%20to%20multiple%20OAuth%20providers%20via%20the%20same%20email%20address%2C%20even%20though%20there%20are%20multiple%20OAuth%20IDs.%0A%20%0AWhat%20this%20means%20is%20that%20if%20a%20user%20authenticates%20with%20their%20Google+%20account%20using%20their%20Gmail%20addr%2C%20and%20then%20logs%20into%20their%20Facebook%20account%2C%20and%20the%20Facebook%20account%20uses%20the%20same%20Gmail%20addr%2C%20then%20the%20user%20will%20log%20into%20the%20same%20SomeCode%20account.%0A%20%0ASome%20OAuth%20login%20providers%20don%27t%20require%20an%20email%20addr%20to%20be%20associated%20with%20a%20user%20profile%20%28e.g.%20Twitter%29.%20Therefore%2C%20the%20linking%20of%20multiple%20OAuth%20accounts%20to%20the%20same%20SomeCode%20account%20is%20not%20possible.%20The%20SomeCode%20account%20will%20then%20be%20associated%20with%20only%20the%20one%20OAuth%20provider%20ID.</text>
+      </controlProperties>
+    </control>
+    <control controlID="217" controlTypeID="com.balsamiq.mockups::Icon" x="78" y="232" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>6710886</color>
+        <icon>%24ACCOUNT/assets/icon_eye.png%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="218" controlTypeID="com.balsamiq.mockups::Icon" x="78" y="90" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>6710886</color>
+        <icon>%24ACCOUNT/assets/icon_eye.png%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="220" controlTypeID="com.balsamiq.mockups::Icon" x="915" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <icon>%24ACCOUNT/assets/icon_plus.png%7Csmall</icon>
+        <rotation>90</rotation>
+      </controlProperties>
+    </control>
+    <control controlID="221" controlTypeID="com.balsamiq.mockups::Icon" x="954" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>none</borderStyle>
+        <color>0</color>
+        <icon>SquaredMinusIcon%7Csmall</icon>
+        <rotation>270</rotation>
+      </controlProperties>
+    </control>
+    <control controlID="222" controlTypeID="com.balsamiq.mockups::Icon" x="986" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <icon>SquaredMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="223" controlTypeID="com.balsamiq.mockups::Icon" x="1019" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <icon>StopIcon%7Csmall</icon>
+        <rotation>270</rotation>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

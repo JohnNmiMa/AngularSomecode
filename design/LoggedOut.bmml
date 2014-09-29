@@ -1,0 +1,106 @@
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1301" measuredH="279" mockupW="1223" mockupH="279">
+  <controls>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::SearchBox" x="364" y="11" w="373" h="-1" measuredW="157" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>LoggedOutSearch%26bm%3BLoggedOutSearch.bmml%26bm%3BLoggedOutSearch.bmml%26bm%3BLoggedOutSearch.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22286%2C11%2C659%2C36%22%20href%3D%22LoggedOutSearch.bmml%22%20alt%3D%22LoggedOutSearch%22%20id%3D%2215%22/%3E</map>
+        <text>Search%20public%20snippets</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Label" x="87" y="8" w="245" h="-1" measuredW="126" measuredH="31" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>24</size>
+        <text>SomeCode</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Canvas" x="78" y="0" w="967" h="47" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>16777215</borderColor>
+        <color>15658734</color>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::Button" x="657" y="14" w="68" h="18" measuredW="68" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <color>16370588</color>
+        <text>243%2C121</text>
+      </controlProperties>
+    </control>
+    <control controlID="121" controlTypeID="com.balsamiq.mockups::StickyNote" x="584" y="91" w="354" h="58" measuredW="109" measuredH="123" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Number%20of%20public%20snippets.%0AWhen%20logged%20out%2C%20the%20user%20can%20search%20all%20public%20snippets.</text>
+      </controlProperties>
+    </control>
+    <control controlID="122" controlTypeID="com.balsamiq.mockups::Arrow" x="684" y="38" w="31" h="67" measuredW="150" measuredH="100" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>-1</curvature>
+        <direction>top</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="186" controlTypeID="com.balsamiq.mockups::Icon" x="1012" y="11" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <icon>GearIcon%7Csmall</icon>
+        <rotation>90</rotation>
+      </controlProperties>
+    </control>
+    <control controlID="187" controlTypeID="com.balsamiq.mockups::Canvas" x="938" y="9" w="58" h="28" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderColor>13421772</borderColor>
+        <borderStyle>roundedSolid</borderStyle>
+        <color>14934971</color>
+      </controlProperties>
+    </control>
+    <control controlID="188" controlTypeID="com.balsamiq.mockups::Label" x="944" y="13" w="45" h="-1" measuredW="41" measuredH="20" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <color>6710886</color>
+        <text>Sign%20In</text>
+      </controlProperties>
+    </control>
+    <control controlID="194" controlTypeID="com.balsamiq.mockups::Arrow" x="1036" y="36" w="69" h="26" measuredW="150" measuredH="100" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>-1</curvature>
+        <direction>top</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="195" controlTypeID="com.balsamiq.mockups::StickyNote" x="1081" y="21" w="220" h="55" measuredW="109" measuredH="123" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Settings%3A%0A*%20Color%20of%20public%20snippets</text>
+      </controlProperties>
+    </control>
+    <control controlID="221" controlTypeID="com.balsamiq.mockups::Icon" x="954" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>none</borderStyle>
+        <color>13421772</color>
+        <icon>SquaredMinusIcon%7Csmall</icon>
+        <rotation>270</rotation>
+      </controlProperties>
+    </control>
+    <control controlID="222" controlTypeID="com.balsamiq.mockups::Icon" x="986" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <icon>SquaredMinusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="223" controlTypeID="com.balsamiq.mockups::Icon" x="1019" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <icon>StopIcon%7Csmall</icon>
+        <rotation>270</rotation>
+      </controlProperties>
+    </control>
+    <control controlID="224" controlTypeID="com.balsamiq.mockups::StickyNote" x="449" y="218" w="496" h="61" measuredW="109" measuredH="123" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>9684093</color>
+        <size>18</size>
+        <text>Logged%20out%20state.%20User%20is%20able%20to%20search%20all%20public%20snippets.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
