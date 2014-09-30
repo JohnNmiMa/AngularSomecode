@@ -1,2 +1,77 @@
-Implement home view
-Implement ? view
+Implement logged out view
+- Create header
+- Get Flask server running for home page
+- Get Flask server authenticating with Google, Facebook, Twitter OAuth
+- Create SnippetBar
+  - Render Create & Layout icons
+    - hide create button if logged out
+  !- Keep SnippetBar from scrolling off top of page
+Implement signed-in view
+- Finish SnippetBar
+  - Display Selected Topic
+  - Implement Topic Sort Order Selector
+    - Add alphabetical & chronolocal sorts
+    !- Investigate Custom Sort Order
+      - how to move items in list and keep track of index
+      - add custom sort order field in DB
+- Create TopicBar
+  !- TopicBar ToggleIcon
+    !- investigate ngAnimate
+    !- how to rotate icon?
+    !- how to resize topicbar?
+    !- how to keep topicbar fixed as snippet container scrolls?
+  - ngRepeat for list of topics
+  - Topic CRUD
+- Create CRUD Form
+  - Implement SnippetBar Create Icon
+  - Add Save/Cancel buttons
+    - Update DB if snippet is added
+  - Add public/private selector
+    - Update DB to proper public/private state
+  - Add topic selector
+  - Add language selector
+- Create Snippet Container
+  - Display all snippets in a topic
+  - Implement SnippetBar Layout Icons
+- Create Snippet Selector
+  - Render Snip-it, layout, edit, and delete icons
+  - Implement layout icons
+  - Implement edit icon
+    - Show Snippet CRUD Form
+  - Implement delete icon
+    - add delete dialog
+!- Implement CodeMirror Snippet Code Text-Area
+  - investigate other code input tools
+!- Implement Snippet Description/Note Text-Area
+  - Add WYSYWIG JavaScript HTML editor for snippet description text-area
+
+    One of the keys to this entire app is to provide a great code and
+    description input experience. The description area must offer the following:
+     * Bullets: bullets need to be indented properly.
+     * Numbered lists, where numbers can be started and then continued from where
+       they were left off. Just starting at "1" each time a numbered list is started
+       is bad.
+
+       Here is an example how bullets and numbered lists should be rendered:
+
+          Some paragraph text that will contain bulleted and numbered items:
+          1) Item one.
+             * This is a bullet
+             * This is another bullet. This is a long bullet that will demonstrate
+               proper bullet text wrapping and indentation.
+
+          2) Item two. Notice that the numbering continued onto two, and did not start over to one.
+             a) Sub-item 2.1
+             b) Sub-item 2.2
+                * This is the first bullet to sub-item 2.2
+                * This is the second bullet
+                  - This is an indented bullet. The bullet could be another symbol to help
+                    show the different level. Also, notice how the bullet text displays
+                    proper bullet text wrapping and indentation.
+                  - Another indented bullet.
+
+          3) Item three. Notice how the numbering can be continued even though the previous numbering
+             was interrupted by a list of bulleted items.
+
+!- Implement backend DB that will persist on heroku - OR
+  Deploy Flask server to a python service that will work with SQLite.

@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="939" measuredH="617" mockupW="485" mockupH="617">
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="845" measuredH="617" mockupW="332" mockupH="617">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="546" y="70" w="299" h="547" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
@@ -50,7 +50,7 @@
         <color>13421772</color>
         <href>MobileMenu%26bm%3BMobileMenu.bmml%26bm%3BMobileMenu.bmml%26bm%3BMobileMenu.bmml</href>
         <icon>ListIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22356%2C4%2C380%2C28%22%20href%3D%22MobileMenu.bmml%22%20alt%3D%22MobileMenu%22%20id%3D%22192%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22297%2C4%2C321%2C28%22%20href%3D%22MobileMenu.bmml%22%20alt%3D%22MobileMenu%22%20id%3D%22192%22/%3E</map>
       </controlProperties>
     </control>
     <control controlID="196" controlTypeID="com.balsamiq.mockups::TextArea" x="546" y="71" w="299" h="38" measuredW="200" measuredH="140" zOrder="6" locked="false" isInGroup="-1">
@@ -103,9 +103,9 @@
         <text>Inheritance%2C%20Public/Private%20Attrs</text>
       </controlProperties>
     </control>
-    <control controlID="211" controlTypeID="com.balsamiq.mockups::ComboBox" x="547" y="40" w="-1" h="-1" measuredW="115" measuredH="23" zOrder="12" locked="false" isInGroup="-1">
+    <control controlID="211" controlTypeID="com.balsamiq.mockups::ComboBox" x="547" y="40" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>JavaScript%20OO</text>
+        <text>Python%20OO</text>
       </controlProperties>
     </control>
     <control controlID="213" controlTypeID="com.balsamiq.mockups::Icon" x="518" y="115" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
@@ -155,7 +155,7 @@
         <color>13421772</color>
         <href>Mobile%26bm%3BMobile.bmml%26bm%3BMobile.bmml%26bm%3BMobile.bmml</href>
         <icon>SquaredMinusIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22332%2C39%2C356%2C63%22%20href%3D%22Mobile.bmml%22%20alt%3D%22Mobile%22%20id%3D%22224%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22273%2C39%2C297%2C63%22%20href%3D%22Mobile.bmml%22%20alt%3D%22Mobile%22%20id%3D%22224%22/%3E</map>
       </controlProperties>
     </control>
     <control controlID="225" controlTypeID="com.balsamiq.mockups::Icon" x="819" y="39" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="24" locked="false" isInGroup="-1">

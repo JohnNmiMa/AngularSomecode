@@ -78,7 +78,7 @@
         <color>15658734</color>
         <hasHeader>false</hasHeader>
         <rowHeight>24</rowHeight>
-        <selectedIndex>4</selectedIndex>
+        <selectedIndex>5</selectedIndex>
         <size>12</size>
         <text>General%0ACommon%20C++%20Syntax%0ACommon%20Javascript%20Syntax%0ACommon%20jQuery%0AJavaScript%20OO%0APython%20OO%0AHTML%0ACSS</text>
       </controlProperties>
@@ -101,7 +101,7 @@
         <color>15658734</color>
         <hasHeader>false</hasHeader>
         <rowHeight>24</rowHeight>
-        <selectedIndex>4</selectedIndex>
+        <selectedIndex>5</selectedIndex>
         <size>12</size>
         <text>87%0A14%0A22%0A34%0A12%0A9%0A34%0A97</text>
         <value>0</value>
@@ -341,9 +341,9 @@
         <icon>%24ACCOUNT/assets/icon_eye-slash.png%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="235" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="115" measuredH="23" zOrder="43" locked="false" isInGroup="-1">
+    <control controlID="235" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="43" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>JavaScript%20OO</text>
+        <text>Python%20OO</text>
       </controlProperties>
     </control>
   </controls>

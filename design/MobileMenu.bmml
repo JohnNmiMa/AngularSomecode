@@ -112,7 +112,7 @@
             <color>16370588</color>
             <italic>false</italic>
             <size>12</size>
-            <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%20bark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20bark%20bark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20yip%20yip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20growl%20yip</text>
+            <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%0Abark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%0Abark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%0Ayip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%0Agrowl</text>
           </controlProperties>
         </control>
         <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="4" y="34" w="277" h="-1" measuredW="100" measuredH="10" zOrder="1" locked="false" isInGroup="169">

@@ -1,6 +1,6 @@
-<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1045" measuredH="744" mockupW="968" mockupH="744">
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1045" measuredH="627" mockupW="968" mockupH="627">
   <controls>
-    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="106" y="82" w="939" h="662" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="106" y="82" w="939" h="545" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <borderColor>15658734</borderColor>
         <borderStyle>roundedSolid</borderStyle>
@@ -114,7 +114,7 @@
         <color>14934971</color>
         <italic>false</italic>
         <size>12</size>
-        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%3E%3E%3E%20%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%20%27</text>
+        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%27</text>
       </controlProperties>
     </control>
     <control controlID="128" controlTypeID="com.balsamiq.mockups::HRule" x="633" y="470" w="389" h="-1" measuredW="100" measuredH="10" zOrder="16" locked="false" isInGroup="-1">
@@ -202,7 +202,7 @@
         <text>Class%20variables</text>
       </controlProperties>
     </control>
-    <control controlID="207" controlTypeID="com.balsamiq.mockups::TextArea" x="113" y="560" w="482" h="130" measuredW="200" measuredH="140" zOrder="24" locked="false" isInGroup="-1">
+    <control controlID="207" controlTypeID="com.balsamiq.mockups::TextArea" x="113" y="560" w="482" h="59" measuredW="200" measuredH="140" zOrder="24" locked="false" isInGroup="-1">
       <controlProperties>
         <borderColor>15658734</borderColor>
         <color>15658734</color>
@@ -225,24 +225,24 @@
         <text>Add%20snippet%20title%20here</text>
       </controlProperties>
     </control>
-    <control controlID="237" controlTypeID="com.balsamiq.mockups::Canvas" x="618" y="557" w="419" h="179" measuredW="100" measuredH="70" zOrder="25" locked="false" isInGroup="-1">
+    <control controlID="237" controlTypeID="com.balsamiq.mockups::Canvas" x="618" y="557" w="419" h="62" measuredW="100" measuredH="70" zOrder="25" locked="false" isInGroup="-1">
       <controlProperties>
         <borderColor>15658734</borderColor>
         <borderStyle>roundedSolid</borderStyle>
         <color>16370588</color>
       </controlProperties>
     </control>
-    <control controlID="238" controlTypeID="com.balsamiq.mockups::TextArea" x="626" y="561" w="403" h="168" measuredW="200" measuredH="140" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="238" controlTypeID="com.balsamiq.mockups::TextArea" x="626" y="561" w="403" h="51" measuredW="200" measuredH="140" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <backgroundAlpha>1</backgroundAlpha>
         <borderColor>16370588</borderColor>
         <color>16370588</color>
         <italic>false</italic>
         <size>12</size>
-        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%20bark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20bark%20bark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20yip%20yip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20growl%20yip</text>
+        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%0Abark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%0Abark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%0Ayip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%0Agrowl</text>
       </controlProperties>
     </control>
-    <control controlID="239" controlTypeID="com.balsamiq.mockups::HRule" x="633" y="580" w="397" h="-1" measuredW="100" measuredH="10" zOrder="27" locked="false" isInGroup="-1">
+    <control controlID="239" controlTypeID="com.balsamiq.mockups::HRule" x="633" y="594" w="397" h="-1" measuredW="100" measuredH="10" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
         <color>11184810</color>
       </controlProperties>
@@ -307,9 +307,9 @@
         <rightArrow>false</rightArrow>
       </controlProperties>
     </control>
-    <control controlID="286" controlTypeID="com.balsamiq.mockups::ComboBox" x="107" y="54" w="-1" h="-1" measuredW="115" measuredH="23" zOrder="44" locked="false" isInGroup="-1">
+    <control controlID="286" controlTypeID="com.balsamiq.mockups::ComboBox" x="107" y="54" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="44" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>JavaScript%20OO</text>
+        <text>Python%20OO</text>
       </controlProperties>
     </control>
     <control controlID="287" controlTypeID="com.balsamiq.mockups::Icon" x="77" y="537" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="45" locked="false" isInGroup="-1">

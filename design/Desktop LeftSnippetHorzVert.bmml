@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1359" measuredH="629" mockupW="1282" mockupH="629">
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1045" measuredH="629" mockupW="968" mockupH="629">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="364" y="82" w="681" h="547" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
@@ -106,7 +106,7 @@
         <color>15658734</color>
         <hasHeader>false</hasHeader>
         <rowHeight>24</rowHeight>
-        <selectedIndex>4</selectedIndex>
+        <selectedIndex>5</selectedIndex>
         <size>12</size>
         <text>General%0ACommon%20C++%20Syntax%0ACommon%20Javascript%20Syntax%0ACommon%20jQuery%0AJavaScript%20OO%0APython%20OO%0AHTML%0ACSS</text>
       </controlProperties>
@@ -129,7 +129,7 @@
         <color>15658734</color>
         <hasHeader>false</hasHeader>
         <rowHeight>24</rowHeight>
-        <selectedIndex>4</selectedIndex>
+        <selectedIndex>5</selectedIndex>
         <size>12</size>
         <text>87%0A14%0A22%0A34%0A12%0A9%0A34%0A97</text>
         <value>0</value>
@@ -184,7 +184,7 @@
         <color>16370588</color>
         <italic>false</italic>
         <size>12</size>
-        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%20bark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20bark%20bark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20yip%20yip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20growl%20yip</text>
+        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%0Abark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%0Abark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%0Ayip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%0Agrowl</text>
       </controlProperties>
     </control>
     <control controlID="108" controlTypeID="com.balsamiq.mockups::HRule" x="385" y="529" w="643" h="-1" measuredW="100" measuredH="10" zOrder="12" locked="false" isInGroup="-1">
@@ -260,7 +260,7 @@
         <color>14934971</color>
         <italic>false</italic>
         <size>12</size>
-        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%3E%3E%3E%20%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%20%27</text>
+        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%27</text>
       </controlProperties>
     </control>
     <control controlID="128" controlTypeID="com.balsamiq.mockups::HRule" x="758" y="310" w="264" h="-1" measuredW="100" measuredH="10" zOrder="31" locked="false" isInGroup="-1">
@@ -413,9 +413,9 @@
         <icon>%24ACCOUNT/assets/icon_eye-slash.png%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="232" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="115" measuredH="23" zOrder="53" locked="false" isInGroup="-1">
+    <control controlID="232" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="53" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>JavaScript%20OO</text>
+        <text>Python%20OO</text>
       </controlProperties>
     </control>
   </controls>

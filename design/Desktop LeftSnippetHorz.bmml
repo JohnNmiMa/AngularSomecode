@@ -111,7 +111,7 @@
         <color>15658734</color>
         <hasHeader>false</hasHeader>
         <rowHeight>24</rowHeight>
-        <selectedIndex>4</selectedIndex>
+        <selectedIndex>5</selectedIndex>
         <size>12</size>
         <text>General%0ACommon%20C++%20Syntax%0ACommon%20Javascript%20Syntax%0ACommon%20jQuery%0AJavaScript%20OO%0APython%20OO%0AHTML%0ACSS</text>
       </controlProperties>
@@ -134,7 +134,7 @@
         <color>15658734</color>
         <hasHeader>false</hasHeader>
         <rowHeight>24</rowHeight>
-        <selectedIndex>4</selectedIndex>
+        <selectedIndex>5</selectedIndex>
         <size>12</size>
         <text>87%0A14%0A22%0A34%0A12%0A9%0A34%0A97</text>
         <value>0</value>
@@ -175,7 +175,7 @@
         <text>def%20snippet%28%29%0A%20%20%20%20%22%22%22%20This%20is%20the%20snippet%20code.%20The%20code%20will%0A%20%20%20%20have%20syntax%20highlighting%20according%0A%20%20%20%20to%20the%20language%20of%20the%20snippet.%20All%20snippets%0A%20%20%20%20have%20three%20parts%3A%201%29%20the%20snippet%20title%2C%0A%20%20%20%202%29%20the%20code%2C%20and%203%29%20an%20optional%20explanation.%20%22%22%22%0A%20%20%20%20pass%0A%20</text>
       </controlProperties>
     </control>
-    <control controlID="105" controlTypeID="com.balsamiq.mockups::Canvas" x="743" y="398" w="294" h="231" measuredW="100" measuredH="70" zOrder="10" locked="false" isInGroup="-1">
+    <control controlID="105" controlTypeID="com.balsamiq.mockups::Canvas" x="743" y="398" w="294" h="227" measuredW="100" measuredH="70" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
         <borderColor>15658734</borderColor>
         <borderStyle>roundedSolid</borderStyle>
@@ -189,7 +189,7 @@
         <color>16370588</color>
         <italic>false</italic>
         <size>12</size>
-        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%0Abark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20%0Abark%20bark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20%0Ayip%20yip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20%0Agrowl%20yip</text>
+        <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%0Abark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%20%0Abark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%20%0Ayip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%20%0Agrowl</text>
       </controlProperties>
     </control>
     <control controlID="108" controlTypeID="com.balsamiq.mockups::HRule" x="758" y="443" w="264" h="-1" measuredW="100" measuredH="10" zOrder="12" locked="false" isInGroup="-1">
@@ -273,7 +273,7 @@
         <color>14934971</color>
         <italic>false</italic>
         <size>12</size>
-        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%3E%3E%3E%20%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%20%27</text>
+        <text>class%20Dog%3A%0A%20%20%20%20%22%22%22%20This%20is%20a%20docstring%20for%20the%20Dog%20class.%20%22%22%22%0A%20%20%20%20pass%0A%20%0A%3E%3E%3E%20d%20%3D%20Dog%28%29%0A%3E%3E%3E%20Dog.__doc__%0A%27%20this%20is%20a%20docstring%20for%20the%20Dog%20class.%27</text>
       </controlProperties>
     </control>
     <control controlID="128" controlTypeID="com.balsamiq.mockups::HRule" x="758" y="310" w="264" h="-1" measuredW="100" measuredH="10" zOrder="34" locked="false" isInGroup="-1">
@@ -432,9 +432,9 @@
         <icon>%24ACCOUNT/assets/icon_pencil.png%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="225" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="115" measuredH="23" zOrder="56" locked="false" isInGroup="-1">
+    <control controlID="225" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="56" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>JavaScript%20OO</text>
+        <text>Python%20OO</text>
       </controlProperties>
     </control>
     <control controlID="226" controlTypeID="com.balsamiq.mockups::Icon" x="917" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="57" locked="false" isInGroup="-1">

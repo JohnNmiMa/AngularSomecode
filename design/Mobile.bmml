@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1009" measuredH="625" mockupW="668" mockupH="625">
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="845" measuredH="625" mockupW="332" mockupH="625">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="546" y="70" w="299" h="547" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
@@ -140,7 +140,7 @@
             <color>16370588</color>
             <italic>false</italic>
             <size>12</size>
-            <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%20bark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20bark%20bark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20yip%20yip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%2C%20small_dog.sound%20growl%20yip</text>
+            <text>class%20Dog%3A%0A%20%20%20%20sound%20%3D%20%27bark%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%3E%3E%3E%20print%20Dog.sound%0Abark%0A%3E%3E%3E%20big_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20small_dog%20%3D%20Dog%28%29%0A%3E%3E%3E%20print%20big_dog.sound%0Abark%0A%3E%3E%3E%20Dog.sound%20%3D%20%27yip%27%0A%3E%3E%3E%20print%20big_dog.sound%0Ayip%0A%3E%3E%3E%20big_dog.sound%20%3D%20%27growl%27%0A%3E%3E%3E%20print%20big_dog.sound%0Agrowl</text>
           </controlProperties>
         </control>
         <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="4" y="34" w="277" h="-1" measuredW="100" measuredH="10" zOrder="1" locked="false" isInGroup="169">
@@ -169,7 +169,7 @@
         <color>13421772</color>
         <href>MobileMenu%26bm%3BMobileMenu.bmml%26bm%3BMobileMenu.bmml%26bm%3BMobileMenu.bmml</href>
         <icon>ListIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22469%2C4%2C493%2C28%22%20href%3D%22MobileMenu.bmml%22%20alt%3D%22MobileMenu%22%20id%3D%22192%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22297%2C4%2C321%2C28%22%20href%3D%22MobileMenu.bmml%22%20alt%3D%22MobileMenu%22%20id%3D%22192%22/%3E</map>
       </controlProperties>
     </control>
     <control controlID="196" controlTypeID="com.balsamiq.mockups::TextArea" x="546" y="71" w="299" h="38" measuredW="200" measuredH="140" zOrder="18" locked="false" isInGroup="-1">
@@ -187,9 +187,9 @@
         <text/>
       </controlProperties>
     </control>
-    <control controlID="199" controlTypeID="com.balsamiq.mockups::ComboBox" x="546" y="40" w="-1" h="-1" measuredW="115" measuredH="23" zOrder="19" locked="false" isInGroup="-1">
+    <control controlID="199" controlTypeID="com.balsamiq.mockups::ComboBox" x="546" y="40" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="19" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>JavaScript%20OO</text>
+        <text>Python%20OO</text>
       </controlProperties>
     </control>
     <control controlID="201" controlTypeID="com.balsamiq.mockups::Icon" x="518" y="71" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="20" locked="false" isInGroup="-1">
@@ -225,7 +225,7 @@
         <color>13421772</color>
         <href>MobileTitlesOnly%26bm%3BMobileTitlesOnly.bmml%26bm%3BMobileTitlesOnly.bmml%26bm%3BMobileTitlesOnly.bmml</href>
         <icon>StopIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22478%2C39%2C502%2C63%22%20href%3D%22MobileTitlesOnly.bmml%22%20alt%3D%22MobileTitlesOnly%22%20id%3D%22207%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22306%2C39%2C330%2C63%22%20href%3D%22MobileTitlesOnly.bmml%22%20alt%3D%22MobileTitlesOnly%22%20id%3D%22207%22/%3E</map>
         <rotation>270</rotation>
       </controlProperties>
     </control>
