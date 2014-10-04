@@ -1,3 +1,50 @@
+AngularJS Design
+1) SomeCodeCtrl - general app controller
+2) Header
+    * HeaderCtrl - the header controller
+    * snippet-search directive
+3) TopicBar
+    * TopicBarCtrl - the topicbar controller
+    * topic directive
+4) SnippetBar
+    * SnippetBarCtrl - the snippetbar controller
+5) SnippetContainer
+    * SnippetContainerCtrl - the snippet container controller
+    * snippet directive
+    * snippet-selector directive
+    * SnippetService - makes $http calls to the server
+    * SnippetSort - a filter to display the snippets
+
+* The header is in all views
+* The ng-view contains the TopicBar, SnippetBar
+   and SnippetContainer
+
+Directory Structure:
+    static
+        someCodeApp.js
+        - contains SomeCodeCtrl
+        - contains shared snippets
+          - snippet directive
+        someCodeViews.js
+        header.js
+        - contains HeaderCtrl
+        - contains snippet-search directive
+        topicBar.js
+        snippetBar.js
+        snippetContainer.js
+        snippetService.js
+        signedout
+        - signedout.html
+        - signedout.css
+        - signedout.js - the controller
+        signedin
+        - signedin.html
+        - signedin.css
+        - signedin.js - the controller
+        partials
+        - contains .html files for directives
+          - snippetSearch.html
+
 Implement logged out view
 - Create header
 - Get Flask server running for home page
@@ -18,8 +65,8 @@ Implement signed-in view
   !- TopicBar ToggleIcon
     !- investigate ngAnimate
     !- how to rotate icon?
-    !- how to resize topicbar?
-    !- how to keep topicbar fixed as snippet container scrolls?
+  !- how to resize topicbar?
+  !- how to keep topicbar fixed as snippet container scrolls?
   - ngRepeat for list of topics
   - Topic CRUD
 - Create CRUD Form

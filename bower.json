@@ -1,10 +1,10 @@
 {
-  "name": "CountriesCapitals",
+  "name": "SomeCode",
   "version": "0.0.0",
   "authors": [
     "John <johnmarksjr@gmail.com>"
   ],
-  "description": "Search and visualize data about countries and capital cities",
+  "description": "Manager your code snippets",
   "moduleType": [
     "globals"
   ],
@@ -14,7 +14,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "./app/bower_components",
+    "./app/static/bower_components",
     "test",
     "tests"
   ],

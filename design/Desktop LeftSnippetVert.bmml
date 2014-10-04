@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1045" measuredH="629" mockupW="968" mockupH="629">
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1045" measuredH="629" mockupW="985" mockupH="629">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="364" y="82" w="681" h="547" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
@@ -37,7 +37,7 @@
       <controlProperties>
         <href>Desktop%20SnippetVert%26bm%3BDesktop%20SnippetVert.bmml%26bm%3BDesktop%20SnippetVert.bmml%26bm%3BDesktop%20SnippetVert.bmml</href>
         <icon>HLinesIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22259%2C53%2C283%2C77%22%20href%3D%22Desktop%2520SnippetVert.bmml%22%20alt%3D%22Desktop%20SnippetVert%22%20id%3D%2231%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22276%2C53%2C300%2C77%22%20href%3D%22Desktop%2520SnippetVert.bmml%22%20alt%3D%22Desktop%20SnippetVert%22%20id%3D%2231%22/%3E</map>
         <rotation>90</rotation>
       </controlProperties>
     </control>
@@ -176,20 +176,12 @@
         <color>16370588</color>
       </controlProperties>
     </control>
-    <control controlID="110" controlTypeID="com.balsamiq.mockups::StickyNote" x="1068" y="270" w="109" h="61" measuredW="109" measuredH="123" zOrder="27" locked="false" isInGroup="-1">
+    <control controlID="110" controlTypeID="com.balsamiq.mockups::StickyNote" x="847" y="331" w="109" h="61" measuredW="109" measuredH="123" zOrder="41" locked="false" isInGroup="-1">
       <controlProperties>
         <text>jettagozoom%27s%20snippet</text>
       </controlProperties>
     </control>
-    <control controlID="112" controlTypeID="com.balsamiq.mockups::Arrow" x="1012" y="466" w="102" h="77" measuredW="150" measuredH="100" zOrder="30" locked="false" isInGroup="-1">
-      <controlProperties>
-        <curvature>-1</curvature>
-        <direction>bottom</direction>
-        <rightArrow>false</rightArrow>
-        <text/>
-      </controlProperties>
-    </control>
-    <control controlID="113" controlTypeID="com.balsamiq.mockups::StickyNote" x="1067" y="436" w="109" h="46" measuredW="109" measuredH="123" zOrder="31" locked="false" isInGroup="-1">
+    <control controlID="113" controlTypeID="com.balsamiq.mockups::StickyNote" x="847" y="403" w="109" h="46" measuredW="109" measuredH="123" zOrder="43" locked="false" isInGroup="-1">
       <controlProperties>
         <text>public%20snippet</text>
       </controlProperties>
@@ -223,22 +215,23 @@
         <rotation>90</rotation>
       </controlProperties>
     </control>
-    <control controlID="134" controlTypeID="com.balsamiq.mockups::Arrow" x="1022" y="278" w="52" h="32" measuredW="150" measuredH="100" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="134" controlTypeID="com.balsamiq.mockups::Arrow" x="941" y="336" w="52" h="32" measuredW="150" measuredH="100" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <curvature>-1</curvature>
-        <direction>top</direction>
-        <rightArrow>false</rightArrow>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <rightArrow>true</rightArrow>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="168" controlTypeID="com.balsamiq.mockups::TextArea" x="370" y="368" w="665" h="83" measuredW="200" measuredH="140" zOrder="28" locked="false" isInGroup="-1">
+    <control controlID="168" controlTypeID="com.balsamiq.mockups::TextArea" x="370" y="368" w="665" h="83" measuredW="200" measuredH="140" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
         <borderColor>15658734</borderColor>
         <color>15658734</color>
         <text>Class%20variables%20in%20python%20are%20shared%20among%20all%20of%20the%20class%20instances.%0A*%20If%20you%20change%20the%20class%20variable%20with%20the%20class%20object%20%28class.attr%20%3D%20value%29%2C%20the%20value%20is%20changed%20in%20all%20existing%20and%20future%20class%20instances%20%28Dog.sound%20%3D%20%27yip%27%29.%0A*%20If%20you%20change%20the%20variable%20through%20a%20class%20instance%20%28big_dog.sound%20%3D%20%27growl%27%29%20a%20local%20variable%20is%20created%20for%20that%20instance%20and%20added%20to%20the%20instance%27s%20dictionary.</text>
       </controlProperties>
     </control>
-    <control controlID="169" controlTypeID="__group__" x="376" y="461" w="652" h="159" measuredW="652" measuredH="159" zOrder="29" locked="false" isInGroup="-1">
+    <control controlID="169" controlTypeID="__group__" x="376" y="461" w="652" h="159" measuredW="652" measuredH="159" zOrder="28" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="0" controlTypeID="com.balsamiq.mockups::TextArea" x="0" y="0" w="652" h="159" measuredW="200" measuredH="140" zOrder="0" locked="false" isInGroup="169">
           <controlProperties>
@@ -260,7 +253,7 @@
     <control controlID="183" controlTypeID="__group__" x="938" y="9" w="58" h="28" measuredW="58" measuredH="28" zOrder="20" locked="false" isInGroup="-1">
       <controlProperties>
         <href>LoggedOut%26bm%3BLoggedOut.bmml%26bm%3BLoggedOut.bmml%26bm%3BLoggedOut.bmml</href>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22861%2C9%2C919%2C37%22%20href%3D%22LoggedOut.bmml%22%20alt%3D%22LoggedOut%22%20id%3D%22183%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22878%2C9%2C936%2C37%22%20href%3D%22LoggedOut.bmml%22%20alt%3D%22LoggedOut%22%20id%3D%22183%22/%3E</map>
       </controlProperties>
       <groupChildrenDescriptors>
         <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="58" h="28" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="183">
@@ -278,44 +271,44 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="205" controlTypeID="com.balsamiq.mockups::Icon" x="336" y="345" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="32" locked="false" isInGroup="-1">
+    <control controlID="205" controlTypeID="com.balsamiq.mockups::Icon" x="336" y="345" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>%24ACCOUNT/assets/icon_eye.png%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="209" controlTypeID="com.balsamiq.mockups::Icon" x="917" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="33" locked="false" isInGroup="-1">
+    <control controlID="209" controlTypeID="com.balsamiq.mockups::Icon" x="917" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="30" locked="false" isInGroup="-1">
       <controlProperties>
         <color>0</color>
         <icon>%24ACCOUNT/assets/icon_plus.png%7Csmall</icon>
         <rotation>90</rotation>
       </controlProperties>
     </control>
-    <control controlID="210" controlTypeID="com.balsamiq.mockups::Icon" x="956" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="34" locked="false" isInGroup="-1">
+    <control controlID="210" controlTypeID="com.balsamiq.mockups::Icon" x="956" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="31" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>none</borderStyle>
         <color>13421772</color>
         <href>Desktop%20LeftSnippetHorz%26bm%3BDesktop%20LeftSnippetHorz.bmml%26bm%3BDesktop%20LeftSnippetHorz.bmml%26bm%3BDesktop%20LeftSnippetHorz.bmml</href>
         <icon>SquaredMinusIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22879%2C51%2C903%2C75%22%20href%3D%22Desktop%2520LeftSnippetHorz.bmml%22%20alt%3D%22Desktop%20LeftSnippetHorz%22%20id%3D%22210%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22896%2C51%2C920%2C75%22%20href%3D%22Desktop%2520LeftSnippetHorz.bmml%22%20alt%3D%22Desktop%20LeftSnippetHorz%22%20id%3D%22210%22/%3E</map>
         <rotation>270</rotation>
       </controlProperties>
     </control>
-    <control controlID="211" controlTypeID="com.balsamiq.mockups::Icon" x="988" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="35" locked="false" isInGroup="-1">
+    <control controlID="211" controlTypeID="com.balsamiq.mockups::Icon" x="988" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="32" locked="false" isInGroup="-1">
       <controlProperties>
         <color>0</color>
         <icon>SquaredMinusIcon%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="212" controlTypeID="com.balsamiq.mockups::Icon" x="1021" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="36" locked="false" isInGroup="-1">
+    <control controlID="212" controlTypeID="com.balsamiq.mockups::Icon" x="1021" y="51" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="33" locked="false" isInGroup="-1">
       <controlProperties>
         <color>13421772</color>
         <href>Desktop%20LeftTitlesOnly%26bm%3BDesktop%20LeftTitlesOnly.bmml%26bm%3BDesktop%20LeftTitlesOnly.bmml%26bm%3BDesktop%20LeftTitlesOnly.bmml</href>
         <icon>StopIcon%7Csmall</icon>
-        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22944%2C51%2C968%2C75%22%20href%3D%22Desktop%2520LeftTitlesOnly.bmml%22%20alt%3D%22Desktop%20LeftTitlesOnly%22%20id%3D%22212%22/%3E</map>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22961%2C51%2C985%2C75%22%20href%3D%22Desktop%2520LeftTitlesOnly.bmml%22%20alt%3D%22Desktop%20LeftTitlesOnly%22%20id%3D%22212%22/%3E</map>
         <rotation>270</rotation>
       </controlProperties>
     </control>
-    <control controlID="214" controlTypeID="com.balsamiq.mockups::Arrow" x="938" y="78" w="57" h="80" measuredW="150" measuredH="100" zOrder="37" locked="false" isInGroup="-1">
+    <control controlID="214" controlTypeID="com.balsamiq.mockups::Arrow" x="938" y="78" w="57" h="80" measuredW="150" measuredH="100" zOrder="34" locked="false" isInGroup="-1">
       <controlProperties>
         <curvature>-1</curvature>
         <direction>bottom</direction>
@@ -324,41 +317,51 @@
         <text/>
       </controlProperties>
     </control>
-    <control controlID="215" controlTypeID="com.balsamiq.mockups::StickyNote" x="861" y="140" w="146" h="44" measuredW="109" measuredH="123" zOrder="38" locked="false" isInGroup="-1">
+    <control controlID="215" controlTypeID="com.balsamiq.mockups::StickyNote" x="861" y="140" w="146" h="44" measuredW="109" measuredH="123" zOrder="35" locked="false" isInGroup="-1">
       <controlProperties>
         <color>16767334</color>
         <text>Row/Mobile%20Layout</text>
       </controlProperties>
     </control>
-    <control controlID="216" controlTypeID="com.balsamiq.mockups::StickyNote" x="515" y="260" w="202" h="71" measuredW="109" measuredH="123" zOrder="39" locked="false" isInGroup="-1">
+    <control controlID="216" controlTypeID="com.balsamiq.mockups::StickyNote" x="515" y="260" w="202" h="71" measuredW="109" measuredH="123" zOrder="36" locked="false" isInGroup="-1">
       <controlProperties>
         <color>9684093</color>
         <size>18</size>
         <text>Row/Mobile%20Layout%20with%20Topic%20Panel</text>
       </controlProperties>
     </control>
-    <control controlID="217" controlTypeID="com.balsamiq.mockups::Icon" x="293" y="87" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="40" locked="false" isInGroup="-1">
+    <control controlID="217" controlTypeID="com.balsamiq.mockups::Icon" x="293" y="87" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="37" locked="false" isInGroup="-1">
       <controlProperties>
         <color>0</color>
         <icon>%24ACCOUNT/assets/icon_plus.png%7Csmall</icon>
         <rotation>90</rotation>
       </controlProperties>
     </control>
-    <control controlID="218" controlTypeID="com.balsamiq.mockups::Icon" x="267" y="91" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="41" locked="false" isInGroup="-1">
+    <control controlID="218" controlTypeID="com.balsamiq.mockups::Icon" x="267" y="91" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="38" locked="false" isInGroup="-1">
       <controlProperties>
         <color>0</color>
         <icon>%24ACCOUNT/assets/icon_pencil.png%7Cxsmall</icon>
       </controlProperties>
     </control>
-    <control controlID="219" controlTypeID="com.balsamiq.mockups::Icon" x="336" y="90" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="42" locked="false" isInGroup="-1">
+    <control controlID="219" controlTypeID="com.balsamiq.mockups::Icon" x="336" y="90" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="39" locked="false" isInGroup="-1">
       <controlProperties>
         <icon>%24ACCOUNT/assets/icon_eye-slash.png%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="220" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="43" locked="false" isInGroup="-1">
+    <control controlID="220" controlTypeID="com.balsamiq.mockups::ComboBox" x="365" y="54" w="-1" h="-1" measuredW="95" measuredH="23" zOrder="40" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Python%20OO</text>
       </controlProperties>
     </control>
+    <control controlID="221" controlTypeID="com.balsamiq.mockups::Arrow" x="938" y="422" w="52" h="32" measuredW="150" measuredH="100" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>1</curvature>
+        <direction>top</direction>
+        <leftArrow>false</leftArrow>
+        <rightArrow>true</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="223" controlTypeID="com.balsamiq.mockups::StickyNote" x="60" y="20" w="-1" h="-1" measuredW="109" measuredH="123" zOrder="44" locked="false" isInGroup="-1"/>
   </controls>
 </mockup>
