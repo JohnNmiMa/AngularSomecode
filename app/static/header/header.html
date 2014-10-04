@@ -14,8 +14,32 @@
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#" id="username" ng-if="isSignedIn">{{username}}</a></li>
-            <li><a href="#" id="signin">{{signinStateText}}</a></li>
+            <li><a href="javascript:void(0)" id="signin" ng-click="displaySignin()">{{signinStateText}}</a></li>
             <li><a href="#" id="settings"><span class="glyphicon glyphicon-cog"></span></a></li>
         </ul>
     </div>
 </nav>
+
+<div class="modal fade signinModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h2>Sign In</h2>
+            <a href="/signin/facebook">
+                <div class="signinButton facebookButton">
+                    <i class="fa fa-facebook-square"></i>
+                    <p>Sign in with Facebook</p>
+                </div></a>
+            <a href="/signin/twitter">
+                <div class="signinButton twitterButton">
+                    <i class="fa fa-twitter-square"></i>
+                    <p>Sign in with Twitter</p>
+                </div></a>
+            <a href="/signin/google">
+                <div class="signinButton googleButton">
+                    <i class="fa fa-google-plus-square"></i>
+                    <p>Sign in with Google</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

@@ -5,3 +5,7 @@ todo~
 *.pyc
 
 .bowerrc~
+
+app/static/header/signin.css
+
+app/static/main.css

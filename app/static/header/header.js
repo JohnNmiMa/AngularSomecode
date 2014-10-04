@@ -1,6 +1,9 @@
 someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
     $scope.isSignedIn = false;
     $scope.username = "jettagozoom";
+    $scope.displaySignin = function() {
+        $('.signinModal').modal({});
+    }
 }])
 
 .directive('snippetSearch', function() {
