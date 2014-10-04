@@ -1,14 +1,6 @@
 someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
-    $scope.isSignedIn = true;
+    $scope.isSignedIn = false;
     $scope.username = "jettagozoom";
-    $scope.signinStateText = $scope.isSignedIn ? "Log Out" : "Sign In";
-    $scope.computeLayout = function() {
-        if ($scope.isSignedIn) {
-            return {'min-width':'290px'};
-        } else {
-            return {'min-width':'220px'};
-        }
-    }
 }])
 
 .directive('snippetSearch', function() {
@@ -16,7 +8,17 @@ someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
         restrict: 'E',
         templateUrl: 'static/header/snippetSearch.html',
         transclude: false,
-        link: function ($scope, element, attrs) {
+        controller: function($scope, $element, $attrs) {
+            $scope.signinStateText = $scope.isSignedIn ? "Log Out" : "Sign In";
+            $scope.computeLayout = function() {
+                if ($scope.isSignedIn) {
+                    return {'min-width':'290px'};
+                } else {
+                    return {'min-width':'220px'};
+                }
+            }
+        },
+        link: function ($scope, element, attrs, snippetSearchController) {
             var searchField = element.find('#snippetSearchField');
             $scope.focused = false;
             $scope.placeholderText = $scope.isSignedIn ? "Search private snippets" : "Search public snippets";
@@ -41,7 +43,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
 // larger windows.
 .directive('searchSizer', function() {
     return {
-        link: function($scope, element, attrs) {
+        link: function($scope, $element, $attrs) {
             var widthPct = 25;
 
             $(window).on('resize', function() {
@@ -50,7 +52,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
                 })
             });
             function computeSearchInputWidth() {
-                element.width(window.innerWidth * widthPct/100);
+                $element.width(window.innerWidth * widthPct/100);
             }
             computeSearchInputWidth();
         }
