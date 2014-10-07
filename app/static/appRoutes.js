@@ -13,13 +13,16 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
         }
     })
     .when("/logout", {
-        templateUrl : "./static/signedout/signedout.html",
-        controller : 'SignedoutCtrl',
+//        templateUrl : "./static/signedout/signedout.html",
+//        controller : 'SignedoutCtrl',
         resolve: {
             data : ['snippetLogout', '$location', function(snippetLogout, $location) {
-                snippetLogout();
-                $location.path('/');
-                return;
+                snippetLogout().then(function() {
+                    $location.path('/');
+                    return;
+                }, function(error) {
+                    console.log(error.url + " failed with status error " + error.statusCode);
+                });
             }]
         }
     });
