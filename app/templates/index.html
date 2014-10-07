@@ -16,7 +16,7 @@
 
 <body ng-controller="SomeCodeCtrl">
     <div ng-include src="'./static/header/header.html'"></div>
-    <!--<div ng-view></div>-->
+    <div ng-view></div>
 
     <!-- build:js ./_assets/combined.js -->
     <script type="text/javascript" src="./static/bower_components/jquery/dist/jquery.js"></script>
@@ -25,9 +25,13 @@
     <script type="text/javascript" src="./static/bower_components/angular-route/angular-route.js"></script>
     <!--<script type="text/javascript" src="./static/bower_components/angular-ui/build/angular-ui.js"></script>-->
     <script type="text/javascript" src="./static/bower_components/angular-animate/angular-animate.js"></script>
-    <script type="text/javascript" src="./static/someCodeViews.js"></script>
-    <script type="text/javascript" src="./static/someCodeApp.js"></script>
+    <script type="text/javascript" src="./static/app.js"></script>
+    <script type="text/javascript" src="./static/appViews.js"></script>
+    <script type="text/javascript" src="./static/snippetLibrary.js"></script>
+    <script type="text/javascript" src="./static/appRoutes.js"></script>
     <script type="text/javascript" src="./static/header/header.js"></script>
+    <script type="text/javascript" src="./static/signedout/signedout.js"></script>
+    <script type="text/javascript" src="./static/signedin/signedin.js"></script>
     <!-- endbuild -->
 </body>
 </html>

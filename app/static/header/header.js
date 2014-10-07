@@ -1,9 +1,22 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
-    $scope.isSignedIn = false;
+someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession',
+                              function($scope,   userSession) {
+    $scope.isSignedIn = userSession.loggedIn = false;
+    $scope.$watch(function() {
+        return userSession.loggedIn;
+    },
+    function(newVal, oldVal) {
+        $scope.isSignedIn = newVal;
+        if ($scope.isSignedIn == true) {
+            $scope.hideSignin();
+        }
+    });
     $scope.username = "jettagozoom";
-    $scope.displaySignin = function() {
-        $('.signinModal').modal({});
-    }
+    $scope.showSignin = function() {
+        $('.signinModal').modal('show');
+    };
+    $scope.hideSignin = function() {
+        $('.signinModal').modal('hide');
+    };
 }])
 
 .directive('snippetSearch', function() {
@@ -12,7 +25,6 @@ someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
         templateUrl: 'static/header/snippetSearch.html',
         transclude: false,
         controller: function($scope, $element, $attrs) {
-            $scope.signinStateText = $scope.isSignedIn ? "Log Out" : "Sign In";
             $scope.computeLayout = function() {
                 if ($scope.isSignedIn) {
                     return {'min-width':'290px'};

@@ -1,3 +1,3 @@
-var viewsModule = angular.module('appViews', ['ngRoute', 'ngAnimate', 'appLibrary'])
+var viewsModule = angular.module('someCodeViews', ['ngRoute', 'ngAnimate', 'snippetLibrary']);
 
-.constant('PI', 3.1415926);
+//    .constant('SQKM_TO_SQMI', 0.386102);

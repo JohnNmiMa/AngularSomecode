@@ -83,7 +83,8 @@ span#publicSnippetCounter.selected {
   border: 1px solid #5e5e5e;
 }
 #username,
-#signin {
+#signin,
+#signout {
   padding-right: 0;
 }
 .modal-backdrop {

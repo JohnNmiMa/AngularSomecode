@@ -25,9 +25,11 @@ Directory Structure:
         - contains SomeCodeCtrl
         - contains shared snippets
           - snippet directive
-        someCodeViews.js
-        header.js
+        header
+        - header.html
+        - header.js
         - contains HeaderCtrl
+        someCodeViews.js
         - contains snippet-search directive
         topicBar.js
         snippetBar.js
