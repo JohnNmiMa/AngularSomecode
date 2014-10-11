@@ -1,11 +1,10 @@
-#!/Users/johnmarks/Src/GitRepos/Thinkful/ANG/unit4/somecode-capstone/venv/bin/python
+#!/Users/johnmarks/Src/GitRepos/Thinkful/PIP/Flask/flaskapps/mvp/venv/bin/python
+# PBR Generated from u'console_scripts'
 
-# -*- coding: utf-8 -*-
-import re
 import sys
 
 from migrate.versioning.migrate_repository import main
 
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+
+if __name__ == "__main__":
     sys.exit(main())

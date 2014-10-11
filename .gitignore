@@ -1,5 +1,6 @@
 .idea/
 node_modules/
+venv.keep/
 todo~
 
 *.pyc
@@ -9,3 +10,9 @@ todo~
 app/static/header/signin.css
 
 app/static/main.css
+
+*.swo
+
+*.swp
+
+*.swp

@@ -1,11 +1,10 @@
-#!/Users/johnmarks/Src/GitRepos/Thinkful/ANG/unit4/somecode-capstone/venv/bin/python
-
-# -*- coding: utf-8 -*-
-import re
+#!/Users/johnmarks/Src/GitRepos/Thinkful/PIP/Flask/flaskapps/mvp/venv/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'gunicorn==18.0','console_scripts','gunicorn_django'
+__requires__ = 'gunicorn==18.0'
 import sys
-
-from gunicorn.app.djangoapp import run
+from pkg_resources import load_entry_point
 
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(run())
+    sys.exit(
+        load_entry_point('gunicorn==18.0', 'console_scripts', 'gunicorn_django')()
+    )

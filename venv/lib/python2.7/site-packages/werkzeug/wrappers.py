@@ -17,7 +17,7 @@
     decoded into an unicode object if possible and if it makes sense.
 
 
-    :copyright: (c) 2014 by the Werkzeug Team, see AUTHORS for more details.
+    :copyright: (c) 2013 by the Werkzeug Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 from functools import update_wrapper
@@ -254,7 +254,6 @@ class BaseRequest(object):
         """
         from werkzeug.test import EnvironBuilder
         charset = kwargs.pop('charset', cls.charset)
-        kwargs['charset'] = charset
         builder = EnvironBuilder(*args, **kwargs)
         try:
             return builder.get_request(cls)
@@ -550,7 +549,7 @@ class BaseRequest(object):
 
     @cached_property
     def url(self):
-        """The reconstructed current URL as IRI."""
+        """The reconstructed current URL"""
         return get_current_url(self.environ,
                                trusted_hosts=self.trusted_hosts)
 
@@ -562,15 +561,13 @@ class BaseRequest(object):
 
     @cached_property
     def url_root(self):
-        """The full URL root (with hostname), this is the application
-        root as IRI.
-        """
+        """The full URL root (with hostname), this is the application root."""
         return get_current_url(self.environ, True,
                                trusted_hosts=self.trusted_hosts)
 
     @cached_property
     def host_url(self):
-        """Just the host with scheme as IRI."""
+        """Just the host with scheme."""
         return get_current_url(self.environ, host_only=True,
                                trusted_hosts=self.trusted_hosts)
 
@@ -963,6 +960,7 @@ class BaseResponse(object):
         value of this method is used as application iterator unless
         :attr:`direct_passthrough` was activated.
         """
+        charset = self.charset
         if __debug__:
             _warn_if_string(self.response)
         # Encode in a separate function so that self.response is fetched
@@ -1107,10 +1105,7 @@ class BaseResponse(object):
         if location is not None:
             old_location = location
             if isinstance(location, text_type):
-                # Safe conversion is necessary here as we might redirect
-                # to a broken URI scheme (for instance itms-services).
-                location = iri_to_uri(location, safe_conversion=True)
-
+                location = iri_to_uri(location)
             if self.autocorrect_location_header:
                 current_url = get_current_url(environ, root_only=True)
                 if isinstance(current_url, text_type):
@@ -1141,8 +1136,7 @@ class BaseResponse(object):
         if self.automatically_set_content_length and \
            self.is_sequence and content_length is None and status != 304:
             try:
-                content_length = sum(len(to_bytes(x, 'ascii'))
-                                     for x in self.response)
+                content_length = sum(len(to_bytes(x, 'ascii')) for x in self.response)
             except UnicodeError:
                 # aha, something non-bytestringy in there, too bad, we
                 # can't safely figure out the length of the response.
