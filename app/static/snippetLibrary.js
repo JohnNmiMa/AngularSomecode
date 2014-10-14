@@ -6,9 +6,20 @@ angular.module('snippetLibrary', [])
                    function($http,   $q) {
     return function(oauthProvider) {
         var defer = $q.defer(),
-            path = "/signin/" + oauthProvider + "?callback=JSON_CALLBACK";
+            config = {
+                method: 'GET',
+                withCredentials: true,
+                url: "/signin/" + oauthProvider,
+                headers: {
+                    'Access-Control-Expose-Headers': 'Origin',
+                    'Origin':'http://jmsomecode.herokuapp.com:5000'
+                }
+            }
+            //path = "/signin/" + oauthProvider + "?callback=JSON_CALLBACK";
 
-        $http.jsonp(path)
+        //$http.jsonp(path)
+        //$http.get(path, {withCredentials: true})
+        $http(config)
         .success(function(result) {
             defer.resolve(result);
         })

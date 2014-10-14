@@ -23,7 +23,8 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
 
 .factory('userSession', function() {
     return {
-        loggedIn: false
+        loggedIn: false,
+        userName: ""
     }
 })
 

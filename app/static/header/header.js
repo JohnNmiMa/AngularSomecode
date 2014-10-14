@@ -6,11 +6,11 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession',
     },
     function(newVal, oldVal) {
         $scope.isSignedIn = newVal;
+        $scope.username = userSession.userName;
         if ($scope.isSignedIn == true) {
             $scope.hideSignin();
         }
     });
-    $scope.username = "jettagozoom";
     $scope.showSignin = function() {
         $('.signinModal').modal('show');
     };

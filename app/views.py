@@ -1,18 +1,62 @@
-from flask import current_app
-#from flask import render_template, flash, redirect, url_for, session, request, g, jsonify
-from flask import render_template, flash, redirect, url_for, session, request, g
-from flask.ext.jsonpify import jsonify
-from flask.ext.login import login_user, logout_user, current_user, login_required
-from models import User, Topic, Snippet, ROLE_USER, ROLE_ADMIN, ACCESS_PRIVATE, ACCESS_PUBLIC
-from app import app, db, login_manager, oauth
-from facebook_oauth import facebook
-from twitter_oauth import twitter
-from google_oauth import google
-from datetime import datetime
-from sqlalchemy import desc
 import json
+import jwt
 import pdb
+import requests
+from functools import wraps
+from urlparse import parse_qs, parse_qsl
+from urllib import urlencode
+from flask import current_app
+from flask import render_template, flash, redirect, url_for, session, request, g, jsonify
+from flask.ext.login import login_user, logout_user, current_user
+from models import User, Topic, Snippet, ROLE_USER, ROLE_ADMIN, ACCESS_PRIVATE, ACCESS_PUBLIC
+from app import app, db, login_manager
+from requests_oauthlib import OAuth1
+from config import facebook, twitter
+from datetime import datetime, timedelta
+from sqlalchemy import desc
 
+
+def create_jwt_token(user):
+    payload = {
+        'iss': 'localhost',
+        'sub': user.id,
+        'iat': datetime.now(),
+        'exp': datetime.now() + timedelta(days=14)
+    }
+    token = jwt.encode(payload, app.config['TOKEN_SECRET'])
+    return token.decode('unicode_escape')
+
+def parse_token(req):
+    token = req.headers.get('Authorization').split()[1]
+    return jwt.decode(token, app.config['TOKEN_SECRET'])
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not request.headers.get('Authorization'):
+            response = jsonify(message='Missing authorization header')
+            response.status_code = 401
+            return response
+
+        payload = parse_token(request)
+
+        if datetime.fromtimestamp(payload['exp']) < datetime.now():
+            response = jsonify(message='Token has expired')
+            response.status_code = 401
+            return response
+
+        g.user_id = payload['sub']
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+
+# Routes
 
 @app.before_request
 def before_request():
@@ -22,54 +66,13 @@ def before_request():
 
 thecallback = ""
 
+
 @app.route('/')
 @app.route('/index')
 def index():
     #public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
     return render_template('index.html')
 
-
-@app.route('/signin/<social>')
-def signin(social):
-    if g.user is not None and g.user.is_authenticated():
-        print('In signin, but already authenticated and logged in')
-        return redirect(url_for('user'))
-
-    if (social == 'facebook'):
-        #pdb.set_trace()
-        global thecallback
-        thecallback = request.args.get('callback')
-        #result = facebook.authorize(callback=url_for('facebook_authorized',
-        return facebook.authorize(callback=url_for('facebook_authorized',
-                                  next=request.args.get('next') or request.referrer or None,
-                                  _external=True))
-        #return result
-    elif (social == 'twitter'):
-        pdb.set_trace()
-        return twitter.authorize(callback=url_for('twitter_authorized',
-                                 next=request.args.get('next') or request.referrer or None))
-    elif (social == 'google'):
-        return google.authorize(callback=url_for('google_authorized', _external=True))
-
-    # Log the user in - this will create a flask session
-    return redirect(url_for('user'))
-
-def __pad(strdata):
-    global thecallback
-    str = "%s(%s);" % (thecallback, strdata)
-    return str
-
-def __dumps(*args, **kwargs):
-    indent = None
-    if current_app.config.get('JSONIFY_PRETTYPRINT_REGULAR', False) \
-        and not request.is_xhr:
-        indent = 2
-    return json.dumps(args[0] if len(args) is 1 else dict(*args, **kwargs), indent=indent)
-
-def myjsonpify(*args, **kwargs):
-    resp = current_app.response_class(__pad(__dumps(*args, **kwargs)),
-                                      mimetype='application/json')
-    return resp
 
 @app.route('/user')
 def user():
@@ -79,10 +82,11 @@ def user():
         personal_count += topic.snippets.count()
     public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
 
-    pdb.set_trace()
-    reply = {'username':g.user.name}
-    #return jsonify(reply)
-    return myjsonpify(reply)
+    token = create_jwt_token(g.user)
+    reply = {'username':g.user.name, 'token':token, 'personal_count':personal_count, 'public_count':public_count}
+    return jsonify(reply)
+
+    #MVP stuff
     #return render_template('user.html', name = g.user.name, user_id = g.user.id,
     #                       topics = topics.all(), page = 'home',
     #                       personal_count = personal_count, public_count = public_count)
@@ -91,7 +95,7 @@ def user():
 @app.route('/logout')
 @login_required
 def logout():
-    #pdb.set_trace()
+    pdb.set_trace()
     #reply = {'user' : g.user}
     reply = {'user' : 'somebody'}
     pop_login_session()
@@ -150,176 +154,95 @@ def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
 
     return user
 
-@app.route('/signin/facebook_authorized')
-@facebook.authorized_handler
-def facebook_authorized(resp):
-    #pdb.set_trace()
-    next_url = request.args.get('next') or url_for('index')
-    if resp is None or 'access_token' not in resp:
-        #return redirect(next_url)
-        flash(u'<h5>Facebook login error - please try logging in again!</h5>', 'error')
-        return redirect(next_url)
+@app.route('/signin/facebook_authorized', methods = ['POST'])
+def facebook_authorized():
+    params = {
+        'client_id': request.json['clientId'],
+        'redirect_uri': request.json['redirectUri'],
+        'client_secret': facebook['consumer_secret'],
+        'code': request.json['code']
+    }
 
-    # The session must contain the access token before you can query the facebook API (such as
-    # calling facebook.get('/me')
+    # Step 1. Exchange authorization code for access token.
+    r = requests.get(facebook['access_token_url'], params=params)
+    access_token = dict(parse_qsl(r.text))
+
+    # Step 2. Retrieve information about the current user.
+    r = requests.get(facebook['graph_api_url'], params=access_token)
+    profile = json.loads(r.text)
+
+    # Step 3. Create a new account or return an existing one.
     session['logged_in'] = True
-    session['oauth_token'] = (resp['access_token'], '')
-    me = facebook.get('/me')
-    #print("response user id, username & email = {}, {} & {}").format(me.data['id'], me.data['username'], me.data['email'])
-    #pdb.set_trace()
-
-    # See if user is already in the db
-    user = User.query.filter_by(email = me.data['email']).first()
+    # see if user is already in the db
+    user = User.query.filter_by(email = profile['email']).first()
     if user is None:
         # Save new user and the 'General' topic in the db
-        name = me.data['username']
+        name = profile['username']
         if (name == ""):
             name = 'Unknown'
-        user = createUserInDb(me.data['id'], None, None, name, me.data['email'], ROLE_USER)
+        user = createUserInDb(profile['id'], None, None, name, profile['email'], ROLE_USER)
         if user is None:
             return jsonify(error=500, text='Error creating user'), 500
     else:
         fb_id = user.fb_id
         if fb_id is None:
-            user.fb_id = me.data['id']
+            user.fb_id = profile['id']
             db.session.commit()
 
         # Update name if it changed
         fb_name = user.name
-        if (fb_name !=  me.data['username']):
-            user.name = me.data['username']
+        if (fb_name !=  profile['username']):
+            user.name = profile['username']
             db.session.commit()
 
-    # Log the user in
+    # log the user in
     login_user(user)
     return redirect(url_for('user'))
-
-@facebook.tokengetter
-def get_facebook_oauth_token():
-    return session.get('oauth_token')
-
 
 ###
 ### Twitter OAuth
 
 @app.route('/signin/twitter_authorized')
-@twitter.authorized_handler
-def twitter_authorized(resp):
-    #pdb.set_trace()
-    next_url = request.args.get('next') or url_for('index')
-    if resp is None:
-        flash(u'<h5>Twitter login error - please try logging in again!</h5>', 'error')
-        return redirect(next_url)
+def twitter_authorized():
+    if request.args.get('oauth_token') and request.args.get('oauth_verifier'):
+        auth = OAuth1(twitter['consumer_key'],
+                      client_secret=twitter['consumer_secret'],
+                      resource_owner_key=request.args.get('oauth_token'),
+                      verifier=request.args.get('oauth_verifier'))
+        r = requests.post(twitter['access_token_url'], auth=auth)
+        profile = dict(parse_qsl(r.text))
+        screen_name = profile['screen_name']
+        twitter_id = profile['user_id']
 
-    # Save the access token away
-    session['logged_in'] = True
-    session['oauth_token'] = (
-        resp['oauth_token'],
-        resp['oauth_token_secret']
-    )
-    screen_name = resp['screen_name']
-    twitter_id = resp['user_id']
-    session['twitter_user'] = screen_name
-    #print("response user_id and screen_name = {} and {}").format(resp['user_id'], resp['screen_name'])
+        session['logged_in'] = True
+        session['twitter_user'] = screen_name
+        print("response user_id and screen_name = {} and {}").format(twitter_id, screen_name)
 
-    # See if user is already in the db
-    user = User.query.filter_by(twitter_id = twitter_id).first()
-    if user is None:
-        # Save new user in the db
-        name = screen_name
-        if (name == ""):
-            name = 'Unknown'
-        user = createUserInDb(None, None, twitter_id, name, '', ROLE_USER)
+        # See if user is already in the db
+        user = User.query.filter_by(twitter_id = twitter_id).first()
         if user is None:
-            return jsonify(error=500, text='Error creating user'), 500
+            # Save new user in the db
+            name = screen_name
+            if (name == ""):
+                name = 'Unknown'
+            user = createUserInDb(None, None, twitter_id, name, '', ROLE_USER)
+        else:
+            # Update name if it changed
+            twitter_name = user.name
+            if (twitter_name != screen_name):
+                user.name = screen_name
+                db.session.commit()
+
+        # Log the user in
+        login_user(user)
+        return redirect(url_for('user'))
     else:
-        # Update name if it changed
-        twitter_name = user.name
-        if (twitter_name != screen_name):
-            user.name = screen_name
-            db.session.commit()
+        oauth = OAuth1(twitter['consumer_key'],
+                       client_secret=twitter['consumer_secret'],
+                       callback_uri=twitter['callback_uri'])
+        r = requests.post(twitter['request_token_url'], auth=oauth)
+        oauth_token = dict(parse_qsl(r.text))
+        qs = urlencode(dict(oauth_token=oauth_token['oauth_token']))
+        return redirect(twitter['authenticate_url'] + '?' + qs)
 
-    # Log the user in
-    login_user(user)
-    return redirect(url_for('user'))
-
-@twitter.tokengetter
-def get_twitter_oauth_token():
-    return session.get('oauth_token')
-
-
-###
-### Google OAuth
-
-@app.route('/signin/google_authorized')
-@google.authorized_handler
-def google_authorized(resp):
-    next_url = request.args.get('next') or url_for('index')
-    if resp is None or 'access_token' not in resp:
-        flash(u'<h5>Google login error - please try logging in again!</h5>', 'error')
-        return redirect(next_url)
-
-    # Get the users oauth information
-    from urllib2 import Request, urlopen, URLError, HTTPError
-    import json
-
-    access_token = resp['access_token']
-    headers = {'Authorization': 'OAuth '+access_token}
-    req = Request('https://www.googleapis.com/oauth2/v1/userinfo', None, headers)
-    try:
-        response = urlopen(req)
-    except HTTPError as e:
-        if e.code == 401:
-            # Unauthorized - bad token
-            flash(u'<h5>Google login error - please try logging in again!</h5>', 'error')
-            return redirect(next_url)
-
-    # Save the access token away
-    session['logged_in'] = True
-    session['oauth_token'] = access_token, ''
-    #print("response user id, username & email = {}, {} & {}").format(me['id'], me['name'], me['email'])
-    #pdb.set_trace()
-
-    # See if user is already in the db
-    me = json.load(response)
-    user = User.query.filter_by(email = me['email']).first()
-    if user is None:
-        # Save new user in the db
-        name = me['given_name']
-        if (name == ""):
-            name = 'Unknown'
-        user = createUserInDb(None, me['id'], None, name, me['email'], ROLE_USER)
-        if user is None:
-            return jsonify(error=500, text='Error creating user'), 500
-    else:
-        google_id = user.google_id
-        if google_id is None:
-            user.google_id = me['id']
-            db.session.commit()
-
-        # Update name if it changed
-        google_name = user.name
-        if (google_name != me['given_name']):
-            user.name = me['given_name']
-            db.session.commit()
-
-    # Log the user in
-    login_user(user)
-    return redirect(url_for('user'))
-
-
-@google.tokengetter
-def get_google_access_token():
-    #pdb.set_trace()
-    return session.get('oauth_token')
-
-
-def pop_login_session():
-    session.pop('logged_in', None)
-    session.pop('oauth_token', None)
-
-
-@login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
 

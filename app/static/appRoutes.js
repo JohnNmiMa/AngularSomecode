@@ -1,4 +1,5 @@
-viewsModule.config(['$routeProvider', function($routeProvider) {
+viewsModule.config(['$routeProvider', '$authProvider',
+            function($routeProvider,   $authProvider) {
 
     $routeProvider.when("/", {
         templateUrl : "./static/signedout/signedout.html",
@@ -8,13 +9,13 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
         templateUrl : "./static/signedin/signedin.html",
         controller : 'SignedinCtrl',
         resolve : {
-            userName : ['snippetSignin', '$location', '$route', '$q', function(snippetSignin, $location, $route, $q) {
+            userName : ['$auth', '$location', '$route', '$q', function($auth, $location, $route, $q) {
                 var oauthProvider = $route.current.params.oauthprovider,
                     defer = $q.defer();
 
-                snippetSignin(oauthProvider).then(function(result) {
+                $auth.authenticate(oauthProvider).then(function(result) {
                     //return result;
-                    defer.resolve(result);
+                    defer.resolve(result.data.username);
                 }, function(error) {
                     console.log(error.url + " failed with status error " + error.statusCode);
                     $location.path('/');
@@ -40,6 +41,28 @@ viewsModule.config(['$routeProvider', function($routeProvider) {
                 });
             }]
         }
+    });
+
+    $authProvider.facebook({
+        url: '/signin/facebook_authorized',
+        clientId: '493837160742216'
+    });
+
+    $authProvider.google({
+        url: '/signin/google_authorized',
+        clientId: '548449261611.apps.googleusercontent.com'
+    });
+
+    $authProvider.github({
+        clientId: '0ba2600b1dbdb756688b'
+    });
+
+    $authProvider.linkedin({
+        clientId: '77cw786yignpzj'
+    });
+
+    $authProvider.twitter({
+        url: '/signin/twitter_authorized',
     });
 }]);
 
