@@ -26,7 +26,6 @@
           authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
           redirectUri: currentUrl(),
           scope: ['profile', 'email'],
-          scopePrefix: 'openid',
           scopeDelimiter: ' ',
           requiredUrlParams: ['scope'],
           optionalUrlParams: ['display'],

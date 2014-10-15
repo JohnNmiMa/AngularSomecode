@@ -12,7 +12,7 @@ angular.module('snippetLibrary', [])
                 url: "/signin/" + oauthProvider,
                 headers: {
                     'Access-Control-Expose-Headers': 'Origin',
-                    'Origin':'http://jmsomecode.herokuapp.com:5000'
+                    'Origin':'http://somecode.herokuapp.com:5000'
                 }
             }
             //path = "/signin/" + oauthProvider + "?callback=JSON_CALLBACK";

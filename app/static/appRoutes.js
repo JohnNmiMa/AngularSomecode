@@ -45,12 +45,12 @@ viewsModule.config(['$routeProvider', '$authProvider',
 
     $authProvider.facebook({
         url: '/signin/facebook_authorized',
-        clientId: '493837160742216'
+        clientId: '369725386526622'
     });
 
     $authProvider.google({
         url: '/signin/google_authorized',
-        clientId: '548449261611.apps.googleusercontent.com'
+        clientId: '759451918691-6hb8d2up7algbjirfni465bcn743cjjb.apps.googleusercontent.com'
     });
 
     $authProvider.github({

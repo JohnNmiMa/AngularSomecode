@@ -11,7 +11,7 @@ from flask.ext.login import login_user, logout_user, current_user
 from models import User, Topic, Snippet, ROLE_USER, ROLE_ADMIN, ACCESS_PRIVATE, ACCESS_PUBLIC
 from app import app, db, login_manager
 from requests_oauthlib import OAuth1
-from config import facebook, twitter
+from config import facebook, twitter, google
 from datetime import datetime, timedelta
 from sqlalchemy import desc
 
@@ -95,7 +95,7 @@ def user():
 @app.route('/logout')
 @login_required
 def logout():
-    pdb.set_trace()
+    #pdb.set_trace()
     #reply = {'user' : g.user}
     reply = {'user' : 'somebody'}
     pop_login_session()
@@ -107,9 +107,6 @@ def pop_login_session():
     session.pop('logged_in', None)
     session.pop('oauth_token', None)
 
-
-###
-### Facebookk OAuth
 
 def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
     id = None
@@ -154,6 +151,9 @@ def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
 
     return user
 
+###
+### Facebookk OAuth
+
 @app.route('/signin/facebook_authorized', methods = ['POST'])
 def facebook_authorized():
     params = {
@@ -177,7 +177,7 @@ def facebook_authorized():
     user = User.query.filter_by(email = profile['email']).first()
     if user is None:
         # Save new user and the 'General' topic in the db
-        name = profile['username']
+        name = profile['name']
         if (name == ""):
             name = 'Unknown'
         user = createUserInDb(profile['id'], None, None, name, profile['email'], ROLE_USER)
@@ -191,8 +191,57 @@ def facebook_authorized():
 
         # Update name if it changed
         fb_name = user.name
-        if (fb_name !=  profile['username']):
-            user.name = profile['username']
+        if (fb_name !=  profile['name']):
+            user.name = profile['name']
+            db.session.commit()
+
+    # log the user in
+    login_user(user)
+    return redirect(url_for('user'))
+
+###
+### Google OAuth
+
+@app.route('/signin/google_authorized', methods=['POST'])
+def google_authorized():
+    payload = dict(client_id=request.json['clientId'],
+                   redirect_uri=request.json['redirectUri'],
+                   client_secret=google['consumer_secret'],
+                   code=request.json['code'],
+                   grant_type='authorization_code')
+
+    # Step 1. Exchange authorization code for access token.
+    r = requests.post(google['access_token_url'], data=payload)
+    token = json.loads(r.text)
+    headers = {'Authorization': 'Bearer {0}'.format(token['access_token'])}
+
+    # Step 2. Retrieve information about the current user.
+    r = requests.get(google['people_api_url'], headers=headers)
+    profile = json.loads(r.text)
+
+    # Step 3. Create a new account or return an existing one.
+    #pdb.set_trace()
+    session['logged_in'] = True
+    # see if user is already in the db
+    user = User.query.filter_by(email = profile['emails'][0]['value']).first()
+    if user is None:
+        # Save new user and the 'General' topic in the db
+        name = profile['displayName']
+        if (name == ""):
+            name = 'Unknown'
+        user = createUserInDb(None, profile['id'], None, name, profile['emails'][0]['value'], ROLE_USER)
+        if user is None:
+            return jsonify(error=500, text='Error creating user'), 500
+    else:
+        google_id = user.google_id
+        if google_id is None:
+            user.google_id = profile['id']
+            db.session.commit()
+
+        # Update name if it changed
+        google_name = user.name
+        if (google_name !=  profile['displayName']):
+            user.name = profile['displayName']
             db.session.commit()
 
     # log the user in
@@ -244,5 +293,6 @@ def twitter_authorized():
         oauth_token = dict(parse_qsl(r.text))
         qs = urlencode(dict(oauth_token=oauth_token['oauth_token']))
         return redirect(twitter['authenticate_url'] + '?' + qs)
+
 
 
