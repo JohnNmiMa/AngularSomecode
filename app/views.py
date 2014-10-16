@@ -18,7 +18,7 @@ from sqlalchemy import desc
 
 def create_jwt_token(user):
     payload = {
-        'iss': 'localhost',
+        'iss': 'somecode',
         'sub': user.id,
         'iat': datetime.now(),
         'exp': datetime.now() + timedelta(days=14)
@@ -33,6 +33,7 @@ def parse_token(req):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        #pdb.set_trace()
         if not request.headers.get('Authorization'):
             response = jsonify(message='Missing authorization header')
             response.status_code = 401
@@ -64,8 +65,6 @@ def before_request():
     if g.user.is_authenticated():
         g.user.last_seen = datetime.utcnow()
 
-thecallback = ""
-
 
 @app.route('/')
 @app.route('/index')
@@ -95,17 +94,10 @@ def user():
 @app.route('/logout')
 @login_required
 def logout():
-    #pdb.set_trace()
-    #reply = {'user' : g.user}
-    reply = {'user' : 'somebody'}
-    pop_login_session()
+    username = g.user.name
+    reply = {'user' : username}
     logout_user()
     return jsonify(reply)
-
-
-def pop_login_session():
-    session.pop('logged_in', None)
-    session.pop('oauth_token', None)
 
 
 def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
@@ -172,7 +164,7 @@ def facebook_authorized():
     profile = json.loads(r.text)
 
     # Step 3. Create a new account or return an existing one.
-    session['logged_in'] = True
+    #session['logged_in'] = True
     # see if user is already in the db
     user = User.query.filter_by(email = profile['email']).first()
     if user is None:
@@ -221,7 +213,7 @@ def google_authorized():
 
     # Step 3. Create a new account or return an existing one.
     #pdb.set_trace()
-    session['logged_in'] = True
+    #session['logged_in'] = True
     # see if user is already in the db
     user = User.query.filter_by(email = profile['emails'][0]['value']).first()
     if user is None:
@@ -263,8 +255,7 @@ def twitter_authorized():
         screen_name = profile['screen_name']
         twitter_id = profile['user_id']
 
-        session['logged_in'] = True
-        session['twitter_user'] = screen_name
+        #session['logged_in'] = True
         print("response user_id and screen_name = {} and {}").format(twitter_id, screen_name)
 
         # See if user is already in the db

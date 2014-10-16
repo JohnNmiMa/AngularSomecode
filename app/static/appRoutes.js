@@ -28,13 +28,15 @@ viewsModule.config(['$routeProvider', '$authProvider',
         }
     })
     .when("/logout", {
-//        templateUrl : "./static/signedout/signedout.html",
+//        templateUrl : null,
 //        controller : 'SignedoutCtrl',
         resolve: {
-            data : ['snippetLogout', '$location', function(snippetLogout, $location) {
-                snippetLogout().then(function() {
-                    $location.path('/');
-                    return;
+            data : ['$auth', 'snippetLogout', '$location', function($auth, snippetLogout, $location) {
+                snippetLogout().then(function(reply) {
+                    $auth.logout().then(function() {
+                        $location.path('/');
+                        return;
+                    })
                 }, function(error) {
                     console.log(error.url + " failed with status error " + error.statusCode);
                     return;
