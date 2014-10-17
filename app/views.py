@@ -148,6 +148,7 @@ def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
 
 @app.route('/signin/facebook_authorized', methods = ['POST'])
 def facebook_authorized():
+    pdb.set_trace()
     params = {
         'client_id': request.json['clientId'],
         'redirect_uri': request.json['redirectUri'],

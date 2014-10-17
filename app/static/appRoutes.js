@@ -14,7 +14,6 @@ viewsModule.config(['$routeProvider', '$authProvider',
                     defer = $q.defer();
 
                 $auth.authenticate(oauthProvider).then(function(result) {
-                    //return result;
                     defer.resolve(result.data.username);
                 }, function(error) {
                     console.log(error.url + " failed with status error " + error.statusCode);
@@ -31,15 +30,15 @@ viewsModule.config(['$routeProvider', '$authProvider',
 //        templateUrl : null,
 //        controller : 'SignedoutCtrl',
         resolve: {
-            data : ['$auth', 'snippetLogout', '$location', function($auth, snippetLogout, $location) {
-                snippetLogout().then(function(reply) {
-                    $auth.logout().then(function() {
-                        $location.path('/');
-                        return;
-                    })
+            name : ['$auth', 'snippetLogout', '$location', function($auth, snippetLogout, $location) {
+                snippetLogout()
+                .then(function(reply) {
+                    return $auth.logout();
                 }, function(error) {
                     console.log(error.url + " failed with status error " + error.statusCode);
-                    return;
+                })
+                .finally(function() {
+                    $location.path('/');
                 });
             }]
         }
@@ -64,7 +63,7 @@ viewsModule.config(['$routeProvider', '$authProvider',
     });
 
     $authProvider.twitter({
-        url: '/signin/twitter_authorized',
+        url: '/signin/twitter_authorized'
     });
 }]);
 

@@ -1,5 +1,5 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession',
-                              function($scope,   userSession) {
+someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession', 'oauthLogin',
+                              function($scope,   userSession,   oauthLogin) {
     $scope.isSignedIn = userSession.loggedIn = false;
     $scope.$watch(function() {
         return userSession.loggedIn;
@@ -11,12 +11,22 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession',
             $scope.hideSignin();
         }
     });
+
     $scope.showSignin = function() {
         $('.signinModal').modal('show');
     };
     $scope.hideSignin = function() {
         $('.signinModal').modal('hide');
     };
+
+    $scope.login = function(provider) {
+        if (provider == 'facebook') {
+            oauthLogin(provider).then(function(response) {
+                userSession.loggedIn = true;
+                userSession.userName = response.data.username;
+            });
+        }
+    }
 }])
 
 .directive('snippetSearch', function() {

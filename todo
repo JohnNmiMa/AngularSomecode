@@ -48,9 +48,12 @@ Directory Structure:
           - snippetSearch.html
 
 Implement logged out view
-- Create header
-- Get Flask server running for home page
-- Get Flask server authenticating with Google, Facebook, Twitter OAuth
+- Create header - DONE
+- Get Flask server running for home page - DONE
+- Get Flask server authenticating with Google, Facebook, Twitter OAuth - DONE
+  - Get protocol running for one provider
+  - Save token from server away
+  - Create interceptor to insert token header
 - Create SnippetBar
   - Render Create & Layout icons
     - hide create button if logged out

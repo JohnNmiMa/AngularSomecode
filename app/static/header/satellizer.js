@@ -11,7 +11,7 @@
     .constant('satellizer.config', {
       loginOnSignup: true,
       //loginRedirect: '/',
-      logoutRedirect: '/',
+      //logoutRedirect: '/',
       signupRedirect: '/login',
       loginUrl: '/auth/login',
       signupUrl: '/auth/signup',
