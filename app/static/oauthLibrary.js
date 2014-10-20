@@ -2,6 +2,7 @@ angular.module('oauthLibrary', [])
 
 .constant('oauthLibrary.config', {
     appUri: 'http://somecode.herokuapp.com:5000/',
+    tokenName: 'somecode_token',
     providers: {
         facebook: {
             authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
@@ -31,8 +32,8 @@ angular.module('oauthLibrary', [])
     }
 })
 
-.factory('oauthLogin', [ 'oauthLibrary.config', 'oauthLibrary.tokenService', 'oauthLibrary.popup', '$http', '$q',
-                 function(oauthconfig,           tokenService,                popup,                $http,   $q) {
+.factory('oauthLogin', ['oauthLibrary.config', 'oauthLibrary.tokenService', 'oauthLibrary.popup', '$http', '$q',
+                function(oauthconfig,           tokenService,                popup,                $http,   $q) {
 
     return function(provider) {
         console.log("At oauthLibrary.login() - do OAuth login for " + provider);
@@ -44,8 +45,8 @@ angular.module('oauthLibrary', [])
         .then(function(oauthData) {
             exchangeForToken(oauthData, {})
             .then(function(response) {
-                tokenService.saveToken(response, defer, false);
-                //defer.resolve(response);
+                tokenService.saveToken(response, false);
+                defer.resolve(response);
             })
             .then(null, function(error) {
                 defer.reject(error);
@@ -86,29 +87,66 @@ angular.module('oauthLibrary', [])
     };
 }])
 
+.factory('oauthLogout', ['oauthLibrary.tokenService', function(tokenService) {
+    return function() {
+        tokenService.logout();
+    }
+}])
+
+.factory('authenticationInterceptor', ['$q', '$window', '$location', 'oauthLibrary.config',
+                               function($q,   $window,   $location,   config)  {
+
+    var tokenName = config.tokenPrefix ? config.tokenPrefix + '_' + config.tokenName : config.tokenName;
+
+    function intercepted (url) {
+        // If this is an API call to our app, intercept the request
+        if (url.indexOf($window.location.origin) === 0) {
+            return true;
+        }
+
+        // If there is no http or https in the request, then the call is to
+        // our app, so intercept the request. In other words, we don't want
+        // to add headers to requests for servers that don't need them.
+        if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+            return true;
+        }
+        return false;
+    }
+
+    return {
+        request: function(request) {
+            if(intercepted(request.url)) {
+                if (localStorage.getItem(tokenName)) {
+                    request.headers.Authorization = 'Bearer ' + localStorage.getItem(tokenName);
+                }
+            }
+            return request;
+        },
+        responseError: function(response) {
+            if(intercepted(response.config.url)) {
+                if (response.status === 401) {
+                    localStorage.removeItem(tokenName);
+                }
+            }
+            return $q.reject(response);
+        }
+    };
+}])
 
 .factory('oauthLibrary.tokenService', ['$q', '$window', '$location', 'oauthLibrary.config',
                                function($q,   $window,   $location,   config) {
     var tokenService = {};
 
-    tokenService.saveToken = function(response, deferred, isLinking) {
-        var token = response.data[config.tokenName],
-            tokenName = config.tokenPrefix ? config.tokenPrefix + '_' + config.tokenName : config.tokenName;
-
+    tokenService.saveToken = function(response, isLinking) {
+        var token = response.data['token'];
         if (!token) {
             throw new Error('Expecting a token named "' + config.tokenName + '" but instead got: ' + JSON.stringify(response.data));
         }
-
-        $window.localStorage[tokenName] = token;
-        if (config.loginRedirect && !isLinking) {
-            $location.path(config.loginRedirect);
-        }
-        deferred.resolve(response);
+        $window.localStorage[config.tokenName] = token;
     };
 
     tokenService.isAuthenticated = function() {
-        var tokenName = config.tokenPrefix ? config.tokenPrefix + '_' + config.tokenName : config.tokenName,
-            token = $window.localStorage[tokenName];
+        var token = $window.localStorage[config.tokenName];
 
         if (token) {
             var base64Url = token.split('.')[1];
@@ -121,35 +159,8 @@ angular.module('oauthLibrary', [])
     };
 
     tokenService.logout = function() {
-        var deferred = $q.defer(),
-            tokenName = config.tokenPrefix ? config.tokenPrefix + '_' + config.tokenName : config.tokenName;
-
-        delete $window.localStorage[tokenName];
-        if (config.logoutRedirect) {
-            $location.path(config.logoutRedirect);
-        }
-        deferred.resolve();
-
-        return deferred.promise;
+        delete $window.localStorage[config.tokenName];
     };
-
-    function intercept (url) {
-        if (url.indexOf($window.location.origin) === 0) {
-            return true;
-        }
-        if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
-            return true;
-        }
-        return false;
-    }
-
-    tokenService.requestFilter = config.requestFilter = (config.requestFilter || function(httpConfig) {
-        return intercept(httpConfig.url);
-    });
-
-    tokenService.responseFilter = config.responseFilter = (config.responseFilter || function(response) {
-        return intercept(response.config.url);
-    });
 
     return tokenService;
 }])

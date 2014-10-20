@@ -15,7 +15,8 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#" id="username" ng-if="isSignedIn">{{username}}</a></li>
             <li><a href="javascript:void(0)" id="signin" ng-if="!isSignedIn" ng-click="showSignin()">Sign In</a></li>
-            <li><a href="#!/logout" id="signout" ng-if="isSignedIn">Log Out</a></li>
+            <!--<li><a href="#!/logout" id="signout" ng-if="isSignedIn">Log Out</a></li>-->
+            <li><a href="javascript:void(0)" id="signout" ng-if="isSignedIn" ng-click="logout()">Log Out</a></li>
             <li><a href="#" id="settings"><span class="glyphicon glyphicon-cog"></span></a></li>
         </ul>
     </div>

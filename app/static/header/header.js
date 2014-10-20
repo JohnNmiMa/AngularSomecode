@@ -1,5 +1,6 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession', 'oauthLogin',
-                              function($scope,   userSession,   oauthLogin) {
+someCodeApp.controller('HeaderCtrl', ['$scope', '$location', 'userSession', 'oauthLogin', 'oauthLogout', 'snippetLogout',
+                              function($scope,   $location,  userSession,   oauthLogin,   oauthLogout,   snippetLogout) {
+
     $scope.isSignedIn = userSession.loggedIn = false;
     $scope.$watch(function() {
         return userSession.loggedIn;
@@ -24,9 +25,22 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'userSession', 'oauthLogin',
             oauthLogin(provider).then(function(response) {
                 userSession.loggedIn = true;
                 userSession.userName = response.data.username;
+                $location.path('/user');
             });
         }
-    }
+    };
+
+    $scope.logout = function() {
+        snippetLogout().then(function(response) {
+            oauthLogout();
+            userSession.loggedIn = false;
+        }, function(error) {
+            console.log(error.url + " failed with status error " + error.statusCode);
+        })
+        .finally(function() {
+            $location.path('/');
+        });
+    };
 }])
 
 .directive('snippetSearch', function() {

@@ -2,6 +2,29 @@ angular.module('snippetLibrary', [])
 
 //.constant('API_PREFIX', 'http://api.geonames.org')
 
+.factory('snippetUser', ['$http', '$q',
+                   function($http,   $q) {
+    return function() {
+        var defer = $q.defer(),
+            path = "/topics";
+
+        $http.get(path)
+        .success(function(reply) {
+            defer.resolve(reply);
+        })
+        .error(function(data, status, headers, config) {
+            var error = {
+                html : data,
+                statusCode : status,
+                url : config.url
+            };
+            defer.reject(error);
+        });
+
+        return defer.promise;
+    }
+}])
+
 .factory('snippetLogout', ['$http', '$q',
                    function($http,   $q) {
     return function() {

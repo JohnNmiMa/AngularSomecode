@@ -73,22 +73,20 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/user')
+@app.route('/topics')
+@login_required
 def user():
     topics = g.user.topics
     personal_count = 0
-    for topic in topics:
+    topicList = {}
+    for i, topic in enumerate(topics):
         personal_count += topic.snippets.count()
+        d = dict(id = topic.id, name = topic.topic)
+        topicList[i] = d
     public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
 
-    token = create_jwt_token(g.user)
-    reply = {'username':g.user.name, 'token':token, 'personal_count':personal_count, 'public_count':public_count}
+    reply = {'personal_count':personal_count, 'public_count':public_count, 'topics':topicList}
     return jsonify(reply)
-
-    #MVP stuff
-    #return render_template('user.html', name = g.user.name, user_id = g.user.id,
-    #                       topics = topics.all(), page = 'home',
-    #                       personal_count = personal_count, public_count = public_count)
 
 
 @app.route('/logout')
@@ -148,7 +146,7 @@ def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
 
 @app.route('/signin/facebook_authorized', methods = ['POST'])
 def facebook_authorized():
-    pdb.set_trace()
+    #pdb.set_trace()
     params = {
         'client_id': request.json['clientId'],
         'redirect_uri': request.json['redirectUri'],
@@ -190,7 +188,10 @@ def facebook_authorized():
 
     # log the user in
     login_user(user)
-    return redirect(url_for('user'))
+    token = create_jwt_token(g.user)
+    reply = {'token':token, 'username':user.name}
+    return jsonify(reply)
+    #return redirect(url_for('user'))
 
 ###
 ### Google OAuth
@@ -239,7 +240,7 @@ def google_authorized():
 
     # log the user in
     login_user(user)
-    return redirect(url_for('user'))
+    return redirect(url_for('topics'))
 
 ###
 ### Twitter OAuth
@@ -276,7 +277,7 @@ def twitter_authorized():
 
         # Log the user in
         login_user(user)
-        return redirect(url_for('user'))
+        return redirect(url_for('topics'))
     else:
         oauth = OAuth1(twitter['consumer_key'],
                        client_secret=twitter['consumer_secret'],

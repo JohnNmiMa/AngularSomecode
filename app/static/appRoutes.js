@@ -1,9 +1,20 @@
-viewsModule.config(['$routeProvider', '$authProvider',
-            function($routeProvider,   $authProvider) {
+viewsModule.config(['$httpProvider', '$routeProvider', '$authProvider',
+            function($httpProvider,   $routeProvider,   $authProvider) {
+
+    $httpProvider.interceptors.push('authenticationInterceptor');
 
     $routeProvider.when("/", {
         templateUrl : "./static/signedout/signedout.html",
         controller : 'SignedoutCtrl'
+    })
+    .when("/user", {
+        templateUrl : "./static/user/user.html",
+        controller : 'UserCtrl',
+        resolve : {
+            topics: ['snippetUser', function (snippetUser) {
+                return snippetUser();
+            }]
+        }
     })
     .when("/signin/:oauthprovider", {
         templateUrl : "./static/signedin/signedin.html",
