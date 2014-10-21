@@ -1,3 +1,8 @@
+HelperFunctions = {};
+HelperFunctions.currentUrl = function() {
+    return window.location.origin || window.location.protocol + '//' + window.location.host;
+};
+
 angular.module('oauthLibrary', [])
 
 .constant('oauthLibrary.config', {
@@ -7,14 +12,16 @@ angular.module('oauthLibrary', [])
             authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
             redirectUri: '/signin/facebook_authorized',
             clientId: '369725386526622',
-            appUri: 'http://somecode.herokuapp.com:5000/',
+            // appUri: 'http://somecode.herokuapp.com:5000/',
+            appUri: HelperFunctions.currentUrl() + '/',
             popupOptions: { width: 481, height: 269 }
         },
         google: {
             authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
             redirectUri: '/signin/google_authorized',
             clientId: '759451918691-6hb8d2up7algbjirfni465bcn743cjjb.apps.googleusercontent.com',
-            appUri: 'http://somecode.herokuapp.com:5000',
+            // appUri: 'http://somecode.herokuapp.com:5000',
+            appUri: HelperFunctions.currentUrl(),
             popupOptions: { width: 452, height: 633 }
         },
         twitter: {
@@ -25,11 +32,10 @@ angular.module('oauthLibrary', [])
     }
 })
 
-.factory('oauthLogin', ['oauthLibrary.config', 'oauthLibrary.tokenService', 'oauthLibrary.popup', '$http', '$q',
-                function(oauthconfig,           tokenService,                popup,                $http,   $q) {
+.factory('oauthAuthenticate', ['oauthLibrary.config', 'oauthLibrary.tokenService', 'oauthLibrary.popup', '$http', '$q',
+                       function(oauthconfig,           tokenService,                popup,                $http,   $q) {
 
     return function(provider) {
-        console.log("At oauthLibrary.login() - do OAuth login for " + provider);
         var defer = $q.defer(),
             providerConfig = oauthconfig.providers[provider],
             url = buildUrl(provider),
@@ -41,7 +47,7 @@ angular.module('oauthLibrary', [])
 
         popup(url, providerConfig.popupOptions)
         .then(function(oauthData) {
-            exchangeFunc(oauthData, {})
+            exchangeFunc(oauthData)
             .then(function(response) {
                 tokenService.saveToken(response, false);
                 defer.resolve(response);
@@ -53,28 +59,20 @@ angular.module('oauthLibrary', [])
         .then(null, function(error) {
             defer.reject(error);
         });
-        console.log("  the url is " + url);
 
-        function exchangeForOauth2Token(oauthData, userData) {
-            var data = angular.extend({}, userData, {
+        function exchangeForOauth2Token(oauthData) {
+            var data = {
                 code: oauthData.code,
                 clientId: providerConfig.clientId,
                 redirectUri: providerConfig.appUri
-            });
+            };
             return $http.post(providerConfig.redirectUri, data);
         }
-        function exchangeForOauth1Token(oauthData, userData) {
-            var data = angular.extend({}, userData, oauthData);
-            var qs = buildOAuth1QueryString(data);
+        function exchangeForOauth1Token(oauthData) {
+            var qs  = "oauth_token=" + oauthData.oauth_token;
+            qs     += "&oauth_verifier=" + oauthData.oauth_verifier;
             return $http.get(providerConfig.redirectUri + '?' + qs);
         }
-        function buildOAuth1QueryString(obj) {
-            var str = [];
-            angular.forEach(obj, function(value, key) {
-                str.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
-            });
-            return str.join('&');
-        };
 
         function buildUrl(provider) {
             var providerConfig = oauthconfig.providers[provider],
@@ -91,7 +89,6 @@ angular.module('oauthLibrary', [])
                 qs += "&redirect_uri=" + encodeURIComponent(providerConfig.appUri);
                 qs += "&display=popup&scope=" + encodeURIComponent("profile " + "email");
             } else if (provider === 'twitter') {
-                qs = "";
             }
             return [providerConfig.authorizationEndpoint, qs].join('?');
         }
@@ -179,7 +176,7 @@ angular.module('oauthLibrary', [])
 }])
 
 .factory('oauthLibrary.popup', ['$q', '$interval', '$window', '$location', 'oauthLibrary.utils',
-    function($q,   $interval,   $window,   $location,   utils) {
+                        function($q,   $interval,   $window,   $location,   utils) {
 
     return function(url, options) {
         var deferred = $q.defer(),
@@ -253,4 +250,10 @@ angular.module('oauthLibrary', [])
         });
         return obj;
     };
+
+    this.currentUrl = function() {
+        return window.location.origin || window.location.protocol + '//' + window.location.host;
+    }
 });
+
+

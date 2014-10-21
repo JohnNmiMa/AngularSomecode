@@ -1,5 +1,5 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', '$location', 'userSession', 'oauthLogin', 'oauthLogout', 'snippetLogout',
-                              function($scope,   $location,  userSession,   oauthLogin,   oauthLogout,   snippetLogout) {
+someCodeApp.controller('HeaderCtrl', ['$scope', '$location', 'userSession', 'oauthAuthenticate', 'oauthLogout', 'snippetLogout',
+                              function($scope,   $location,  userSession,   oauthAuthenticate,   oauthLogout,   snippetLogout) {
 
     $scope.isSignedIn = userSession.loggedIn = false;
     $scope.$watch(function() {
@@ -21,7 +21,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', '$location', 'userSession', 'oau
     };
 
     $scope.login = function(provider) {
-        oauthLogin(provider).then(function(response) {
+        oauthAuthenticate(provider).then(function(response) {
             userSession.loggedIn = true;
             userSession.userName = response.data.username;
             $location.path('/user');
