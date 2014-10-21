@@ -1,19 +1,12 @@
-someCodeApp.controller('HeaderCtrl', [
-    '$scope',
-    '$location',
-    'oauthAuthenticate',
-    'oauthIsAuthenticated',
-    'oauthUsername',
-    'oauthLogout',
-    'snippetLogout',
-    function($scope, $location, oauthAuthenticate, oauthIsAuthenticated, oauthUsername, oauthLogout, snippetLogout) {
+someCodeApp.controller('HeaderCtrl', ['$scope', '$location', 'oauthLibrary', 'snippetLogout',
+                              function($scope,   $location,   oauth,          snippetLogout) {
 
     $scope.$watch(function() {
         return $scope.isAuthenticated();
     },
     function(newVal, oldVal) {
-        $scope.username = oauthUsername();
         if (newVal) {
+            $scope.username = oauth.username();
             $scope.hideSignin();
         }
     });
@@ -21,22 +14,24 @@ someCodeApp.controller('HeaderCtrl', [
     $scope.showSignin = function() {
         $('.signinModal').modal('show');
     };
+
     $scope.hideSignin = function() {
         $('.signinModal').modal('hide');
     };
 
     $scope.authenticate = function(provider) {
-        oauthAuthenticate(provider).then(function(response) {
+        oauth.authenticate(provider).then(function(response) {
             $location.path('/user');
         });
     };
+
     $scope.isAuthenticated = function(provider) {
-        return oauthIsAuthenticated();
+        return oauth.isAuthenticated();
     };
 
     $scope.logout = function() {
         snippetLogout().then(function(response) {
-            oauthLogout();
+            oauth.logout();
         }, function(error) {
             console.log(error.url + " failed with status error " + error.statusCode);
         })

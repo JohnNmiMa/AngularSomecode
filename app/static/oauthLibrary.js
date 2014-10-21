@@ -32,10 +32,12 @@ angular.module('oauthLibrary', [])
     }
 })
 
-.factory('oauthAuthenticate', ['oauthLibrary.config', 'oauthLibrary.tokenService', 'oauthLibrary.popup', '$http', '$q',
-                       function(oauthconfig,           tokenService,                popup,                $http,   $q) {
+.factory('oauthLibrary', ['oauthLibrary.config', 'oauthLibrary.tokenService', 'oauthLibrary.popup', '$http', '$q',
+                  function(oauthconfig,           tokenService,                popup,                $http,   $q) {
 
-    return function(provider) {
+    var oauthService = {};
+
+    oauthService.authenticate = function(provider) {
         var defer = $q.defer(),
             providerConfig = oauthconfig.providers[provider],
             url = buildUrl(provider),
@@ -95,24 +97,20 @@ angular.module('oauthLibrary', [])
 
         return defer.promise;
     };
-}])
 
-.factory('oauthIsAuthenticated', ['oauthLibrary.tokenService', function(tokenService) {
-    return function() {
-        return tokenService.isAuthenticated();
-    }
-}])
+    oauthService.isAuthenticated = function() {
+       return tokenService.isAuthenticated();
+    };
 
-.factory('oauthUsername', ['oauthLibrary.tokenService', function(tokenService) {
-    return function() {
+    oauthService.username = function() {
         return tokenService.username();
-    }
-}])
+    };
 
-.factory('oauthLogout', ['oauthLibrary.tokenService', function(tokenService) {
-    return function() {
+    oauthService.logout = function() {
         tokenService.logout();
-    }
+    };
+
+    return oauthService;
 }])
 
 .factory('authenticationInterceptor', ['$q', '$window', '$location', 'oauthLibrary.config',
