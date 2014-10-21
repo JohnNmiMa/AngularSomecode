@@ -49,7 +49,7 @@ angular.module('oauthLibrary', [])
         .then(function(oauthData) {
             exchangeFunc(oauthData)
             .then(function(response) {
-                tokenService.saveToken(response, false);
+                tokenService.saveToken(response);
                 defer.resolve(response);
             })
             .then(null, function(error) {
@@ -97,6 +97,18 @@ angular.module('oauthLibrary', [])
     };
 }])
 
+.factory('oauthIsAuthenticated', ['oauthLibrary.tokenService', function(tokenService) {
+    return function() {
+        return tokenService.isAuthenticated();
+    }
+}])
+
+.factory('oauthUsername', ['oauthLibrary.tokenService', function(tokenService) {
+    return function() {
+        return tokenService.username();
+    }
+}])
+
 .factory('oauthLogout', ['oauthLibrary.tokenService', function(tokenService) {
     return function() {
         tokenService.logout();
@@ -105,8 +117,6 @@ angular.module('oauthLibrary', [])
 
 .factory('authenticationInterceptor', ['$q', '$window', '$location', 'oauthLibrary.config',
                                function($q,   $window,   $location,   config)  {
-
-    var tokenName = config.tokenPrefix ? config.tokenPrefix + '_' + config.tokenName : config.tokenName;
 
     function intercepted (url) {
         // If this is an API call to our app, intercept the request
@@ -125,9 +135,10 @@ angular.module('oauthLibrary', [])
 
     return {
         request: function(request) {
+            var tokenRec = JSON.parse(localStorage.getItem(config.tokenName));
             if(intercepted(request.url)) {
-                if (localStorage.getItem(tokenName)) {
-                    request.headers.Authorization = 'Bearer ' + localStorage.getItem(tokenName);
+                if (tokenRec) {
+                    request.headers.Authorization = 'Bearer ' + tokenRec.token;
                 }
             }
             return request;
@@ -135,7 +146,7 @@ angular.module('oauthLibrary', [])
         responseError: function(response) {
             if(intercepted(response.config.url)) {
                 if (response.status === 401) {
-                    localStorage.removeItem(tokenName);
+                    localStorage.removeItem(config.tokenName);
                 }
             }
             return $q.reject(response);
@@ -147,29 +158,43 @@ angular.module('oauthLibrary', [])
                                function($q,   $window,   $location,   config) {
     var tokenService = {};
 
-    tokenService.saveToken = function(response, isLinking) {
-        var token = response.data['token'];
-        if (!token) {
-            throw new Error('Expecting a token named "' + config.tokenName + '" but instead got: ' + JSON.stringify(response.data));
+    tokenService.saveToken = function(response) {
+        var record = {
+            token:    response.data['token'],
+            userName: response.data['username']
+        };
+        if (!record.token) {
+            throw new Error('Expecting a token named "' + config.tokenName +
+                            '" but instead got: ' + JSON.stringify(response.data['token']));
         }
-        $window.localStorage[config.tokenName] = token;
+        $window.localStorage[config.tokenName] = JSON.stringify(record);
     };
 
     tokenService.isAuthenticated = function() {
-        var token = $window.localStorage[config.tokenName];
+        var tokenRec = $window.localStorage[config.tokenName],
+            base64Url = "", base64 = "", exp = "";
 
-        if (token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var exp = JSON.parse($window.atob(base64)).exp;
+        if (tokenRec) {
+            tokenRec = JSON.parse(tokenRec);
+            base64Url = tokenRec.token.split('.')[1];
+            base64 = base64Url.replace('-', '+').replace('_', '/');
+            exp = JSON.parse($window.atob(base64)).exp;
             return Math.round(new Date().getTime() / 1000) <= exp;
         }
-
         return false;
     };
 
     tokenService.logout = function() {
         delete $window.localStorage[config.tokenName];
+    };
+
+    tokenService.username = function() {
+        var tokenRec = $window.localStorage[config.tokenName];
+        if (tokenRec) {
+            tokenRec=JSON.parse(tokenRec);
+            return tokenRec.userName;
+        }
+        return "";
     };
 
     return tokenService;
@@ -250,10 +275,6 @@ angular.module('oauthLibrary', [])
         });
         return obj;
     };
-
-    this.currentUrl = function() {
-        return window.location.origin || window.location.protocol + '//' + window.location.host;
-    }
 });
 
 

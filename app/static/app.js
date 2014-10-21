@@ -21,13 +21,6 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
     });
 }])
 
-.factory('userSession', function () {
-    return {
-        loggedIn: false,
-        userName: ""
-    }
-})
-
-.controller('SomeCodeCtrl', ['$scope', 'userSession', function ($scope, userSession) {
+.controller('SomeCodeCtrl', ['$scope', function ($scope) {
     $scope.SomeCodeCtrlModel=true;
 }]);

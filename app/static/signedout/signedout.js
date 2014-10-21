@@ -1,5 +1,5 @@
-viewsModule.controller('SignedoutCtrl', ['$scope', 'userSession',
-                                 function($scope,   userSession) {
+viewsModule.controller('SignedoutCtrl', ['$scope',
+                                 function($scope) {
 //    userSession.loggedIn = false;
 }]);
 
