@@ -21,13 +21,11 @@ someCodeApp.controller('HeaderCtrl', ['$scope', '$location', 'userSession', 'oau
     };
 
     $scope.login = function(provider) {
-        if (provider == 'facebook') {
-            oauthLogin(provider).then(function(response) {
-                userSession.loggedIn = true;
-                userSession.userName = response.data.username;
-                $location.path('/user');
-            });
-        }
+        oauthLogin(provider).then(function(response) {
+            userSession.loggedIn = true;
+            userSession.userName = response.data.username;
+            $location.path('/user');
+        });
     };
 
     $scope.logout = function() {

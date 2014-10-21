@@ -1,32 +1,25 @@
 angular.module('oauthLibrary', [])
 
 .constant('oauthLibrary.config', {
-    appUri: 'http://somecode.herokuapp.com:5000/',
     tokenName: 'somecode_token',
     providers: {
         facebook: {
             authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
             redirectUri: '/signin/facebook_authorized',
             clientId: '369725386526622',
+            appUri: 'http://somecode.herokuapp.com:5000/',
             popupOptions: { width: 481, height: 269 }
         },
         google: {
             authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
             redirectUri: '/signin/google_authorized',
             clientId: '759451918691-6hb8d2up7algbjirfni465bcn743cjjb.apps.googleusercontent.com',
-            scope: ['profile', 'email'],
-            scopePrefix: 'openid',
-            scopeDelimiter: ' ',
-            requiredUrlParams: ['scope'],
-            optionalUrlParams: ['display'],
-            display: 'popup',
-            type: '2.0',
+            appUri: 'http://somecode.herokuapp.com:5000',
             popupOptions: { width: 452, height: 633 }
         },
         twitter: {
+            authorizationEndpoint: '/signin/twitter_authorized',
             redirectUri: '/signin/twitter_authorized',
-            clientId: '',
-            type: '1.0',
             popupOptions: { width: 495, height: 645 }
         }
     }
@@ -39,11 +32,16 @@ angular.module('oauthLibrary', [])
         console.log("At oauthLibrary.login() - do OAuth login for " + provider);
         var defer = $q.defer(),
             providerConfig = oauthconfig.providers[provider],
-            url = buildUrl(provider);
+            url = buildUrl(provider),
+            exchangeFunc = exchangeForOauth2Token;
+
+        if (provider == 'twitter')  {
+            exchangeFunc = exchangeForOauth1Token;
+        }
 
         popup(url, providerConfig.popupOptions)
         .then(function(oauthData) {
-            exchangeForToken(oauthData, {})
+            exchangeFunc(oauthData, {})
             .then(function(response) {
                 tokenService.saveToken(response, false);
                 defer.resolve(response);
@@ -57,14 +55,26 @@ angular.module('oauthLibrary', [])
         });
         console.log("  the url is " + url);
 
-        function exchangeForToken(oauthData, userData) {
+        function exchangeForOauth2Token(oauthData, userData) {
             var data = angular.extend({}, userData, {
                 code: oauthData.code,
                 clientId: providerConfig.clientId,
-                redirectUri: oauthconfig.appUri
+                redirectUri: providerConfig.appUri
             });
             return $http.post(providerConfig.redirectUri, data);
         }
+        function exchangeForOauth1Token(oauthData, userData) {
+            var data = angular.extend({}, userData, oauthData);
+            var qs = buildOAuth1QueryString(data);
+            return $http.get(providerConfig.redirectUri + '?' + qs);
+        }
+        function buildOAuth1QueryString(obj) {
+            var str = [];
+            angular.forEach(obj, function(value, key) {
+                str.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+            });
+            return str.join('&');
+        };
 
         function buildUrl(provider) {
             var providerConfig = oauthconfig.providers[provider],
@@ -73,12 +83,15 @@ angular.module('oauthLibrary', [])
             if (provider === 'facebook') {
                 qs =  "response_type=code";
                 qs += "&client_id=" + providerConfig.clientId;
-                qs += "&redirect_uri=" + encodeURIComponent(oauthconfig.appUri);
+                qs += "&redirect_uri=" + encodeURIComponent(providerConfig.appUri);
                 qs += "&display=popup&scope=email"
             } else if (provider === 'google') {
-
-            } else if (provider === 'facebook') {
-
+                qs =  "response_type=code";
+                qs += "&client_id=" + providerConfig.clientId;
+                qs += "&redirect_uri=" + encodeURIComponent(providerConfig.appUri);
+                qs += "&display=popup&scope=" + encodeURIComponent("profile " + "email");
+            } else if (provider === 'twitter') {
+                qs = "";
             }
             return [providerConfig.authorizationEndpoint, qs].join('?');
         }
@@ -104,9 +117,9 @@ angular.module('oauthLibrary', [])
             return true;
         }
 
-        // If there is no http or https in the request, then the call is to
-        // our app, so intercept the request. In other words, we don't want
-        // to add headers to requests for servers that don't need them.
+        // If 'http' or 'https' are in the request, then the call is to
+        // our app, so intercept the request. In other words, we only want
+        // to add headers to requests for our backend.
         if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
             return true;
         }

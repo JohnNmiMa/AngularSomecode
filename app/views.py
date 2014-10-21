@@ -214,7 +214,6 @@ def google_authorized():
     profile = json.loads(r.text)
 
     # Step 3. Create a new account or return an existing one.
-    #pdb.set_trace()
     #session['logged_in'] = True
     # see if user is already in the db
     user = User.query.filter_by(email = profile['emails'][0]['value']).first()
@@ -240,7 +239,10 @@ def google_authorized():
 
     # log the user in
     login_user(user)
-    return redirect(url_for('topics'))
+    token = create_jwt_token(g.user)
+    reply = {'token':token, 'username':user.name}
+    return jsonify(reply)
+    #return redirect(url_for('topics'))
 
 ###
 ### Twitter OAuth
@@ -277,7 +279,9 @@ def twitter_authorized():
 
         # Log the user in
         login_user(user)
-        return redirect(url_for('topics'))
+        token = create_jwt_token(g.user)
+        reply = {'token':token, 'username':user.name}
+        return jsonify(reply)
     else:
         oauth = OAuth1(twitter['consumer_key'],
                        client_secret=twitter['consumer_secret'],

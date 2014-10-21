@@ -17,8 +17,8 @@ viewsModule.config(['$httpProvider', '$routeProvider', '$authProvider',
         }
     })
     .when("/signin/:oauthprovider", {
-        templateUrl : "./static/signedin/signedin.html",
-        controller : 'SignedinCtrl',
+        templateUrl : "./static/signedin/user.html",
+        controller : 'UserCtrl',
         resolve : {
             userName : ['$auth', '$location', '$route', '$q', function($auth, $location, $route, $q) {
                 var oauthProvider = $route.current.params.oauthprovider,
