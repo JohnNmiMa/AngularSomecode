@@ -1,3 +1,11 @@
-<div class="view1">
-    <h2>You are looking at the user's logged in view</h2>
+<div id='snippetBlock'>
+    <!--{% block topicPanel %}-->
+
+    <div id='snippetPanel' ng-class="{'loggedin':isAuthenticated(), 'loggedout':!isAuthenticated()}">
+        <div ng-include src="'./static/components/snippetbar/snippetbar.html'"></div>
+
+        <div id='snippetContainer' class='container-fluid'>
+            <!--{% block snippets %}-->
+        </div>
+    </div>
 </div>

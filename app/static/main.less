@@ -7,14 +7,32 @@ body {
 /*
  * Header styles
  */
-@import "header/header.less";
+@import "components/header/header.less";
+
+.glyphicon {
+    font-size:1.5em;
+}
+
+#snippetBlock {
+    margin:0 15px;
+}
+
+/*
+ * Snippet Panel
+ */
+#snippetPanel {
+    float: left;
+    vertical-align: top;
+}
+#snippetPanel.loggedin {
+    width:@default-rightpanel-width-narrow;
+}
+#snippetPanel.loggedout {
+    width:@default-rightpanel-width-wide;
+}
 
 /*
  * SnippetBar styles
  */
 @import "snippetbar/snippetbar.less";
-
-.glyphicon {
-    font-size:1.5em;
-}
 

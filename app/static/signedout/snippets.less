@@ -1,0 +1,293 @@
+@import "../variables.less";
+
+#snippetContainer {
+    //border: 1px solid red;
+    //padding-left:0;
+    padding-right:0;
+}
+    #snippetContainer #userSnippets {
+    }
+        .snippet {
+            .make-row();
+            margin-top:5px;
+            overflow:hidden; // Makes snippetSelector and snippetContent align horizontally!!!
+            //border:1px solid red;
+        }
+            .snippetSelector {
+                position:relative;
+                float:left;
+                width:3%;
+                min-width:35px;
+                padding:0 5px;
+                z-index:600;
+            }
+                .snippetSelector .glyphicon {
+                    color:@icon-color;
+                }
+
+            .snippetContent {
+                position:relative;
+                float:left;
+                width:97%;
+                border-radius:10px;
+                .make-row();
+            }
+
+                .snippetFade {
+                    position:absolute;
+                    left:0;
+                    top:0;
+                    width:100%;
+                    height:100%;
+                    margin:0 15px;
+                    margin-right:50px;
+                    z-index:700;
+                    border-radius:6px;
+                    background: rgba(245, 245, 245, 0.3);
+                }
+                    .snippetFade div.layout {
+                        float:left;
+                        margin-left:5px;
+                        background-color:#fff !important;
+                        vertical-align:center;
+                        cursor: pointer;
+                    }
+                        .snippetFade button.layout.snip-it {
+                            float:left;
+                            color:#fff;
+                            //font-family: 'Rochester', cursive;
+                            font-family: cursive;
+                            font-size:14px;
+                            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                        }
+                            .snippetFade .layout span {
+                                vertical-align:center;
+                                color:darken(@icon-color, 15%);
+                            }
+                            .snippetFade .layout.snippetColLayout span {
+                                margin-top:-2px;
+                                margin-left:10px;
+                            }
+                            .snippetFade .layout.snippetEdit span {
+                                margin-left:10px;
+                            }
+                            .snippetFade .layout.snippetDelete span {
+                                margin-top:-2px;
+                                margin-left:10px;
+                            }
+                                .snippetFade .layout.snippetColLayout span.active,
+                                .snippetFade .layout.snippetRowLayout span.active,
+                                .snippetFade .layout.snippetTitleOnlyLayout span.active {
+                                    color:@icon-color-hover;
+                                }
+                                .snippetFade div.layout span:hover {
+                                    color:darken(@icon-hover-color, 100%);
+                                }
+                    .snippetFade .snippetDelete {
+                        margin-left:10px;
+                    }
+
+                #snippetForm {
+                }
+                    #snippetForm .snippetContent {
+                        z-index: 5100;
+                    }
+                        #snippetFormBar {
+                            .make-xs-column(12);
+                            position:relative;
+                            height:34px;
+                            margin-bottom:2px;
+                        }
+                            #snippetForm .snippetSelector {
+                                padding:5px;
+                            }
+                            #snippetSave, #snippetCancel, #snippetAccess {
+                                float:right;
+                                width:46px;
+                                height:24px;
+                                margin-top:5px;
+                                border:none;
+                                border-radius: 4px;
+                                color:#fff;
+                                font-size:11px;
+                            }
+                            #snippetAccess {
+                                margin-right:10px;
+                                font-size: 14px;
+                                color:@icon-color;
+                                background-color:#fff;
+                            }
+                                #snippetAccess:hover {
+                                    color:darken(@icon-color, 9%);
+                                }
+                                #snippetAccess:focus {
+                                    outline:0;
+                                }
+                            #snippetCancel {
+                                margin-right:10px;
+                                background-color:@brand-danger;
+                            }
+                                #snippetCancel:hover {
+                                    background-color:darken(@brand-danger, 9%);
+                                }
+                            #snippetSave {
+                                background-color:@icon-color-selected;
+                            }
+                                #snippetSave:hover {
+                                    background-color:darken(@icon-color-selected, 9%);
+                                }
+                            #snippetForm .snippetTitle {
+                            }
+                    #snippetForm .CodeMirror {
+                        height:auto;
+                        min-height:30px;
+                        max-height:400px;
+                        margin:5px 0;
+                        border-radius:4px;
+                        border: 1px solid #cccccc;
+                    }
+                        #snippetForm .CodeMirror.CodeMirror-focused {
+                            border-color: #66afe9;
+                            outline: 0;
+                            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+                            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+                        }
+                        #snippetForm .snippetDes-col .CodeMirror,
+                        #snippetForm .snippetDes-row .CodeMirror, {
+                            font-family:@des-font-family;
+                            font-size: small;
+                        }
+                        #snippetForm .snippetCode-col .CodeMirror,
+                        #snippetForm .snippetCode-row .CodeMirror, {
+                            background-color:@user-snippet-code-color;
+                            font-family:@code-font-family;
+                            font-size: x-small;
+                        }
+                        #snippetForm .CodeMirror-scroll {
+                            height:auto;
+                            overflow-x:auto;
+                        }
+                        #snippetForm .CodeMirror-scroll {
+                            [contentEditable=true]:empty:not(:focus):before{
+                                content:attr(data-ph)
+                            }
+                        }
+
+                .snippetTitle {
+                    .make-xs-column(12);
+                }
+                    .snippetTitle h5 {
+                        font-weight:bold;
+                        margin: 5px 0;
+                    }
+                    #titleDiv {
+                        position:relative;
+                    }
+                    #titleField {
+                        position:absolute;
+                        left:0;
+                        font-weight: bold;
+                        font-size: 14px;
+                        font-family: inherit;
+                    }
+
+                #formContent.snippetTextAreas {
+                    .make-row();
+                    margin-top:34px;
+                }
+                    #formContent.snippetTextAreas textarea {
+                        margin:5px 0;
+                    }
+
+                    .snippetDesText {
+                        padding: 5px 0;
+                    }
+                        .snippetDesStyle {
+                            font-family:@des-font-family;
+                            font-size: small;
+                            margin-bottom:0;
+                            background-color:white;
+                            line-height:1;
+                        }
+                            .snippetDesStyle pre {
+                                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                background-color: transparent;
+                                padding:0;
+                                margin:0;
+                                border:none;
+                                line-height:1;
+                                overflow:hidden;
+                            }
+                            textarea.snippetDesStyle {
+                                font-family:@des-font-family;
+                                font-size: small;
+                            }
+                        .snippetDes-col {
+                            .make-sm-column(6);
+                            padding-right: 5px;
+                        }
+                            .snippetDesText.snippetDes-col {
+                                padding-left:0;
+                            }
+                            .snippetDes-col ul {
+                                padding-left: 18px;
+                            }
+                        .snippetDes-row {
+                            .make-sm-column(12);
+                        }
+                            .snippetDesText.snippetDes-row {
+                                padding-left:0;
+                            }
+                            .snippetDes-row ul {
+                                padding-left: 18px;
+                            }
+
+                    .snippetCodeText {
+                        padding: 5px 0;
+                        border-radius:4px;
+                        line-height:1;
+                    }
+                        .snippetCodeStyle {
+                            font-family:@code-font-family;
+                            font-size: x-small;
+                        }
+                            .snippetCodeText.snippetCodeStyle:empty {
+                                background-color:#fff;
+                                padding:0;
+                            }
+                            .snippetCodeStyle.owned {
+                                background-color:@user-snippet-code-color;
+                            }
+                                .snippetCodeStyle.owned pre {
+                                    font-size: x-small;
+                                    background-color: transparent;
+                                    padding:0;
+                                    margin:0;
+                                    border:none;
+                                    line-height:1;
+                                    overflow:hidden;
+                                }
+                            .snippetCodeStyle.notOwned {
+                                background-color:@public-snippet-code-color;
+                            }
+                                .snippetCodeStyle.notOwned pre {
+                                    font-size: x-small;
+                                    background-color: transparent;
+                                    padding:0;
+                                    margin:0;
+                                    border:none;
+                                    line-height:1;
+                                    overflow:hidden;
+                                }
+                        .snippetCode-col {
+                            .make-sm-column(6);
+                            padding-left: 5px;
+                            position:relative;
+                        }
+                        .snippetCode-row {
+                            .make-sm-column(12);
+                        }
+                            .snippetCodeText.snippetCode-row {
+                                padding-left: 5px;
+                            }
+

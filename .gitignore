@@ -22,3 +22,17 @@ app/static/main.css
 app/static/header/header.css
 
 app/static/snippetbar/snippetbar.css
+
+app/static/signedout/signedout.css
+
+app/static/signin.css
+
+app/static/user/user.css
+
+app/static/components/header/header.css
+
+app/static/components/header/signin.css
+
+app/static/signedout/snippets.css
+
+app/static/components/snippetbar/snippetbar.css

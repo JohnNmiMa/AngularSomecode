@@ -4,7 +4,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
 .directive('snippetSearch', function() {
     return {
         restrict: 'E',
-        templateUrl: 'static/header/snippetSearch.html',
+        templateUrl: 'static/components/header/snippetSearch.html',
         transclude: false,
         controller: function($scope, $element, $attrs) {
             $scope.computeLayout = function() {
