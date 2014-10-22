@@ -21,6 +21,44 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
     });
 }])
 
-.controller('SomeCodeCtrl', ['$scope', function ($scope) {
-    $scope.SomeCodeCtrlModel=true;
+.controller('SomeCodeCtrl', ['$scope', '$location', 'oauthLibrary', 'snippetLogout',
+                     function($scope,   $location,   oauth,          snippetLogout) {
+    $scope.$watch(function() {
+            return $scope.isAuthenticated();
+        },
+        function(newVal, oldVal) {
+            if (newVal) {
+                $scope.username = oauth.username();
+                $scope.hideSignin();
+            }
+        });
+
+    $scope.showSignin = function() {
+        $('.signinModal').modal('show');
+    };
+
+    $scope.hideSignin = function() {
+        $('.signinModal').modal('hide');
+    };
+
+    $scope.authenticate = function(provider) {
+        oauth.authenticate(provider).then(function(response) {
+            $location.path('/user');
+        });
+    };
+
+    $scope.isAuthenticated = function(provider) {
+        return oauth.isAuthenticated();
+    };
+
+    $scope.logout = function() {
+        snippetLogout().then(function(response) {
+            oauth.logout();
+        }, function(error) {
+            console.log(error.url + " failed with status error " + error.statusCode);
+        })
+            .finally(function() {
+                $location.path('/');
+            });
+    };
 }]);

@@ -18,3 +18,7 @@ app/static/main.css
 *.swp
 
 *.txt~
+
+app/static/header/header.css
+
+app/static/snippetbar/snippetbar.css

@@ -47,16 +47,16 @@ Directory Structure:
         - contains .html files for directives
           - snippetSearch.html
 
-Implement logged out view
+Implement logged out view - DONE
 - Create header - DONE
 - Get Flask server running for home page - DONE
 - Get Flask server authenticating with Google, Facebook, Twitter OAuth - DONE
-  - Get protocol running for one provider
-  - Save token from server away
-  - Create interceptor to insert token header
-- Create SnippetBar
-  - Render Create & Layout icons
-    - hide create button if logged out
+  - Get protocol running for one provider - DONE
+  - Save token from server away - DONE
+  - Create interceptor to insert token header - DONE
+- Create SnippetBar - DONE
+  - Render Create & Layout icons - DONE
+    - hide create button if logged out - DONE
   !- Keep SnippetBar from scrolling off top of page
 Implement signed-in view
 - Finish SnippetBar

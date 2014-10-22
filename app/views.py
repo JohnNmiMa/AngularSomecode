@@ -191,7 +191,6 @@ def facebook_authorized():
     token = create_jwt_token(g.user)
     reply = {'token':token, 'username':user.name}
     return jsonify(reply)
-    #return redirect(url_for('user'))
 
 ###
 ### Google OAuth
@@ -242,7 +241,6 @@ def google_authorized():
     token = create_jwt_token(g.user)
     reply = {'token':token, 'username':user.name}
     return jsonify(reply)
-    #return redirect(url_for('topics'))
 
 ###
 ### Twitter OAuth

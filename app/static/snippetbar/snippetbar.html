@@ -1,0 +1,35 @@
+<!-- SNIPPET BAR -->
+<div id='snippetBar'>
+    <ul id='leftSnippetBar' class="nav nav-pills">
+        <li id='toggleIcon'>
+            <a href="#" ng-if="isAuthenticated()">
+                <span class="fa fa-align-justify fa-2x fa-rotate-90"></span>
+            </a>
+        </li>
+        <li>
+            <h5 id='snippetTopicSearchDisplay'></h5>
+        </li>
+    </ul>
+    <ul id='rightSnippetBar' class="nav nav-pills">
+        <li id='snippetAdd' class="hidden-xs" ng-if="isAuthenticated()">
+            <a href="#">
+                <span class="fa fa-plus fa-2x"></span>
+            </a>
+        </li>
+        <li id='snippetColIcon' class='hidden-xs'>
+            <a href="#">
+                <span class="fa fa-minus-square-o fa-rotate-90 fa-2x active"></span>
+            </a>
+        </li>
+        <li id='snippetRowIcon'>
+            <a href="#">
+                <span class="fa fa-minus-square-o fa-2x"></span>
+            </a>
+        </li>
+        <li id='snippetTitleOnlyIcon'>
+            <a href="#">
+                <span class="fa fa-square-o fa-2x"></span>
+            </a>
+        </li>
+    </ul>
+</div>
