@@ -1,4 +1,15 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
+someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetService',
+                              function($scope,   oauth,          snippetSearch,   snippetService) {
+    $scope.HeaderCtrlScope = "HeaderCtrlScope";
+    $scope.searchSubmit = function() {
+        console.log($scope.searchString);
+        var searchAccess = oauth.isAuthenticated() ? 'private' : 'public';
+        snippetSearch(searchAccess, $scope.searchString).then(function(results) {
+            $scope.$emit('updateSearchString', $scope.searchString);
+            $scope.searchString = "";
+            snippetService.snippets = results;
+        });
+    }
 }])
 
 .directive('snippetSearch', function() {
@@ -7,6 +18,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', function($scope) {
         templateUrl: 'static/components/header/snippetSearch.html',
         transclude: false,
         controller: function($scope, $element, $attrs) {
+            // $scope is HeaderCtrl's scope
             $scope.computeLayout = function() {
                 if ($scope.isSignedIn) {
                     return {'min-width':'290px'};

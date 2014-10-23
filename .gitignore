@@ -36,3 +36,5 @@ app/static/components/header/signin.css
 app/static/signedout/snippets.css
 
 app/static/components/snippetbar/snippetbar.css
+
+npm-debug.log

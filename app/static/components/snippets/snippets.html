@@ -1,0 +1,45 @@
+<div class="snippet">
+    <div class="snippetSelector">
+        <a href="#">
+            <span class="glyphicon fa-2x"
+                  ng-class="{'glyphicon-eye-open':   isPublicSnippet(snip.access),
+                             'glyphicon-eye-close': !isPublicSnippet(snip.access)}"></span>
+        </a>
+    </div>
+    <div class="snippetContent">
+        <div class="snippetFade" style="display:none">
+            <button type="button" class="btn btn-danger btn-xs layout snip-it">Snip it</button>
+            <div class="layout snippetColLayout hidden-xs">
+                <span class="fa fa-minus-square-o fa-rotate-90 fa-2x"></span>
+            </div>
+            <div class="layout snippetRowLayout">
+                <span class="fa fa-minus-square-o fa-2x"></span>
+            </div>
+            <div class="layout snippetTitleOnlyLayout">
+                <span class="fa fa-square-o fa-2x"></span>
+            </div>
+            <div ng-if="owned == true" class="layout snippetEdit">
+                <span class="fa fa-pencil-square-o fa-2x"></span>
+            </div>
+            <div ng-if="owned == true" class="layout snippetDelete">
+                <span class="fa fa-times fa-2x"></span>
+            </div>
+        </div>
+
+        <div class="snippetTitle">
+            <h5 class="snippetTitleText">{{snip.title}}</h5>
+            <div class="snippetTextAreas">
+                <div ng-show="snip.description" ng-bind-html="getTrustedHtml(snip.description)"
+                     class="snippetDesText snippetDesStyle"
+                     ng-class="{'snippetDes-col':layout() === 'column', 'snippetDes-row':layout() === 'row'}">
+                </div>
+                <div ng-show="snip.code" ng-bind-html="getTrustedHtml(snip.code)"
+                     class="snippetCodeText snippetCodeStyle snippetCodeLayout owned"
+                     ng-class="{'snippetCode-col':layout() === 'column', 'snippetCode-row':layout() === 'row',
+                                'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
+                                'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

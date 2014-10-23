@@ -6,7 +6,7 @@ from functools import wraps
 from urlparse import parse_qs, parse_qsl
 from urllib import urlencode
 from flask import current_app
-from flask import render_template, flash, redirect, url_for, session, request, g, jsonify
+from flask import render_template, flash, redirect, url_for, session, request, Response, g, jsonify
 from flask.ext.login import login_user, logout_user, current_user
 from models import User, Topic, Snippet, ROLE_USER, ROLE_ADMIN, ACCESS_PRIVATE, ACCESS_PUBLIC
 from app import app, db, login_manager
@@ -87,6 +87,20 @@ def user():
 
     reply = {'personal_count':personal_count, 'public_count':public_count, 'topics':topicList}
     return jsonify(reply)
+
+
+@app.route('/snippets/search/public', methods = ['GET'])
+def search_public():
+    query = request.args['search']
+
+    # Get all public snippets that match the search
+    snippets = Snippet.query.whoosh_search(query).filter_by(access=ACCESS_PUBLIC).all()
+    reply = {}
+    for i, snip in enumerate(snippets):
+        d = dict(title = snip.title, description = snip.description, code = snip.code,
+                 access = snip.access, creator_id = snip.creator_id, id = snip.id)
+        reply[i] = d
+    return Response(json.dumps(reply), 200, mimetype="application/json")
 
 
 @app.route('/logout')

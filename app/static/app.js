@@ -12,6 +12,9 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
             $rootScope.isLoading=false;
         }, 500);
     });
+    $rootScope.$on('updateSearchString', function(event, searchStr) {
+        $rootScope.$broadcast('topicOrSearchString', ('\"' + searchStr + '\" search'));
+    });
 }])
 
 .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
@@ -23,15 +26,16 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
 
 .controller('SomeCodeCtrl', ['$scope', '$location', 'oauthLibrary', 'snippetLogout',
                      function($scope,   $location,   oauth,          snippetLogout) {
+    $scope.SomeCodeCtrlScope = "SomeCodeCtrlScope";
     $scope.$watch(function() {
-            return $scope.isAuthenticated();
-        },
-        function(newVal, oldVal) {
-            if (newVal) {
-                $scope.username = oauth.username();
-                $scope.hideSignin();
-            }
-        });
+        return $scope.isAuthenticated();
+    },
+    function(newVal, oldVal) {
+        if (newVal) {
+            $scope.username = oauth.username();
+            $scope.hideSignin();
+        }
+    });
 
     $scope.showSignin = function() {
         $('.signinModal').modal('show');
