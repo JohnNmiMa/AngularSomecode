@@ -10,6 +10,7 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
         templateUrl: './static/components/snippets/snippets.html',
         controller: function($scope, $sce, $element, $attrs, oauthLibrary, snippetBarService) {
             $scope.SnippetDirectiveScope = "SnippetDirectiveScope";
+            $scope.snippetPopupVisible = false;
             $scope.getTrustedHtml = function(htmlStr) {
                 var layout = snippetBarService.snippetLayout;
                 if (layout === 'titlesonly') {
@@ -23,13 +24,18 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
             };
             $scope.isSnippetOwnedByCurrentUser = function(creatorId) {
                 return oauthLibrary.isAuthenticated() ? true : false;
-            }
+            };
             $scope.layout = function() {
                 return snippetBarService.snippetLayout;
-            }
+            };
+            $scope.showSnippetPopup = function() {
+                $scope.snippetPopupVisible = true;
+            };
+            $scope.hideSnippetPopup = function() {
+                $scope.snippetPopupVisible = false;
+            };
         },
-        link: function($scope, element, attrs) {
-            $scope.owned = false;
+        link: function(scope, element, attrs) {
         }
     }
 });
