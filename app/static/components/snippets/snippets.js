@@ -9,8 +9,17 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
         restrict: 'E',
         scope: true,
         templateUrl: './static/components/snippets/snippets.html',
-        link: function(scope, element, attrs) {
-            console.log("In snippet directive link");
+        controller: function($scope, $element, $attrs) {
+            $scope.layout = snippetBarService.snippetLayout;
+
+            $scope.$on('snippetLayout', function(event, snippetLayout) {
+                $scope.layout = snippetLayout;
+            });
+            this.setLayout = function(snippetLayout) {
+                $scope.layout = snippetLayout;
+            }
+        },
+        link: function(scope, element, attrs, snippetCtrl) {
             scope.snippetPopupVisible = false;
             scope.isPublicSnippet = function(snippetAccess) {
                 return snippetAccess;
@@ -18,16 +27,8 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
             scope.isSnippetOwnedByCurrentUser = function(creatorId) {
                 return oauth.isAuthenticated() ? true : false;
             };
-            scope.layout = function() {
-                return snippetBarService.snippetLayout;
-            };
             scope.getTrustedHtml = function(htmlStr) {
-                var layout = snippetBarService.snippetLayout;
-                if (layout === 'titlesonly') {
-                    return "";
-                } else {
-                    return $sce.trustAsHtml(htmlStr);
-                }
+                return $sce.trustAsHtml(htmlStr);
             };
             scope.showSnippetPopup = function() {
                 scope.snippetPopupVisible = true;
@@ -41,7 +42,13 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
 
 .directive('snippetPopup', function() {
     return {
+        require: '?^snippet',
         restrict: 'E',
-        templateUrl: './static/components/snippets/snippetPopup.html'
+        templateUrl: './static/components/snippets/snippetPopup.html',
+        link: function(scope, element, attrs, snippetCtrl) {
+            scope.setLayout = function(layout) {
+                snippetCtrl.setLayout(layout);
+            }
+        }
     }
 });

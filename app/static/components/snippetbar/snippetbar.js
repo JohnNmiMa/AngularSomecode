@@ -5,10 +5,11 @@ someCodeApp.controller('SnippetBarCtrl', ['$scope', 'snippetBarService',
     $scope.$on('topicOrSearchString', function(event, searchStr) {
         $scope.topicOrSearchString = searchStr;
     });
-    $scope.setlayout = function(layout) {
+    $scope.setLayout = function(layout) {
         snippetBar.snippetLayout = layout;
+        $scope.$emit('snippetLayoutChange', layout);
     }
-    $scope.getlayout = function() {
+    $scope.getLayout = function() {
         return snippetBar.snippetLayout;
     }
 }])
