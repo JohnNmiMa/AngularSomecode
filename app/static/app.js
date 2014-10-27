@@ -18,6 +18,9 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
     $rootScope.$on('snippetLayoutChange', function(event, layout) {
         $rootScope.$broadcast('snippetLayout', layout);
     });
+    $rootScope.$on('updateSnippetsEvent', function(event, snippets) {
+        $rootScope.$broadcast('updateSnippets', snippets);
+    });
 }])
 
 .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {

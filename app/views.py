@@ -89,6 +89,26 @@ def user():
     return jsonify(reply)
 
 
+@app.route('/snippets/search/private', methods = ['GET'])
+@login_required
+def search_private():
+    topics = g.user.topics
+    query = request.args['search']
+
+    # Get all user's snippets that match the search
+    reply = {}
+    i = 0;
+    for topic in topics:
+        snippets = Snippet.query.filter_by(topic_id=topic.id).whoosh_search(query).all()
+        for snip in snippets:
+            d = dict(title = snip.title, description = snip.description, code = snip.code,
+                     access = snip.access, creator_id = snip.creator_id, id = snip.id)
+            reply[i] = d
+            i += 1;
+
+    return Response(json.dumps(reply), 200, mimetype="application/json")
+
+
 @app.route('/snippets/search/public', methods = ['GET'])
 def search_public():
     query = request.args['search']

@@ -6,6 +6,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
         var searchAccess = oauth.isAuthenticated() ? 'private' : 'public';
         snippetSearch(searchAccess, $scope.searchString).then(function(results) {
             $scope.$emit('updateSearchString', $scope.searchString);
+            $scope.$emit('updateSnippetsEvent', results);
             $scope.searchString = "";
             snippetService.snippets = results;
         });
