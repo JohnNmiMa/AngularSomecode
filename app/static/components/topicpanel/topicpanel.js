@@ -29,6 +29,9 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
             $scope.topicEditSubmit = function() {
                 console.log("At topicEditSubmit: " + $scope.topicEditString);
             }
+            $scope.isEditable = function(topicName) {
+                return (topicName === "General" || topicName === "Welcome") ? false : true;
+            };
         },
         link: function (scope, element, attrs, topicPanelCtrl) {
         }
@@ -42,12 +45,6 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
         replace: true,
         templateUrl: './static/components/topicpanel/topic.html',
         link: function(scope, element, attrs, topicPanelCtrl) {
-            scope.isEditable = function(topicName) {
-                if (topicName === "General" || topicName === "Welcome") {
-                    return false;
-                }
-                return true;
-            };
         }
     }
 });
