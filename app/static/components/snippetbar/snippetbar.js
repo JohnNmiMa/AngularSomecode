@@ -8,7 +8,7 @@ someCodeApp.controller('SnippetBarCtrl', ['$scope', 'snippetBarService',
     $scope.setLayout = function(layout) {
         snippetBar.snippetLayout = layout;
         $scope.$emit('snippetLayoutChange', layout);
-    }
+    };
     $scope.getLayout = function() {
         return snippetBar.snippetLayout;
     }

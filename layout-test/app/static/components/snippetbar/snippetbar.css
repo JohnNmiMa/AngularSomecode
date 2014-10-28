@@ -1,0 +1,60 @@
+/* Less variables */
+/*
+ * Snippet Bar
+ */
+#snippetBar {
+  position: relative;
+  margin-top: 0;
+  height: 50px;
+}
+#snippetBar a {
+  background-color: #fff;
+}
+#snippetBar a span:hover {
+  color: #737373;
+}
+#leftSnippetBar {
+  position: absolute;
+  left: 0;
+}
+#toggleIcon a {
+  padding-left: 0;
+  margin-left: -10px;
+  z-index: 5100;
+}
+#toggleIcon span.fa-align-justify {
+  text-align: left;
+}
+#snippetAdd span.selected {
+  color: #5cb85c;
+}
+#snippetAdd span.selected:hover {
+  color: #5cb85c;
+}
+#rightSnippetBar {
+  position: absolute;
+  right: 0;
+}
+#rightSnippetBar li a {
+  padding-left: 0;
+}
+#rightSnippetBar li#snippetColIcon,
+#rightSnippetBar li#snippetRowIcon,
+#rightSnippetBar li#snippetTitleOnlyIcon {
+  z-index: 5100;
+}
+#rightSnippetBar li a span {
+  color: #999999;
+}
+#rightSnippetBar li#snippetColIcon a span {
+  margin-top: -2px;
+}
+#rightSnippetBar li a span.active {
+  color: #000000;
+}
+#rightSnippetBar li a span i {
+  color: inherit;
+}
+#snippetTopicSearchDisplay {
+  margin: 16px 0;
+}

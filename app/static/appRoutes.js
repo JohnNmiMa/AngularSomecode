@@ -15,10 +15,6 @@ viewsModule.config(['$httpProvider', '$routeProvider',
                 return snippetUser();
             }]
         }
-    })
-    .when("/signin/:oauthprovider", {
-        templateUrl : "./static/signedin/signin.html",
-        controller : 'SigninCtrl'
     });
 }]);
 
