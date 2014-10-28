@@ -12,14 +12,17 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
             $rootScope.isLoading=false;
         }, 500);
     });
+    $rootScope.$on('updateTopicsEvent', function(event) {
+        $rootScope.$broadcast('updateTopics');
+    });
     $rootScope.$on('updateSearchString', function(event, searchStr) {
         $rootScope.$broadcast('topicOrSearchString', ('\"' + searchStr + '\" search'));
     });
     $rootScope.$on('snippetLayoutChange', function(event, layout) {
         $rootScope.$broadcast('snippetLayout', layout);
     });
-    $rootScope.$on('updateSnippetsEvent', function(event, snippets) {
-        $rootScope.$broadcast('updateSnippets', snippets);
+    $rootScope.$on('updateSnippetsEvent', function(event) {
+        $rootScope.$broadcast('updateSnippets');
     });
 }])
 

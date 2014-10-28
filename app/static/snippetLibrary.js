@@ -3,12 +3,26 @@ angular.module('snippetLibrary', [])
 //.constant('API_PREFIX', 'http://api.geonames.org')
 
 .service('snippetService', function() {
-    var snippets = {};
+    var snippets = {},
+        topics = {};
+
+    var setTopics = function(topicList, scope) {
+        topics = topicList;
+        scope.$emit('updateTopicsEvent');
+    };
+    var setSnippets = function(snippetList, scope) {
+        snippets = snippetList;
+        scope.$emit('updateSnippetsEvent');
+    };
 
     return {
         // Getters and setters
         get snippets()      { return snippets; },
-        set snippets(snips) { snippets = snips; }
+        get topics()        { return topics; },
+
+        // Public functions
+        setTopics:setTopics,
+        setSnippets:setSnippets
     }
 })
 

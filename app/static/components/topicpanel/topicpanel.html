@@ -1,0 +1,28 @@
+<div id='topicPanel' class='panel panel-default' ng-controller="TopicPanelCtrl">
+    <div class='panel-heading'>
+        <span id="topicTitle">Topics</span>
+        <a id="topicAdd" href="javascript:void(0)" ng-click="topicAdd()">
+            <span class="fa fa-plus"></span></a>
+        <a id="topicEdit" href="javascript:void(0)" ng-click="topicEdit()">
+            <span class="fa fa-pencil"></span></a>
+    </div>
+    <div class='panel-body'>
+        <ul class='list-group'>
+            <li id='topicFormContainer' class='list-group-item' ng-show="isAddingTopic">
+                <form id='topicForm' name='topicForm' role='form' ng-submit='topicAddSubmit()'>
+                    <input id='topicNameField' type="text" name="topicName" class="form-control"
+                           maxlength="30" autocomplete="off" autofocus="on" placeholder="New topic title"
+                           ng-model="topicAddString">
+                </form>
+            </li>
+
+            <form id="topicEditForm" name="topicEditForm" role="form" ng-submit="topicEditSubmit()" ng-show="false">
+                <input id="topicEditNameField" type="text" name="topicEditName" class="form-control"
+                       maxlength="30" autocomplete="off" autofocus="on"
+                       ng-model="topicEditString">
+            </form>
+
+            <topic ng-repeat="topic in topics"></topic>
+        </ul>
+    </div>
+</div>

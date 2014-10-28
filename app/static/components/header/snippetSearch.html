@@ -2,8 +2,8 @@
     <div id="snippetSearchContainer" ng-class="{'focused':focused == true}" ui-event="{blur:'blurOut($event)'}">
         <input type="text" id="snippetSearchField" class="form-control reset" name="q"
                autocomplete="off" placeholder={{placeholderText}} search-sizer ng-model="searchString"><!--
-      --><span id="personalSnippetCounter" class="badge left" ng-if="isSignedIn == true" ng-class="{selected:isSignedIn}">134</span><!--
-      --><span ng-show="isSignedIn">&nbsp / &nbsp</span><!--
-      --><span id="publicSnippetCounter" class="badge right" ng-class="{selected:!isSignedIn}">103456</span>
+      --><span id="personalSnippetCounter" class="badge left" ng-if="isAuthenticated() == true" ng-class="{selected:isAuthenticated()}">134</span><!--
+      --><span ng-show="isAuthenticated()">&nbsp / &nbsp</span><!--
+      --><span id="publicSnippetCounter" class="badge right" ng-class="{selected:!isAuthenticated()}">103456</span>
     </div>
 </form>

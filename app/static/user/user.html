@@ -1,16 +1,15 @@
 <div id='snippetBlock'>
-    <!--{% block topicPanel %}-->
+    <topic-panel></topic-panel>
 
     <div id='snippetPanel' ng-class="{'loggedin':isAuthenticated(), 'loggedout':!isAuthenticated()}">
         <div ng-include src="'./static/components/snippetbar/snippetbar.html'"></div>
 
         <div id='snippetContainer' class='container-fluid'>
-            <!--{% block snippets %}-->
             <div id='userSnippets'>
-                <!--{% block snippets %}-->
                 <snippet ng-repeat="snip in snippets"></snippet>
             </div>
         </div>
     </div>
 </div>
+
 

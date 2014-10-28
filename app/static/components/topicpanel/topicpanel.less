@@ -1,0 +1,88 @@
+@import "../../variables.less";
+
+#topicPanel {
+    display:table-cell;
+    margin-top: 10px;
+    width: @default-topicpanel-width;
+    max-height:800px;
+    background: #eee;
+}
+    #topicPanel.loggedin {
+        width:@default-topicpanel-width;
+    }
+    #topicPanel.loggedout {
+        width:0;
+        display:none;
+    }
+    #topicPanel .panel-heading {
+        position: relative;
+        height:42px;
+        padding:10px 5px;
+    }
+        #topicTitle {
+            position:absolute;
+            line-height:21px;
+            vertical-align:center;
+            font-weight:bold;
+        }
+        #topicAdd {
+            position:absolute;
+            right:5px;
+            line-height:21px;
+            font-size:1.5em;
+        }
+            #topicAdd span.selected {
+                color:@icon-color-selected;
+            }
+        #topicEdit {
+            position:absolute;
+            right:40px;
+            line-height:21px;
+        }
+            #topicEdit span.selected {
+                color:@icon-color-selected;
+            }
+    #topicPanel .panel-body {
+        padding:5px 5px;
+    }
+    #topicPanel .panel-body #topicForm #topicNameField {
+        padding:3px 6px;
+    }
+        #topicPanel .panel-body #topicForm #topicNameField::-webkit-input-placeholder {
+            font-size: 0.85em;
+        }
+        #topicPanel .panel-body #topicEditForm #topicEditNameField {
+            padding:3px 6px;
+        }
+        #topicPanel .panel-body span.badge.sit-right {
+            position:absolute;
+            top:4px;
+            right:5px;
+        }
+    #topicPanel ul {
+        padding: 0;
+    }
+        #topicPanel ul li {
+            //list-style-type: none;
+            padding: 3px 5px;
+        }
+            #topicPanel ul li.active {
+                color:white;
+            }
+        #topicPanel li a {
+            padding: 0;
+            color:inherit;
+        }
+            #topicPanel li a:hover {
+                text-decoration: none;
+            }
+        #topicPanel li span.topicDelete {
+            color:@brand-danger;
+            cursor: pointer;
+        }
+        #topicPanel li span.topicDeleteInvisible,
+        #topicPanel li span.topicWelcomeInvisible {
+            color:white;
+            opacity:0;
+            cursor: auto;
+        }

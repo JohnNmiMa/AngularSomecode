@@ -5,10 +5,9 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
         console.log($scope.searchString);
         var searchAccess = oauth.isAuthenticated() ? 'private' : 'public';
         snippetSearch(searchAccess, $scope.searchString).then(function(results) {
+            snippetService.setSnippets(results, $scope);
             $scope.$emit('updateSearchString', $scope.searchString);
-            $scope.$emit('updateSnippetsEvent', results);
             $scope.searchString = "";
-            snippetService.snippets = results;
         });
     }
 }])
@@ -67,4 +66,4 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             computeSearchInputWidth();
         }
     }
-})
+});

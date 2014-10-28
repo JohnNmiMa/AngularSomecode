@@ -81,7 +81,7 @@ def user():
     topicList = {}
     for i, topic in enumerate(topics):
         personal_count += topic.snippets.count()
-        d = dict(id = topic.id, name = topic.topic)
+        d = dict(id = topic.id, name = topic.topic, count = topic.snippets.count())
         topicList[i] = d
     public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
 
