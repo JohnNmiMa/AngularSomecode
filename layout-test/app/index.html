@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='en' ng-app="LayoutApp">
+<head>
+    <!--For iOS devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- build:css ./_assets/combined.css -->
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/bower_components/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="./static/bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="./static/main.css" />
+    <!-- endbuild -->
+    <meta charset='UTF-8' />
+    <title>SomeCode App</title>
+</head>
+
+<body ng-controller="LayoutCtrl">
+    <div ng-include src="'./static/components/header/header.html'"></div>
+    <div ng-view></div>
+
+    <script type="text/javascript" src="./static/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="./static/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./static/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="./static/bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="./static/appViews.js"></script>
+    <script type="text/javascript" src="./static/snippetLibrary.js"></script>
+    <script type="text/javascript" src="./static/appRoutes.js"></script>
+    <script type="text/javascript" src="./static/signedout/signedout.js"></script>
+    <script type="text/javascript" src="./static/app.js"></script>
+    <script type="text/javascript" src="./static/components/header/header.js"></script>
+    <script type="text/javascript" src="./static/components/snippetbar/snippetbar.js"></script>
+    <script type="text/javascript" src="./static/components/snippets/snippets.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<div class="snippetPopup" ng-show="snippetPopupVisible === true">
+    <button type="button" class="btn btn-danger btn-xs layout snip-it">Snip it</button>
+    <div ng-click="setLayout('column')" class="layout snippetColLayout hidden-xs">
+        <span class="fa fa-minus-square-o fa-rotate-90 fa-2x"
+              ng-class="{'active':layout === 'column'}"></span>
+    </div>
+    <div class="layout snippetRowLayout" ng-click="setLayout('row')">
+        <span class="fa fa-minus-square-o fa-2x"
+              ng-class="{'active':layout === 'row'}"></span>
+    </div>
+    <div class="layout snippetTitleOnlyLayout" ng-click="setLayout('titlesonly')">
+        <span class="fa fa-square-o fa-2x"
+              ng-class="{'active':layout === 'titlesonly'}"></span>
+    </div>
+    <div ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)" class="layout snippetEdit">
+        <span class="fa fa-pencil-square-o fa-2x"></span>
+    </div>
+    <div ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)" class="layout snippetDelete">
+        <span class="fa fa-times fa-2x"></span>
+    </div>
+</div>
+

@@ -1,0 +1,30 @@
+<!-- SNIPPET BAR -->
+<div id='snippetBar' ng-controller="SnippetBarCtrl">
+    <ul id='leftSnippetBar' class="nav nav-pills">
+        <li id='toggleIcon'>
+            <a href="javascript:void(0)">
+                <span><i class="fa fa-align-justify fa-2x fa-rotate-90 fa-fw"></i></span>
+            </a>
+        </li>
+        <li>
+            <h5 id='snippetTopicSearchDisplay'>{{topicOrSearchString}}</h5>
+        </li>
+    </ul>
+    <ul id='rightSnippetBar' class="nav nav-pills">
+        <li id='snippetColIcon' class='hidden-xs'>
+            <a href="javascript:void(0)" ng-click="setLayout('column')">
+                <span class="fa fa-minus-square-o fa-rotate-90 fa-2x active" ng-class="{'active':getLayout() === 'column'}"></span>
+            </a>
+        </li>
+        <li id='snippetRowIcon'>
+            <a href="javascript:void(0)" ng-click="setLayout('row')">
+                <span class="fa fa-minus-square-o fa-2x" ng-class="{'active':getLayout() === 'row'}"></span>
+            </a>
+        </li>
+        <li id='snippetTitleOnlyIcon' ng-click="setLayout('titlesonly')">
+            <a href="javascript:void(0)">
+                <span class="fa fa-square-o fa-2x" ng-class="{'active':getLayout() === 'titlesonly'}"></span>
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,4 +1,4 @@
-//@import "variables.less";
+@import "variables.less";
 
 body {
     padding-top: 50px;
@@ -14,15 +14,18 @@ body {
 }
 
 #snippetBlock {
-    margin:0 15px;
+    display:table;
+    padding:0 15px;
+    width:100%;
 }
 
 /*
  * Snippet Panel
  */
 #snippetPanel {
-    float: left;
+    display:table-cell;
     vertical-align: top;
+    padding-left: 10px;
 }
 #snippetPanel.loggedin {
 //    width:@default-rightpanel-width-narrow;
@@ -40,3 +43,7 @@ body {
  * Snippet styles
  */
 @import "components/snippets/snippets.less";
+
+.fa {
+    color:@icon-color;
+}

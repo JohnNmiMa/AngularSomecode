@@ -1,0 +1,64 @@
+@import "../../variables.less";
+
+/*
+ * Snippet Bar
+ */
+#snippetBar {
+    position: relative;
+    margin-top: 0;
+    height: 50px;
+    //border:1px solid red;
+}
+    #snippetBar a {
+        background-color:#fff;
+    }
+        #snippetBar a span:hover {
+            color:@icon-hover-color;
+        }
+    #leftSnippetBar {
+        position:absolute;
+        //margin-left: -15px;
+        left: 0;
+    }
+        #toggleIcon a {
+            padding-left: 0;
+            margin-left: -10px;
+            z-index:5100;
+        }
+        #toggleIcon span.fa-align-justify {
+            text-align: left;
+        }
+        #snippetAdd span.selected {
+            color:@icon-color-selected;
+        }
+            #snippetAdd span.selected:hover {
+                color:@icon-color-selected;
+            }
+    #rightSnippetBar {
+        position:absolute;
+        right: 0;
+    }
+        #rightSnippetBar li a {
+            padding-left:0;
+        }
+        #rightSnippetBar li#snippetColIcon,
+        #rightSnippetBar li#snippetRowIcon,
+        #rightSnippetBar li#snippetTitleOnlyIcon {
+            z-index:5100;
+        }
+        #rightSnippetBar li a span {
+            color:@icon-color;
+        }
+        #rightSnippetBar li#snippetColIcon a span {
+            margin-top:-2px;
+        }
+            #rightSnippetBar li a span.active {
+                color:@icon-color-hover;
+            }
+            #rightSnippetBar li a span i {
+                color:inherit;
+            }
+
+#snippetTopicSearchDisplay {
+    margin: 16px 0;
+}
