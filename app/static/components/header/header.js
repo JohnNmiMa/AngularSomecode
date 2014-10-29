@@ -2,7 +2,6 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
                               function($scope,   oauth,          snippetSearch,   snippetService) {
     $scope.HeaderCtrlScope = "HeaderCtrlScope";
     $scope.searchSubmit = function() {
-        console.log($scope.searchString);
         var searchAccess = oauth.isAuthenticated() ? 'private' : 'public';
         snippetSearch(searchAccess, $scope.searchString).then(function(results) {
             snippetService.setSnippets(results, $scope);

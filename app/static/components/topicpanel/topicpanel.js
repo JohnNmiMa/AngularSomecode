@@ -13,7 +13,7 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
         replace: true,
         scope: true,
         templateUrl: './static/components/topicpanel/topicpanel.html',
-        controller: function ($scope, $element, $attrs) {
+        controller: function ($scope, $element, $attrs, displayTopicSnippets, snippetService) {
             $scope.isAddingTopic = false;
             $scope.topicAdd = function() {
                 $scope.isAddingTopic = !$scope.isAddingTopic;
@@ -28,10 +28,15 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
             };
             $scope.topicEditSubmit = function() {
                 console.log("At topicEditSubmit: " + $scope.topicEditString);
-            }
-            $scope.isEditable = function(topicName) {
-                return (topicName === "General" || topicName === "Welcome") ? false : true;
             };
+            $scope.selectTopic = function(topicName) {
+                console.log("Clicked topic " + topicName);
+                displayTopicSnippets(topicName).then(function(results) {
+                    console.log("At selectTopic: received results");
+                    snippetService.setSnippets(results, $scope);
+                    $scope.$emit('updateTopicString', topicName);
+                });
+            }
         },
         link: function (scope, element, attrs, topicPanelCtrl) {
         }
@@ -45,6 +50,10 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
         replace: true,
         templateUrl: './static/components/topicpanel/topic.html',
         link: function(scope, element, attrs, topicPanelCtrl) {
+            scope.editSymbol = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
+                'fa-circle' : 'fa-minus-circle';
+            scope.invisibleClass = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
+                'invisible' : "";
         }
     }
 });

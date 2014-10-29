@@ -18,6 +18,9 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
     $rootScope.$on('updateSearchString', function(event, searchStr) {
         $rootScope.$broadcast('topicOrSearchString', ('\"' + searchStr + '\" search'));
     });
+    $rootScope.$on('updateTopicString', function(event, topicStr) {
+        $rootScope.$broadcast('topicOrSearchString', ('\"' + topicStr + '\" topic'));
+    });
     $rootScope.$on('snippetLayoutChange', function(event, layout) {
         $rootScope.$broadcast('snippetLayout', layout);
     });

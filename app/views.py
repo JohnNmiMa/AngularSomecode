@@ -89,6 +89,104 @@ def user():
     return jsonify(reply)
 
 
+@app.route('/snippets/<topic>', methods = ['POST', 'PUT', 'GET', 'DELETE'])
+@login_required
+def snippets(topic):
+    if request.method == 'POST':
+        """ Save a new snippet """
+        # See if the topic exists
+        topic = g.user.topics.filter_by(topic=topic).first()
+        if topic is None:
+            return jsonify(error=404, text='Invalid topic name'), 404
+
+        # Get the snippet data from the form
+        if (request.form):
+            form = request.form.to_dict()
+        access = ACCESS_PRIVATE;
+        if form.get('access') == 'on':
+            access = ACCESS_PUBLIC;
+        title = form['title']
+        description = form['description']
+        code = form['code']
+
+        # Persist the snippet to the users topic
+        snippet = Snippet(title = title, description = description, code = code,
+                          timestamp = datetime.utcnow(), topic = topic,
+                          creator_id = g.user.id, access = access)
+        db.session.add(snippet)
+        db.session.commit()
+        return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
+
+    elif request.method == 'PUT':
+        """ Update an existing snippet """
+        snippet_id = topic
+        topics = g.user.topics
+        snippet = None
+        for topic in topics:
+            snippet = topic.snippets.filter_by(id=snippet_id).first()
+            if snippet != None:
+                break;
+
+        if snippet == None:
+            return jsonify(error=404, text='Invalid snippet ID'), 404
+
+        if (request.form):
+            form = request.form.to_dict()
+        access = ACCESS_PRIVATE;
+        if form.get('access') == 'on':
+            access = ACCESS_PUBLIC;
+        title = form['title']
+        description = form['description']
+        code = form['code']
+
+        snippet.title = title;
+        snippet.description = description;
+        snippet.code = code;
+        snippet.access = access;
+        db.session.commit()
+        return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
+
+    elif request.method == 'GET':
+        """ Find all snippets associated with a topic """
+        # Find the topic
+        topic = g.user.topics.filter_by(topic=topic).first()
+        if topic is None:
+            return jsonify(error=404, text='Invalid topic name'), 404
+
+        # Get all snippets in the topic
+        snippets = topic.snippets.order_by(Snippet.timestamp.desc()).all()
+        reply = {}
+        for i, snip in enumerate(snippets):
+            d = dict(title = snip.title, description = snip.description, code = snip.code,
+                     access = snip.access, creator_id = snip.creator_id, id = snip.id)
+            reply[i] = d
+
+        #return jsonify(reply)
+        return Response(json.dumps(reply), 200, mimetype="application/json")
+
+    elif request.method == 'DELETE':
+        """ Delete a snippet """
+        snippet_id = topic
+        topics = g.user.topics
+        snippet = None
+        for topic in topics:
+            snippet = topic.snippets.filter_by(id=snippet_id).first()
+            if snippet != None:
+                break;
+
+        if snippet == None:
+            return jsonify(error=404, text='Invalid snippet ID'), 404
+
+        if snippet.ref_count == 1:
+            db.session.delete(snippet)
+            db.session.commit()
+            return jsonify(id=snippet.id)
+        else:
+            snippet.dec_ref()
+            db.session.commit()
+            return jsonify(id=0)
+
+
 @app.route('/snippets/search/private', methods = ['GET'])
 @login_required
 def search_private():

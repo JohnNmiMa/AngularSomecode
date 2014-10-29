@@ -26,6 +26,7 @@ angular.module('snippetLibrary', [])
     }
 })
 
+
 .factory('snippetUser', ['$http', '$q',
                    function($http,   $q) {
     return function() {
@@ -48,6 +49,7 @@ angular.module('snippetLibrary', [])
         return defer.promise;
     }
 }])
+
 
 .factory('snippetSearch', ['$http', '$q',
                    function($http,   $q) {
@@ -76,6 +78,31 @@ angular.module('snippetLibrary', [])
         return defer.promise;
     }
 }])
+
+
+.factory('displayTopicSnippets', ['$http', '$q',
+                   function($http,   $q) {
+    return function(topicName) {
+        var defer = $q.defer(),
+            path = "/snippets/" + topicName;
+
+        $http.get(path)
+            .success(function(data) {
+                defer.resolve(data);
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+}])
+
 
 .factory('snippetLogout', ['$http', '$q',
                    function($http,   $q) {

@@ -78,8 +78,7 @@
   color: #d9534f;
   cursor: pointer;
 }
-#topicPanel li span.topicDeleteInvisible,
-#topicPanel li span.topicWelcomeInvisible {
+#topicPanel li span.invisible {
   color: white;
   opacity: 0;
   cursor: auto;
