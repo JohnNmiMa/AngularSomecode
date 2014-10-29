@@ -78,16 +78,61 @@ def index():
 def user():
     topics = g.user.topics
     personal_count = 0
-    topicList = {}
+    topicList = []
     for i, topic in enumerate(topics):
         personal_count += topic.snippets.count()
         d = dict(id = topic.id, name = topic.topic, count = topic.snippets.count())
-        topicList[i] = d
+        topicList.append(d)
     public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
 
     reply = {'personal_count':personal_count, 'public_count':public_count, 'topics':topicList}
-    return jsonify(reply)
+    return Response(json.dumps(reply), 200, mimetype="application/json")
 
+
+@app.route('/topic/<atopic>', methods = ['POST', 'PUT', 'DELETE'])
+@login_required
+def topic(atopic):
+    if request.method == 'POST':
+        t = Topic(topic = atopic, author = g.user)
+        db.session.add(t)
+        db.session.commit()
+        reply = dict(id = t.id, name = t.topic, count = t.snippets.count())
+        return Response(json.dumps(reply), 200, mimetype="application/json")
+
+    elif request.method == 'PUT':
+        topic_id = atopic
+        topic_name = ""
+        if (request.form):
+            form = request.form.to_dict()
+            topic_name = form['topicEditName']
+
+        topic = g.user.topics.filter_by(id=topic_id).first()
+        topic.topic = topic_name
+        db.session.commit()
+        print('Update topic: new name = {}, id = {}').format(topic_name, topic_id);
+
+        return jsonify(id=topic.id)
+
+    elif request.method == 'DELETE':
+        topic = g.user.topics.filter_by(id=atopic).first()
+        if topic is None:
+            return jsonify(error=404, text='Invalid topic id'), 404
+
+        # Get all snippets in the topic
+        snippets = topic.snippets.all()
+
+        # Move all snippets in the topic to be removed to the 'General' topic
+        general_topic = g.user.topics.filter_by(topic='General').first()
+        snippets_added_to_general = 0
+        for snippet in snippets:
+            snippets_added_to_general += 1
+            snippet.topic = general_topic
+
+        db.session.delete(topic)
+        db.session.commit()
+
+        # Return the number of topics added to the 'General' list
+        return jsonify(id = atopic, new_general_snippets = snippets_added_to_general)
 
 @app.route('/snippets/<topic>', methods = ['POST', 'PUT', 'GET', 'DELETE'])
 @login_required

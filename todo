@@ -3,8 +3,9 @@ AngularJS Design
 2) Header
     * HeaderCtrl - the header controller
     * snippet-search directive
-3) TopicBar
-    * TopicBarCtrl - the topicbar controller
+3) TopicPanel
+    * TopicPanelCtrl - the topicbar controller
+    * topicPanel directive
     * topic directive
 4) SnippetBar
     * SnippetBarCtrl - the snippetbar controller
@@ -21,31 +22,46 @@ AngularJS Design
 
 Directory Structure:
     static
-        someCodeApp.js
         - contains SomeCodeCtrl
         - contains shared snippets
-          - snippet directive
-        header
-        - header.html
-        - header.js
-        - contains HeaderCtrl
-        someCodeViews.js
+        components
+            header
+            - header.html
+            - header.js
+            - contains HeaderCtrl
+            topicpanel
+            - topicpanel.js : topicPanel & topic directives
+            - topicpanel.html
+            - topic.html
+            - topicpanel.less
+            snippetbar
+            - snippetbar.js
+            - snippetbar.html
+            - snippetbar.less
+            snippets
+            - snippets.js : snippet & snippetPopup directives
+            - snippets.html
+            - snippetPopup.less
+            - snippets.less
         - contains snippet-search directive
-        topicBar.js
-        snippetBar.js
-        snippetContainer.js
-        snippetService.js
-        signedout
+        signedout : view when signed out
         - signedout.html
         - signedout.css
-        - signedout.js - the controller
-        signedin
-        - signedin.html
-        - signedin.css
-        - signedin.js - the controller
-        partials
-        - contains .html files for directives
-          - snippetSearch.html
+        - signedout.js
+        user : view when signed in
+        - user.html
+        - user.less
+        - user.js
+        app.js : app controller
+        appViews.js
+        appRoutes.js
+        snippetLibrary.js
+        oauthLibrary.js
+        main.less/css
+        reset.less
+        variables.less
+    templates
+        index.html - the only rendered html file on the server. It also is an angular template
 
 Implement logged out view - DONE
 - Create header - DONE
@@ -59,21 +75,25 @@ Implement logged out view - DONE
     - hide create button if logged out - DONE
   !- Keep SnippetBar from scrolling off top of page
 Implement signed-in view
-- Finish SnippetBar
-  - Display Selected Topic
-  - Implement Topic Sort Order Selector
-    - Add alphabetical & chronolocal sorts
+- Finish SnippetBar - DONE
+  - Display Selected Topic - DONE
+  !- Implement Topic Sort Order Selector
+    !- Add alphabetical & chronolocal sorts
     !- Investigate Custom Sort Order
-      - how to move items in list and keep track of index
-      - add custom sort order field in DB
+      !- how to move items in list and keep track of index
+      !- add custom sort order field in DB
+    - TopicBar ToggleIcon
+      !- investigate ngAnimate
+      !- how to rotate icon?
 - Create TopicBar
-  !- TopicBar ToggleIcon
-    !- investigate ngAnimate
-    !- how to rotate icon?
   !- how to resize topicbar?
   !- how to keep topicbar fixed as snippet container scrolls?
-  - ngRepeat for list of topics
+  - ngRepeat for list of topics - DONE
+    - display all snippets for a selected topic - DONE
   - Topic CRUD
+    - Create - DONE
+    - Edit
+    - Delete
 - Create CRUD Form
   - Implement SnippetBar Create Icon
   - Add Save/Cancel buttons
@@ -126,4 +146,4 @@ Implement signed-in view
              was interrupted by a list of bulleted items.
 
 !- Implement backend DB that will persist on heroku - OR
-  Deploy Flask server to a python service that will work with SQLite.
+  Deploy Flask server to a python service that will work with SQLite. - choose this!

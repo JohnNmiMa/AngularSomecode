@@ -2,9 +2,6 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
                                   function($scope,   snippetService) {
     $scope.TopicPanelCtrlScope = "TopicPanelCtrlScope";
     $scope.topics = snippetService.topics.topics;
-    $scope.$on('topicsUpdate', function(event) {
-        $scope.topics = snippetService.getTopics();
-    });
 }])
 
 .directive('topicPanel', function() {
@@ -13,13 +10,26 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
         replace: true,
         scope: true,
         templateUrl: './static/components/topicpanel/topicpanel.html',
-        controller: function ($scope, $element, $attrs, displayTopicSnippets, snippetService) {
+        controller: function ($scope, $element, $attrs, displayTopicSnippets, createTopic, snippetService) {
             $scope.isAddingTopic = false;
             $scope.topicAdd = function() {
                 $scope.isAddingTopic = !$scope.isAddingTopic;
             };
             $scope.topicAddSubmit = function() {
                 console.log("At topicAddSubmit: " + $scope.topicAddString);
+                createTopic($scope.topicAddString).then(function(newTopic) {
+                    console.log("At topicAddSubmit: received results");
+                    snippetService.addTopic(newTopic, $scope);
+                    $scope.topicAddString = "";
+                    $scope.isAddingTopic = false;
+                })
+                .catch(function(error) {
+                    if (error.statusCode === 400) {
+                        console.log("Error: duplicate topic name");
+                    } else {
+                        console.log("Error: API " + error.url + ": statusCode " + error.statusCode);
+                    }
+                });
             };
 
             $scope.isEditingTopic = false;
@@ -32,7 +42,6 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
             $scope.selectTopic = function(topicName) {
                 console.log("Clicked topic " + topicName);
                 displayTopicSnippets(topicName).then(function(results) {
-                    console.log("At selectTopic: received results");
                     snippetService.setSnippets(results, $scope);
                     $scope.$emit('updateTopicString', topicName);
                 });

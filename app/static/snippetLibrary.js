@@ -4,10 +4,14 @@ angular.module('snippetLibrary', [])
 
 .service('snippetService', function() {
     var snippets = {},
-        topics = {};
+        topics = [];
 
     var setTopics = function(topicList, scope) {
         topics = topicList;
+        scope.$emit('updateTopicsEvent');
+    };
+    var addTopic = function(newTopic, scope) {
+        topics.topics.push(newTopic);
         scope.$emit('updateTopicsEvent');
     };
     var setSnippets = function(snippetList, scope) {
@@ -22,6 +26,7 @@ angular.module('snippetLibrary', [])
 
         // Public functions
         setTopics:setTopics,
+        addTopic:addTopic,
         setSnippets:setSnippets
     }
 })
@@ -35,7 +40,7 @@ angular.module('snippetLibrary', [])
 
         $http.get(path)
         .success(function(reply) {
-            defer.resolve(reply);
+            defer.resolve(angular.fromJson(reply));
         })
         .error(function(data, status, headers, config) {
             var error = {
@@ -50,6 +55,43 @@ angular.module('snippetLibrary', [])
     }
 }])
 
+
+.factory('createTopic', ['$http', '$q', 'snippetService',
+                 function($http,   $q,   snippetService) {
+    return function(topicName) {
+        var defer = $q.defer(),
+            path = "/topic/" + topicName;
+
+        if (!isDuplicateTopic(topicName)) {
+            $http.post(path)
+            .success(function(reply) {
+                defer.resolve(angular.fromJson(reply));
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
+        } else {
+            defer.reject({html:"<p>Error: Duplicate Topic Name</p>", statusCode:400, url:path});
+        }
+
+        return defer.promise;
+    };
+
+    function isDuplicateTopic(topicName) {
+        var topics = snippetService.topics.topics;
+        for (var topic in topics) {
+            if (topicName.toLowerCase() === topics[topic].name.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    }
+}])
 
 .factory('snippetSearch', ['$http', '$q',
                    function($http,   $q) {
