@@ -62,34 +62,20 @@ angular.module('snippetLibrary', [])
         var defer = $q.defer(),
             path = "/topic/" + topicName;
 
-        if (!isDuplicateTopic(topicName)) {
-            $http.post(path)
-            .success(function(reply) {
-                defer.resolve(angular.fromJson(reply));
-            })
-            .error(function(data, status, headers, config) {
-                var error = {
-                    html : data,
-                    statusCode : status,
-                    url : config.url
-                };
-                defer.reject(error);
-            });
-        } else {
-            defer.reject({html:"<p>Error: Duplicate Topic Name</p>", statusCode:400, url:path});
-        }
+        $http.post(path)
+        .success(function(reply) {
+            defer.resolve(angular.fromJson(reply));
+        })
+        .error(function(data, status, headers, config) {
+            var error = {
+                html : data,
+                statusCode : status,
+                url : config.url
+            };
+            defer.reject(error);
+        });
 
         return defer.promise;
-    };
-
-    function isDuplicateTopic(topicName) {
-        var topics = snippetService.topics.topics;
-        for (var topic in topics) {
-            if (topicName.toLowerCase() === topics[topic].name.toLowerCase()) {
-                return true;
-            }
-        }
-        return false;
     }
 }])
 

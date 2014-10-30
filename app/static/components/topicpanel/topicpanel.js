@@ -16,20 +16,19 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
                 $scope.isAddingTopic = !$scope.isAddingTopic;
             };
             $scope.topicAddSubmit = function() {
-                console.log("At topicAddSubmit: " + $scope.topicAddString);
-                createTopic($scope.topicAddString).then(function(newTopic) {
-                    console.log("At topicAddSubmit: received results");
-                    snippetService.addTopic(newTopic, $scope);
-                    $scope.topicAddString = "";
-                    $scope.isAddingTopic = false;
-                })
-                .catch(function(error) {
-                    if (error.statusCode === 400) {
-                        console.log("Error: duplicate topic name");
-                    } else {
-                        console.log("Error: API " + error.url + ": statusCode " + error.statusCode);
-                    }
-                });
+                if ($scope.topicForm.$valid) {
+                    console.log("topicForm is valid");
+                    console.log("At topicAddSubmit: " + $scope.topicAddString);
+                    createTopic($scope.topicAddString).then(function(newTopic) {
+                        console.log("At topicAddSubmit: received results");
+                        snippetService.addTopic(newTopic, $scope);
+                        $scope.topicAddString = "";
+                        $scope.topicForm.$setPristine();
+                        $scope.isAddingTopic = false;
+                    });
+                } else {
+                    // Show the duplicateTopic popover
+                }
             };
 
             $scope.isEditingTopic = false;
@@ -46,6 +45,7 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
                     $scope.$emit('updateTopicString', topicName);
                 });
             }
+
         },
         link: function (scope, element, attrs, topicPanelCtrl) {
         }
@@ -65,4 +65,33 @@ someCodeApp.controller('TopicPanelCtrl', ['$scope', 'snippetService',
                 'invisible' : "";
         }
     }
-});
+})
+
+.factory('topicNameValidatorService', ['snippetService', function(snippetService) {
+    return function(attrs, ngModelCtrl, topicName) {
+        var topics = snippetService.topics.topics;
+
+        if (topicName == undefined) {
+            return false;
+        } else {
+            for (var topic in topics) {
+                if (topicName.toLowerCase() === topics[topic].name.toLowerCase()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}])
+
+.directive('topicName', ['topicNameValidatorService', function(topicNameValidatorService) {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModelCtrl) {
+            ngModelCtrl.$validators.topicName = function(modelValue, viewValue) {
+                return topicNameValidatorService(attrs, ngModelCtrl, modelValue);
+            };
+        }
+    }
+}]);
