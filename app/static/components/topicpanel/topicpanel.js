@@ -14,13 +14,15 @@ someCodeApp.directive('topicPanel', [function() {
             $scope.isAddingTopic = false;
             $scope.isEditingTopic = false;
             $scope.isEditingTopicName = false;
+            $scope.selectedTopicId = undefined;
             $scope.topics = snippetService.topics.topics;
             $scope.$on('updateTopics', function(event) {
                 $scope.topics = snippetService.topics.topics;
             });
 
             // Click on a topic to display snippets in the topic
-            $scope.selectTopic = function(topicName) {
+            $scope.selectTopic = function(topic) {
+                var topicName = topic.name;
                 if ($scope.isAddingTopic === false) {
                     if ($scope.isEditingTopic === true) {
                         if (topicName != "General" && topicName != "Welcome") {
@@ -33,6 +35,7 @@ someCodeApp.directive('topicPanel', [function() {
                             snippetService.setSnippets(results, $scope);
                             $scope.$emit('updateTopicString', topicName);
                         });
+                        $scope.selectedTopicId = topic.id;
                     }
                 }
             };
@@ -76,6 +79,7 @@ someCodeApp.directive('topicPanel', [function() {
         replace: true,
         templateUrl: './static/components/topicpanel/topic.html',
         link: function(scope, element, attrs, topicPanelCtrl) {
+            scope.isSelected = false;
             scope.editSymbol = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
                 'fa-circle' : 'fa-minus-circle';
             scope.invisibleClass = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
