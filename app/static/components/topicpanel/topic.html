@@ -1,5 +1,6 @@
 <li class='list-group-item topicItem'>
-    <span class="fa topicDelete" ng-class="[editSymbol, invisibleClass]" ng-show="isEditingTopic"></span>
+    <span class="fa topicDelete" ng-class="[editSymbol, invisibleClass]"
+          ng-show="isEditingTopic" ng-click="initiateTopicDelete(topic)"></span>
     <a href="javascript:void(0)" class="topicName" ng-click="selectTopic(topic.name)">{{topic.name}}</a>
     <span class='badge sit-right topicCounter'>{{topic.count}}</span>
 </li>

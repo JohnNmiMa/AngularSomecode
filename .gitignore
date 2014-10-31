@@ -44,3 +44,7 @@ app/static/components/snippets/snippets.css
 layout-test/app/static/main.css
 
 app/static/variables.css
+
+*.css
+
+app/static/components/topicpanel/topicpanel.css

@@ -11,26 +11,42 @@ someCodeApp.directive('topicPanel', [function() {
         templateUrl: './static/components/topicpanel/topicpanel.html',
         controller: function ($scope, $element, $attrs, displayTopicSnippets, snippetService) {
             $scope.TopicPanelDirectiveCtrlScope = "TopicPanelDirectiveCtrlScope";
+            $scope.isAddingTopic = false;
+            $scope.isEditingTopic = false;
             $scope.topics = snippetService.topics.topics;
+            $scope.$on('updateTopics', function(event) {
+                $scope.topics = snippetService.topics.topics;
+            });
 
             // Click on a topic to display snippets in the topic
             $scope.selectTopic = function(topicName) {
-                console.log("Clicked topic " + topicName);
-                displayTopicSnippets(topicName).then(function(results) {
-                    snippetService.setSnippets(results, $scope);
-                    $scope.$emit('updateTopicString', topicName);
-                });
+                if ($scope.isAddingTopic === false && $scope.isEditingTopic === false) {
+                    // Display snippets in the topic
+                    displayTopicSnippets(topicName).then(function(results) {
+                        snippetService.setSnippets(results, $scope);
+                        $scope.$emit('updateTopicString', topicName);
+                    });
+                }
             };
+
+            $scope.initiateTopicDelete = function(topic) {
+                // Popup modal to prompt user to see if topic should really be deleted
+                $scope.$broadcast('topicDeleteEvent', topic);
+            }
 
             // Click on the topic add control to add a new topic
             $scope.topicAdd = function() {
-                $scope.$broadcast('topicAddEvent');
+                if ($scope.isEditingTopic === false) {
+                    $scope.isAddingTopic = !$scope.isAddingTopic;
+                    $scope.$broadcast('topicAddEvent', $scope.isAddingTopic);
+                }
             };
 
             // Click on top topic edit control to edit a topic name
-            $scope.isEditingTopic = false;
             $scope.topicEdit = function() {
-                $scope.isEditingTopic = !$scope.isEditingTopic;
+                if ($scope.isAddingTopic === false) {
+                    $scope.isEditingTopic = !$scope.isEditingTopic;
+                }
             };
             $scope.topicEditSubmit = function() {
                 console.log("At topicEditSubmit: " + $scope.topicEditString);
@@ -68,10 +84,8 @@ someCodeApp.directive('topicPanel', [function() {
                 content:"This name already exists. Please type another name."});
 
             $scope.TopicAddFormDirectiveScope = "TopicAddFormDirectiveScope";
-            $scope.isAddingTopic = false;
-            $scope.$on('topicAddEvent', function(event) {
-                $scope.isAddingTopic = !$scope.isAddingTopic;
-                if ($scope.isAddingTopic === false) {
+            $scope.$on('topicAddEvent', function(event, isAdding) {
+                if (isAdding === false) {
                     triggerTopicAddPopover(false);
                     resetForm();
                 }
@@ -114,6 +128,38 @@ someCodeApp.directive('topicPanel', [function() {
             }
         },
         link: function (scope, element, attrs) {
+        }
+    }
+}])
+
+.directive('topicDeleteDialog', ['snippetService', function(snippetService) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: './static/components/topicpanel/topicDeleteDialog.html',
+        controller: function($scope, $element, $attrs, deleteTopic) {
+            var topicToDelete = undefined;
+
+            // Setup the topic delete modal dialog
+            $element.modal({backdrop:'static', keyboard:false, show:false});
+
+            $scope.$on('topicDeleteEvent', function(event, topic) {
+                topicToDelete = topic;
+                $('#topicDeleteDialog').modal('show');
+                $('#topicDeleteDialog').focus();
+            });
+
+            $scope.doTopicDelete = function() {
+                if (topicToDelete) {
+                    console.log("At doTopicDelete: topic name/id = " + topicToDelete.name + "/" + topicToDelete.id);
+                    deleteTopic(topicToDelete.id).then(function(results) {
+                        console.log("At topicToDelete: after server call");
+                        snippetService.deleteTopic(results.id, $scope);
+                    });
+                    topicToDelete = undefined;
+                }
+                $('#topicDeleteDialog').modal('hide');
+            }
         }
     }
 }])

@@ -14,6 +14,11 @@ angular.module('snippetLibrary', [])
         topics.topics.push(newTopic);
         scope.$emit('updateTopicsEvent');
     };
+    var deleteTopic = function(deletedTopicId, scope) {
+        topics.topics = topics.topics.filter(function(e) {return (e.id != Number(deletedTopicId))});
+        scope.$emit('updateTopicsEvent');
+    };
+
     var setSnippets = function(snippetList, scope) {
         snippets = snippetList;
         scope.$emit('updateSnippetsEvent');
@@ -27,6 +32,7 @@ angular.module('snippetLibrary', [])
         // Public functions
         setTopics:setTopics,
         addTopic:addTopic,
+        deleteTopic:deleteTopic,
         setSnippets:setSnippets
     }
 })
@@ -56,8 +62,8 @@ angular.module('snippetLibrary', [])
 }])
 
 
-.factory('createTopic', ['$http', '$q', 'snippetService',
-                 function($http,   $q,   snippetService) {
+.factory('createTopic', ['$http', '$q',
+                 function($http,   $q) {
     return function(topicName) {
         var defer = $q.defer(),
             path = "/topic/" + topicName;
@@ -78,6 +84,31 @@ angular.module('snippetLibrary', [])
         return defer.promise;
     }
 }])
+
+
+.factory('deleteTopic', ['$http', '$q',
+                 function($http,   $q) {
+    return function(topicId) {
+        var defer = $q.defer(),
+            path = "/topic/" + topicId;
+
+        $http.delete(path)
+            .success(function(reply) {
+                defer.resolve(angular.fromJson(reply));
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+}])
+
 
 .factory('snippetSearch', ['$http', '$q',
                    function($http,   $q) {

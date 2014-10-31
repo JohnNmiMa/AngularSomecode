@@ -132,7 +132,8 @@ def topic(atopic):
         db.session.commit()
 
         # Return the number of topics added to the 'General' list
-        return jsonify(id = atopic, new_general_snippets = snippets_added_to_general)
+        reply = dict(id = atopic, new_general_snippets = snippets_added_to_general)
+        return Response(json.dumps(reply), 200, mimetype="application/json")
 
 @app.route('/snippets/<topic>', methods = ['POST', 'PUT', 'GET', 'DELETE'])
 @login_required
