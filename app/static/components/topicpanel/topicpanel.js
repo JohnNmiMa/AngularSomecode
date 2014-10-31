@@ -13,6 +13,7 @@ someCodeApp.directive('topicPanel', [function() {
             $scope.TopicPanelDirectiveCtrlScope = "TopicPanelDirectiveCtrlScope";
             $scope.isAddingTopic = false;
             $scope.isEditingTopic = false;
+            $scope.isEditingTopicName = false;
             $scope.topics = snippetService.topics.topics;
             $scope.$on('updateTopics', function(event) {
                 $scope.topics = snippetService.topics.topics;
@@ -20,12 +21,19 @@ someCodeApp.directive('topicPanel', [function() {
 
             // Click on a topic to display snippets in the topic
             $scope.selectTopic = function(topicName) {
-                if ($scope.isAddingTopic === false && $scope.isEditingTopic === false) {
-                    // Display snippets in the topic
-                    displayTopicSnippets(topicName).then(function(results) {
-                        snippetService.setSnippets(results, $scope);
-                        $scope.$emit('updateTopicString', topicName);
-                    });
+                if ($scope.isAddingTopic === false) {
+                    if ($scope.isEditingTopic === true) {
+                        if (topicName != "General" && topicName != "Welcome") {
+                            // Edit the topic name
+                            $scope.isEditingTopicName = true;
+                        }
+                    } else {
+                        // Display topic snippets
+                        displayTopicSnippets(topicName).then(function(results) {
+                            snippetService.setSnippets(results, $scope);
+                            $scope.$emit('updateTopicString', topicName);
+                        });
+                    }
                 }
             };
 
@@ -46,6 +54,9 @@ someCodeApp.directive('topicPanel', [function() {
             $scope.topicEdit = function() {
                 if ($scope.isAddingTopic === false) {
                     $scope.isEditingTopic = !$scope.isEditingTopic;
+                    if ($scope.isEditingTopic === false) {
+                        $scope.isEditingTopicName = false;
+                    }
                 }
             };
             $scope.topicEditSubmit = function() {
@@ -72,6 +83,7 @@ someCodeApp.directive('topicPanel', [function() {
         }
     }
 }])
+
 
 .directive('topicAddForm', ['snippetService', function(snippetService) {
     return {
@@ -132,6 +144,18 @@ someCodeApp.directive('topicPanel', [function() {
     }
 }])
 
+
+.directive('topicEditForm', ['snippetService', function(snippetService) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: './static/components/topicpanel/topicEditForm.html',
+        controller: function ($scope, $element, $attrs, snippetService) {
+        }
+    }
+}])
+
+
 .directive('topicDeleteDialog', ['snippetService', function(snippetService) {
     return {
         restrict: 'E',
@@ -146,14 +170,12 @@ someCodeApp.directive('topicPanel', [function() {
             $scope.$on('topicDeleteEvent', function(event, topic) {
                 topicToDelete = topic;
                 $('#topicDeleteDialog').modal('show');
-                $('#topicDeleteDialog').focus();
+                $('#topicDoDelete').focus();
             });
 
             $scope.doTopicDelete = function() {
                 if (topicToDelete) {
-                    console.log("At doTopicDelete: topic name/id = " + topicToDelete.name + "/" + topicToDelete.id);
                     deleteTopic(topicToDelete.id).then(function(results) {
-                        console.log("At topicToDelete: after server call");
                         snippetService.deleteTopic(results.id, $scope);
                     });
                     topicToDelete = undefined;
@@ -166,6 +188,8 @@ someCodeApp.directive('topicPanel', [function() {
 
 .factory('topicNameValidatorService', ['snippetService', function(snippetService) {
     return function(attrs, ngModelCtrl, topicName) {
+        // Return false (don't validate) if the topicName already exists
+        // We don't want to add or edit a topic if it is already in the list of topics
         var topics = [];
 
         if (topicName != undefined) {
