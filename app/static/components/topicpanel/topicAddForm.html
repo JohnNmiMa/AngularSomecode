@@ -1,0 +1,11 @@
+<li id='topicFormContainer' class='list-group-item' ng-show="isAddingTopic">
+    <form id='topicForm' name='topicForm' role='form' ng-submit='topicAddSubmit()' novalidate>
+        <input id='topicNameField' type="text" name="topicName" class="form-control"
+               maxlength="30" autocomplete="off" autofocus="on" placeholder="New topic title"
+               ng-model="topicAddString" validate-topic-name required>
+        <!--Used for bootstrap-ui custom popovers-->
+        <!--popover="This name already exists. Please type another name."-->
+        <!--popover-placement="right"-->
+        <!--popover-trigger="show">-->
+    </form>
+</li>

@@ -1,4 +1,4 @@
-<div id='topicPanel' class='panel panel-default' ng-controller="TopicPanelCtrl">
+<div id='topicPanel' class='panel panel-default'>
     <div class='panel-heading'>
         <span id="topicTitle">Topics</span>
         <a id="topicAdd" href="javascript:void(0)" ng-click="topicAdd()">
@@ -8,13 +8,7 @@
     </div>
     <div class='panel-body'>
         <ul class='list-group'>
-            <li id='topicFormContainer' class='list-group-item' ng-show="isAddingTopic">
-                <form id='topicForm' name='topicForm' role='form' ng-submit='topicAddSubmit()' novalidate>
-                    <input id='topicNameField' type="text" name="topicName" class="form-control"
-                           maxlength="30" autocomplete="off" autofocus="on" placeholder="New topic title"
-                           ng-model="topicAddString" topic-name required>
-                </form>
-            </li>
+            <topic-add-form></topic-add-form>
 
             <form id="topicEditForm" name="topicEditForm" role="form" ng-submit="topicEditSubmit()" ng-show="false" novalidate>
                 <input id="topicEditNameField" type="text" name="topicEditName" class="form-control"
