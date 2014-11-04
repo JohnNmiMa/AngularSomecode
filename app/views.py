@@ -102,16 +102,13 @@ def topic(atopic):
     elif request.method == 'PUT':
         topic_id = atopic
         topic_name = ""
-        if (request.form):
-            form = request.form.to_dict()
-            topic_name = form['topicEditName']
+        topic_name = request.data
 
-        topic = g.user.topics.filter_by(id=topic_id).first()
-        topic.topic = topic_name
+        t = g.user.topics.filter_by(id=topic_id).first()
+        t.topic = topic_name
         db.session.commit()
-        print('Update topic: new name = {}, id = {}').format(topic_name, topic_id);
-
-        return jsonify(id=topic.id)
+        reply = dict(id = t.id, name = t.topic, count = t.snippets.count())
+        return Response(json.dumps(reply), 200, mimetype="application/json")
 
     elif request.method == 'DELETE':
         topic = g.user.topics.filter_by(id=atopic).first()
@@ -270,6 +267,7 @@ def search_public():
 @app.route('/logout')
 @login_required
 def logout():
+    #pdb.set_trace()
     username = g.user.name
     reply = {'user' : username}
     logout_user()

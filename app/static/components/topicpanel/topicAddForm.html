@@ -1,6 +1,6 @@
-<li id='topicFormContainer' class='list-group-item' ng-show="isAddingTopic">
-    <form id='topicForm' name='topicForm' role='form' ng-submit='topicAddSubmit()' novalidate>
-        <input id='topicNameField' type="text" name="topicName" class="form-control"
+<li class='list-group-item'>
+    <form id='topicAddForm' name='topicAddForm' role='form' ng-submit='topicAddSubmit()' novalidate>
+        <input id='topicAddNameField' type="text" name="topicAddName" class="form-control"
                maxlength="30" autocomplete="off" autofocus="on" placeholder="New topic title"
                ng-model="topicAddString" validate-topic-name required>
         <!--Used for bootstrap-ui custom popovers-->

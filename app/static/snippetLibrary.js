@@ -14,6 +14,15 @@ angular.module('snippetLibrary', [])
         topics.topics.push(newTopic);
         scope.$emit('updateTopicsEvent');
     };
+    var editTopic = function(editedTopic, scope) {
+        for (topic in topics.topics) {
+            if (topics.topics[topic].id === editedTopic.id) {
+                topics.topics[topic].name = editedTopic.name;
+                break;
+            }
+        }
+        scope.$emit('updateTopicsEvent');
+    };
     var deleteTopic = function(deletedTopicId, scope) {
         topics.topics = topics.topics.filter(function(e) {return (e.id != Number(deletedTopicId))});
         scope.$emit('updateTopicsEvent');
@@ -32,6 +41,7 @@ angular.module('snippetLibrary', [])
         // Public functions
         setTopics:setTopics,
         addTopic:addTopic,
+        editTopic:editTopic,
         deleteTopic:deleteTopic,
         setSnippets:setSnippets
     }
@@ -80,6 +90,31 @@ angular.module('snippetLibrary', [])
             };
             defer.reject(error);
         });
+
+        return defer.promise;
+    }
+}])
+
+
+.factory('editTopic', ['$http', '$q',
+                 function($http,   $q) {
+    return function(topicId, topicName) {
+        var defer = $q.defer(),
+            path = "/topic/" + topicId,
+            data = topicName;
+
+        $http.put(path, data)
+            .success(function(reply) {
+                defer.resolve(angular.fromJson(reply));
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
 
         return defer.promise;
     }
