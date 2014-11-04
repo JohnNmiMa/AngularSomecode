@@ -3,33 +3,82 @@
 //    $tooltipProvider.setTriggers({'show':'hide'});
 //}])
 
-someCodeApp.directive('topicPanel', [function() {
+
+someCodeApp.service('topicService', function() {
+    var topicPanelScope = undefined,
+        isAddingTopic = false,
+        isEditingTopic = false,
+        isEditingTopicName = false,
+        selectedTopicId = undefined,
+        editedTopicId = undefined;
+
+    var changed = function() {
+        if (topicPanelScope != undefined) {
+            topicPanelScope.$broadcast('topicPanelModelChanged');
+        }
+    };
+    var register = function(scope) {
+        topicPanelScope = scope;
+    };
+
+    return {
+        // Getters and setters
+        get isAddingTopic()          { return isAddingTopic; },
+        set isAddingTopic(bool)      { isAddingTopic = bool; changed(); },
+        get isEditingTopic()         { return isEditingTopic; },
+        set isEditingTopic(bool)     { isEditingTopic = bool; changed(); },
+        get isEditingTopicName()     { return isEditingTopicName; },
+        set isEditingTopicName(bool) { isEditingTopicName = bool; changed(); },
+        get selectedTopicId()        { return selectedTopicId; },
+        set selectedTopicId(id)      { selectedTopicId = id; changed(); },
+        get editedTopicId()          { return editedTopicId; },
+        set editedTopicId(id)        { editedTopicId = id; changed(); },
+
+        // Public functions
+        register:register
+    }
+})
+
+
+.directive('topicPanel', [function() {
     return {
         restrict: 'E',
         replace: true,
         scope: true,
         templateUrl: './static/components/topicpanel/topicpanel.html',
-        controller: function ($scope, $element, $attrs, displayTopicSnippets, snippetService) {
+        controller: function ($scope, $element, $attrs, topicService, displayTopicSnippets, snippetService) {
             $scope.TopicPanelDirectiveCtrlScope = "TopicPanelDirectiveCtrlScope";
-            $scope.isAddingTopic = false;
-            $scope.isEditingTopic = false;
-            $scope.isEditingTopicName = false;
-            $scope.selectedTopicId = undefined;
-            $scope.editedTopicId = undefined;
+
+            // The topics model
             $scope.topics = snippetService.topics.topics;
             $scope.$on('updateTopics', function(event) {
                 $scope.topics = snippetService.topics.topics;
             });
 
-            // Click on a topic to display snippets in the topic
+            // The topicPanel model
+            topicService.register($scope);
+            $scope.$on('topicPanelModelChanged', function() {
+                modelChanged();
+            });
+            function modelChanged() {
+                // update scope
+                $scope.isAddingTopic = topicService.isAddingTopic;
+                $scope.isEditingTopic = topicService.isEditingTopic;
+                $scope.isEditingTopicName = topicService.isEditingTopicName;
+                $scope.selectedTopicId = topicService.selectedTopicId;
+                $scope.editedTopicId = topicService.editedTopicId;
+            }
+            modelChanged(); // Init scope
+
+            // A topic name was selected. This means different things depending upon
+            // the state of the topicPanel.
             $scope.selectTopic = function(topic) {
                 var topicName = topic.name;
-                if ($scope.isAddingTopic === false) {
-                    if ($scope.isEditingTopic === true) {
+                if (topicService.isAddingTopic === false) {
+                    if (topicService.isEditingTopic === true) {
                         if (topicName != "General" && topicName != "Welcome") {
                             // Edit the topic name
-                            //$scope.isEditingTopicName = true;
-                            setIsEditingTopicName(true);
+                            topicService.isEditingTopicName = true;
                             $scope.editedTopicId = topic.id;
                         }
                     } else {
@@ -43,6 +92,7 @@ someCodeApp.directive('topicPanel', [function() {
                 }
             };
 
+            // topicDelete icon was clicked
             $scope.initiateTopicDelete = function(topic) {
                 // Popup modal to prompt user to see if topic should really be deleted
                 $scope.$broadcast('topicDeleteEvent', topic);
@@ -50,44 +100,33 @@ someCodeApp.directive('topicPanel', [function() {
 
             // Click on the topic add control to add a new topic
             $scope.topicAdd = function() {
-                if ($scope.isEditingTopic === false) {
-                    $scope.isAddingTopic = !$scope.isAddingTopic;
-                    $scope.$broadcast('topicAddEvent', $scope.isAddingTopic);
+                if (topicService.isEditingTopic === false) {
+                    topicService.isAddingTopic = !$scope.isAddingTopic;
                 }
             };
 
             // Click on top topic edit control to edit a topic name
             $scope.topicEdit = function() {
-                if ($scope.isAddingTopic === false) {
-                    $scope.isEditingTopic = !$scope.isEditingTopic;
-                    if ($scope.isEditingTopic === false) {
-                        //$scope.isEditingTopicName = false;
-                        setIsEditingTopicName(false);
+                if (topicService.isAddingTopic === false) {
+                    topicService.isEditingTopic = !$scope.isEditingTopic;
+                    if (topicService.isEditingTopic === false) {
+                        topicService.isEditingTopicName = false;
                         $scope.editedTopicId = undefined;
                     }
-                    $scope.$broadcast('topicEditEvent', $scope.isEditingTopic);
                 }
             };
-
-            function setIsEditingTopicName(isEditing) {
-                $scope.isEditingTopicName = isEditing;
-            }
-            this.setIsEditingTopicName = function(isEditing) {
-                setIsEditingTopicName(isEditing);
-            }
         },
-        link: function (scope, element, attrs, topicPanelCtrl) {
+        link: function (scope, element, attrs) {
         }
     }
 }])
 
 .directive('topic', [function() {
     return {
-        require: '?^topicPanel',
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/topicpanel/topic.html',
-        link: function(scope, element, attrs, topicPanelCtrl) {
+        link: function(scope, element, attrs) {
             scope.editSymbol = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
                 'fa-circle' : 'fa-minus-circle';
             scope.invisibleClass = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
@@ -97,19 +136,21 @@ someCodeApp.directive('topicPanel', [function() {
 }])
 
 
-.directive('topicAddForm', ['snippetService', 'createTopic', function(snippetService, createTopic) {
+.directive('topicAddForm', ['topicService', 'snippetService', 'createTopic',
+                    function(topicService,   snippetService,   createTopic) {
     return {
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/topicpanel/topicAddForm.html',
-        controller: function($scope, $element, $attrs, createTopic, snippetService) {
-            $('#topicAddNameField').popover({
+        controller: function($scope, $element, $attrs) {
+            var inputElement = $element.find('input');
+            inputElement.popover({
                 container:'body', trigger:'manual', toggle:'popover', placement:'right',
                 content:"This name already exists. Please type another name."});
 
             $scope.TopicAddFormDirectiveScope = "TopicAddFormDirectiveScope";
-            $scope.$on('topicAddEvent', function(event, isAdding) {
-                if (isAdding === false) {
+            $scope.$on('topicPanelModelChanged', function() {
+                if (topicService.isAddingTopic === false) {
                     triggerTopicAddPopover(false);
                     resetForm();
                 }
@@ -118,10 +159,10 @@ someCodeApp.directive('topicPanel', [function() {
             function triggerTopicAddPopover(trigger) {
                 if (trigger) {
                     if($scope.topicAddForm.$error.validateTopicAddName) {
-                        $('#topicAddNameField').popover('show');
+                        inputElement.popover('show');
                     }
                 } else {
-                    $('#topicAddNameField').popover('hide');
+                    inputElement.popover('hide');
                 }
             }
 
@@ -160,23 +201,24 @@ someCodeApp.directive('topicPanel', [function() {
 }])
 
 
-.directive('topicEditForm', ['snippetService', 'editTopic', function(snippetService, editTopic) {
+.directive('topicEditForm', ['topicService', 'snippetService', 'editTopic',
+                     function(topicService,   snippetService,   editTopic) {
     return {
         restrict: 'E',
-        require: ['topicEditForm', '?^topicPanel'],
         replace: true,
         scope: true,   // there's one of these forms for each topic
         templateUrl: './static/components/topicpanel/topicEditForm.html',
-        controller: function ($scope, $element, $attrs, editTopic) {
+        controller: function ($scope, $element, $attrs) {
             var inputElement = $element.find('input');
+
             inputElement.popover({
                 container:'body', trigger:'manual', toggle:'popover', placement:'right',
                 content:"This name already exists. Please type another name."});
 
             $scope.TopicEditFormDirectiveScope = "TopicEditFormDirectiveScope";
             $scope.topicEditString = $scope.topic.name;
-            $scope.$on('topicEditEvent', function(event, isEditing) {
-                if (isEditing === false) {
+            $scope.$on('topicPanelModelChanged', function() {
+                if (topicService.isEditingTopic === false) {
                     resetForm($scope.topic);
                     triggerTopicEditPopover(false);
                 }
@@ -204,16 +246,13 @@ someCodeApp.directive('topicPanel', [function() {
                 resetForm(topic);
             };
         },
-        link: function(scope, element, attrs, controllers) {
-            var topicEditFormCtrl = controllers[0],
-                topicPanelCtrl = controllers[1];
-
+        link: function(scope, element, attrs, topicEditFormCtrl) {
             scope.topicEditSubmit = function() {
                 if (scope.topicEditForm.$valid) {
                     editTopic(scope.topic.id, scope.topicEditString).then(function(editedTopic) {
                         snippetService.editTopic(editedTopic, scope);
                         topicEditFormCtrl.resetForm(editedTopic);
-                        topicPanelCtrl.setIsEditingTopicName(false);
+                        topicService.isEditingTopicName = false;
                     });
                 } else {
                     topicEditFormCtrl.triggerTopicEditPopover(true);
