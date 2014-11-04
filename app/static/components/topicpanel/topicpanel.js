@@ -335,4 +335,11 @@ someCodeApp.service('topicService', function() {
             }
         }
     }
+}])
+
+.directive('topicPanelResizeSelector', [function() {
+    return {
+        restrict: 'E',
+        templateUrl: './static/components/topicpanel/topicPanelResizeSelector.html'
+    }
 }]);
