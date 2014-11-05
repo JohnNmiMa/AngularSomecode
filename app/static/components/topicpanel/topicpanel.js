@@ -23,16 +23,20 @@ someCodeApp.service('topicService', function() {
 
     return {
         // Getters and setters
-        get isAddingTopic()          { return isAddingTopic; },
-        set isAddingTopic(bool)      { isAddingTopic = bool; changed(); },
-        get isEditingTopic()         { return isEditingTopic; },
-        set isEditingTopic(bool)     { isEditingTopic = bool; changed(); },
-        get isEditingTopicName()     { return isEditingTopicName; },
-        set isEditingTopicName(bool) { isEditingTopicName = bool; changed(); },
-        get selectedTopicId()        { return selectedTopicId; },
-        set selectedTopicId(id)      { selectedTopicId = id; changed(); },
-        get editedTopicId()          { return editedTopicId; },
-        set editedTopicId(id)        { editedTopicId = id; changed(); },
+        get isAddingTopic()             { return isAddingTopic; },
+        set isAddingTopic(bool)         { isAddingTopic = bool; changed(); },
+        get isEditingTopic()            { return isEditingTopic; },
+        set isEditingTopic(bool)        { isEditingTopic = bool; changed(); },
+        get isEditingTopicName()        { return isEditingTopicName; },
+        set isEditingTopicName(bool)    { isEditingTopicName = bool; changed(); },
+        get selectedTopicId()           { return selectedTopicId; },
+        set selectedTopicId(id)         { selectedTopicId = id; changed(); },
+        get editedTopicId()             { return editedTopicId; },
+        set editedTopicId(id)           { editedTopicId = id; changed(); },
+        get topicPanelWidth()           { return localStorage['topicPanelWidth']; },
+        set topicPanelWidth(widthStr)   { localStorage['topicPanelWidth'] = widthStr; },
+        get snippetPanelWidth()         { return localStorage['snippetPanelWidth']; },
+        set snippetPanelWidth(widthStr) { localStorage['snippetPanelWidth'] = widthStr; },
 
         // Public functions
         register:register
@@ -337,7 +341,7 @@ someCodeApp.service('topicService', function() {
     }
 }])
 
-.directive('topicPanelResizeSelector', ['$document', function($document) {
+.directive('topicPanelResizeSelector', ['$document', 'topicService', function($document, topicService) {
     return {
         restrict: 'E',
         templateUrl: './static/components/topicpanel/topicPanelResizeSelector.html',
@@ -380,20 +384,24 @@ someCodeApp.service('topicService', function() {
                 console.log('mousemove: x = ' + x + ": dx = " + dx);
                  */
 
-                $('#topicPanel').css({
-                    // To set width in pixels
-                    'width': newTopicPanelWidth + 'px'
-                    // To set width in percentage
-                    //'width': (newTopicPanelWidthPercent * 100) + '%'
-                });
-                $('#snippetPanel').css({
-                    // To set width in pixels
-                    'width': (snippetBlockWidth - newTopicPanelWidth) + 'px'
-                    // To set width in percentage
-                    //'width': ((1 - newTopicPanelWidthPercent) * 100) + '%'
-                });
+                //setComponentsWidth(newTopicPanelWidth + 'px', (snippetBlockWidth - newTopicPanelWidth) + 'px');
+                setComponentsWidth(newTopicPanelWidthPercent * 100 + '%', ((1 - newTopicPanelWidthPercent) * 100) + '%');
 
                 startX = x;
+            }
+
+            function setComponentsWidth(topicPanelWidth, snippetPanelWidth) {
+                // Adjust the topicPanel's width
+                $('#topicPanel').css({
+                    'width': topicPanelWidth
+                });
+                topicService.topicPanelWidth = topicPanelWidth;
+
+                // Adjust the snippetPanel's width
+                $('#snippetPanel').css({
+                    'width': snippetPanelWidth
+                });
+                topicService.snippetPanelWidth = snippetPanelWidth;
             }
 
             function mouseup() {
@@ -403,3 +411,5 @@ someCodeApp.service('topicService', function() {
         }
     }
 }]);
+
+
