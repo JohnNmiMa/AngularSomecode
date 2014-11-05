@@ -173,7 +173,7 @@ someCodeApp.service('topicService', function() {
 
             this.triggerTopicAddPopover = function(trigger) {
                 triggerTopicAddPopover(trigger);
-            }
+            };
             this.resetForm = function() {
                 resetForm();
             };
@@ -337,9 +337,61 @@ someCodeApp.service('topicService', function() {
     }
 }])
 
-.directive('topicPanelResizeSelector', [function() {
+.directive('topicPanelResizeSelector', ['$document', function($document) {
     return {
         restrict: 'E',
-        templateUrl: './static/components/topicpanel/topicPanelResizeSelector.html'
+        templateUrl: './static/components/topicpanel/topicPanelResizeSelector.html',
+        link: function(scope, element, attrs) {
+            var startX = 0;
+            element.on('mousedown', function(event) {
+                event.preventDefault();
+                $document.on('mousemove', mousemove);
+                $document.on('mouseup', mouseup);
+
+                startX = event.pageX;
+            });
+
+            function mousemove(event) {
+                var x = event.pageX,
+                    dx = x - startX,
+                    resizerMin = parseFloat(attrs.resizerMin) / 100,
+                    resizerMax = parseFloat(attrs.resizerMax) / 100,
+                    topicPanelWidth = parseFloat($('#topicPanel').css("width")),
+                    snippetPanelWidth = parseFloat($('#snippetPanel').css("width")),
+                    snippetBlockWidth = parseFloat($('#snippetBlock').width()),
+                    newTopicPanelWidth = topicPanelWidth + dx,
+                    newTopicPanelWidthPercent = newTopicPanelWidth / snippetBlockWidth;
+
+                if (resizerMin > newTopicPanelWidthPercent) {
+                    newTopicPanelWidth = resizerMin * snippetBlockWidth;
+                    newTopicPanelWidthPercent = resizerMin;
+                }
+                if (resizerMax < newTopicPanelWidthPercent) {
+                    newTopicPanelWidth = resizerMax * snippetBlockWidth;
+                    newTopicPanelWidthPercent = resizerMax;
+                }
+
+                /*
+                console.log("topicPanelWidth = " + topicPanelWidth +
+                            ": snippetPanelWidth = " + snippetPanelWidth +
+                            ": newTopicPanelWidth = " + newTopicPanelWidth +
+                            ": snippetBlockWidth = " + snippetBlockWidth +
+                            ": newTopicPanelWidthPercent = " + newTopicPanelWidthPercent);
+                console.log('mousemove: x = ' + x + ": dx = " + dx);
+                */
+
+                $('#topicPanel').css({
+                    //'width': newTopicPanelWidth + 'px'
+                    'width': (newTopicPanelWidthPercent * 100) + '%'
+                });
+
+                startX = x;
+            }
+
+            function mouseup() {
+                $document.unbind('mousemove', mousemove);
+                $document.unbind('mouseup', mouseup);
+            }
+        }
     }
 }]);

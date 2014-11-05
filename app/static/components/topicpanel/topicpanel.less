@@ -8,13 +8,6 @@
     max-height:800px;
     background: #eee;
 }
-    #topicPanel.loggedin {
-        width:@default-topicpanel-width;
-    }
-    #topicPanel.loggedout {
-        width:0;
-        display:none;
-    }
     #topicPanel a.resizeSelector {
         position:absolute;
         display: block;
@@ -26,6 +19,9 @@
     }
         #topicPanel a.resizeSelector:hover {
             color:@icon-hover-color;
+        }
+        #topicPanel a.resizeSelector:active {
+            color:@icon-color-selected;
         }
         #topicPanel .leftResizeSelector,
         #topicPanel .rightResizeSelector {
