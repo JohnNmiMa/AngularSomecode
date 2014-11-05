@@ -354,17 +354,17 @@ someCodeApp.service('topicService', function() {
             function mousemove(event) {
                 var x = event.pageX,
                     dx = x - startX,
-                    resizerMin = parseFloat(attrs.resizerMin) / 100,
+                    resizerMin = parseFloat(attrs.resizerMin),
                     resizerMax = parseFloat(attrs.resizerMax) / 100,
                     topicPanelWidth = parseFloat($('#topicPanel').css("width")),
-                    snippetPanelWidth = parseFloat($('#snippetPanel').css("width")),
+                    //snippetPanelWidth = parseFloat($('#snippetPanel').css("width")),
                     snippetBlockWidth = parseFloat($('#snippetBlock').width()),
                     newTopicPanelWidth = topicPanelWidth + dx,
                     newTopicPanelWidthPercent = newTopicPanelWidth / snippetBlockWidth;
 
-                if (resizerMin > newTopicPanelWidthPercent) {
-                    newTopicPanelWidth = resizerMin * snippetBlockWidth;
-                    newTopicPanelWidthPercent = resizerMin;
+                if (resizerMin > newTopicPanelWidth) {
+                    newTopicPanelWidth = resizerMin;
+                    newTopicPanelWidthPercent = newTopicPanelWidth / snippetBlockWidth;
                 }
                 if (resizerMax < newTopicPanelWidthPercent) {
                     newTopicPanelWidth = resizerMax * snippetBlockWidth;
@@ -381,12 +381,16 @@ someCodeApp.service('topicService', function() {
                  */
 
                 $('#topicPanel').css({
-                    //'width': newTopicPanelWidth + 'px'
-                    'width': (newTopicPanelWidthPercent * 100) + '%'
+                    // To set width in pixels
+                    'width': newTopicPanelWidth + 'px'
+                    // To set width in percentage
+                    //'width': (newTopicPanelWidthPercent * 100) + '%'
                 });
                 $('#snippetPanel').css({
-                    //'width': (snippetBlockWidth - newTopicPanelWidth) + 'px'
-                    'width': ((1 - newTopicPanelWidthPercent) * 100) + '%'
+                    // To set width in pixels
+                    'width': (snippetBlockWidth - newTopicPanelWidth) + 'px'
+                    // To set width in percentage
+                    //'width': ((1 - newTopicPanelWidthPercent) * 100) + '%'
                 });
 
                 startX = x;
