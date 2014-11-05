@@ -378,11 +378,15 @@ someCodeApp.service('topicService', function() {
                             ": snippetBlockWidth = " + snippetBlockWidth +
                             ": newTopicPanelWidthPercent = " + newTopicPanelWidthPercent);
                 console.log('mousemove: x = ' + x + ": dx = " + dx);
-                */
+                 */
 
                 $('#topicPanel').css({
                     //'width': newTopicPanelWidth + 'px'
                     'width': (newTopicPanelWidthPercent * 100) + '%'
+                });
+                $('#snippetPanel').css({
+                    //'width': (snippetBlockWidth - newTopicPanelWidth) + 'px'
+                    'width': ((1 - newTopicPanelWidthPercent) * 100) + '%'
                 });
 
                 startX = x;

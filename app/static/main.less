@@ -14,7 +14,6 @@ body {
 }
 
 #snippetBlock {
-    display:table;
     padding:0 15px;
     width:100%;
 }
@@ -33,7 +32,9 @@ body {
  * Snippet Panel
  */
 #snippetPanel {
-    display:table-cell;
+    display:inline-block;
+    width:@default-snippetpanel-width-narrow;
+    display:inline-block;
     vertical-align: top;
     padding-left: 10px;
 }
