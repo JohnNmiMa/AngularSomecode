@@ -1,10 +1,13 @@
-someCodeApp.controller('SnippetBarCtrl', ['$scope', 'snippetBarService',
-                                  function($scope,   snippetBar) {
+someCodeApp.controller('SnippetBarCtrl', ['$scope', 'topicService', 'snippetBarService',
+                                  function($scope,   topicService,   snippetBar) {
     $scope.SnippetBarCtrlScope = "SnippetBarCtrlScope";
     $scope.topicOrSearchString = "";
     $scope.$on('topicOrSearchString', function(event, searchStr) {
         $scope.topicOrSearchString = searchStr;
     });
+    $scope.toggleTopicPanel = function() {
+        topicService.isVisible = !topicService.isVisible;
+    };
     $scope.setLayout = function(layout) {
         snippetBar.snippetLayout = layout;
         $scope.$emit('snippetLayoutChange', layout);

@@ -2,7 +2,7 @@
 <div id='snippetBar' ng-controller="SnippetBarCtrl">
     <ul id='leftSnippetBar' class="nav nav-pills">
         <li id='toggleIcon'>
-            <a href="javascript:void(0)" ng-if="isAuthenticated()">
+            <a href="javascript:void(0)" ng-if="isAuthenticated()" ng-click="toggleTopicPanel()">
                 <span class="fa fa-align-justify fa-2x fa-rotate-90"></span>
             </a>
         </li>

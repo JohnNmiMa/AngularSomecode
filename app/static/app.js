@@ -119,7 +119,9 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
                     topicService.topicPanelWidth = topicPanelWidth;
 
                     // Adjust the snippetPanel's width
-                    scope.snippetPanelStyle = {'width': snippetPanelWidth};
+                    if (topicService.isVisible) {
+                        scope.snippetPanelStyle = {'width': snippetPanelWidth};
+                    }
                     topicService.snippetPanelWidth = snippetPanelWidth;
                 } else {
                     // There is no topicPanel, so make the snippetPanel 100% wide

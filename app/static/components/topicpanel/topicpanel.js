@@ -6,6 +6,9 @@
 
 someCodeApp.service('topicService', function() {
     var topicPanelScope = undefined,
+        isVisibleDefault = true,
+        topicPanelWidthDefault = "20%",
+        snippetPanelWidthDefault = "80%",
         isAddingTopic = false,
         isEditingTopic = false,
         isEditingTopicName = false,
@@ -23,6 +26,13 @@ someCodeApp.service('topicService', function() {
 
     return {
         // Getters and setters
+        get isVisible()                 {
+            if(localStorage['isTopicPanelVisible'] === undefined) {
+                localStorage['isTopicPanelVisible'] = isVisibleDefault;
+            }
+            return localStorage['isTopicPanelVisible'] === 'true' ? true : false;
+        },
+        set isVisible(bool)             { localStorage['isTopicPanelVisible'] = bool; changed(); },
         get isAddingTopic()             { return isAddingTopic; },
         set isAddingTopic(bool)         { isAddingTopic = bool; changed(); },
         get isEditingTopic()            { return isEditingTopic; },
@@ -33,9 +43,19 @@ someCodeApp.service('topicService', function() {
         set selectedTopicId(id)         { selectedTopicId = id; changed(); },
         get editedTopicId()             { return editedTopicId; },
         set editedTopicId(id)           { editedTopicId = id; changed(); },
-        get topicPanelWidth()           { return localStorage['topicPanelWidth']; },
+        get topicPanelWidth()           {
+            if (localStorage['topicPanelWidth'] === undefined) {
+                localStorage['topicPanelWidth'] = topicPanelWidthDefault;
+            }
+            return localStorage['topicPanelWidth'];
+        },
         set topicPanelWidth(widthStr)   { localStorage['topicPanelWidth'] = widthStr; },
-        get snippetPanelWidth()         { return localStorage['snippetPanelWidth']; },
+        get snippetPanelWidth()         {
+            if (localStorage['snippetPanelWidth'] === undefined) {
+                localStorage['snippetPanelWidth'] = snippetPanelWidthDefault;
+            }
+            return localStorage['snippetPanelWidth'];
+        },
         set snippetPanelWidth(widthStr) { localStorage['snippetPanelWidth'] = widthStr; },
 
         // Public functions
@@ -44,7 +64,7 @@ someCodeApp.service('topicService', function() {
 })
 
 
-.directive('topicPanel', [function() {
+.directive('topicPanel', ['topicService', function(topicService) {
     return {
         restrict: 'E',
         replace: true,
@@ -59,20 +79,6 @@ someCodeApp.service('topicService', function() {
                 $scope.topics = snippetService.topics.topics;
             });
 
-            // The topicPanel model
-            topicService.register($scope);
-            $scope.$on('topicPanelModelChanged', function() {
-                modelChanged();
-            });
-            function modelChanged() {
-                // update scope
-                $scope.isAddingTopic = topicService.isAddingTopic;
-                $scope.isEditingTopic = topicService.isEditingTopic;
-                $scope.isEditingTopicName = topicService.isEditingTopicName;
-                $scope.selectedTopicId = topicService.selectedTopicId;
-                $scope.editedTopicId = topicService.editedTopicId;
-            }
-            modelChanged(); // Init scope
 
             // A topic name was selected. This means different things depending upon
             // the state of the topicPanel.
@@ -82,8 +88,8 @@ someCodeApp.service('topicService', function() {
                     if (topicService.isEditingTopic === true) {
                         if (topicName != "General" && topicName != "Welcome") {
                             // Edit the topic name
+                            topicService.editedTopicId = topic.id;
                             topicService.isEditingTopicName = true;
-                            $scope.editedTopicId = topic.id;
                         }
                     } else {
                         // Display topic snippets
@@ -91,7 +97,7 @@ someCodeApp.service('topicService', function() {
                             snippetService.setSnippets(results, $scope);
                             $scope.$emit('updateTopicString', topicName);
                         });
-                        $scope.selectedTopicId = topic.id;
+                        topicService.selectedTopicId = topic.id;
                     }
                 }
             };
@@ -105,22 +111,47 @@ someCodeApp.service('topicService', function() {
             // Click on the topic add control to add a new topic
             $scope.topicAdd = function() {
                 if (topicService.isEditingTopic === false) {
-                    topicService.isAddingTopic = !$scope.isAddingTopic;
+                    topicService.isAddingTopic = !topicService.isAddingTopic;
                 }
             };
 
             // Click on top topic edit control to edit a topic name
             $scope.topicEdit = function() {
                 if (topicService.isAddingTopic === false) {
-                    topicService.isEditingTopic = !$scope.isEditingTopic;
+                    topicService.isEditingTopic = !topicService.isEditingTopic;
                     if (topicService.isEditingTopic === false) {
                         topicService.isEditingTopicName = false;
-                        $scope.editedTopicId = undefined;
                     }
                 }
             };
         },
         link: function (scope, element, attrs) {
+            // The topicPanel model
+            topicService.register(scope);
+            scope.$on('topicPanelModelChanged', function() {
+                modelChanged();
+            });
+            function modelChanged() {
+                // update scope
+                scope.isVisible = topicService.isVisible;
+                if (topicService.isVisible) {
+                    setSnippetPanelWidth(topicService.snippetPanelWidth);
+                } else {
+                    setSnippetPanelWidth("100%");
+                }
+                scope.isAddingTopic = topicService.isAddingTopic;
+                scope.isEditingTopic = topicService.isEditingTopic;
+                scope.isEditingTopicName = topicService.isEditingTopicName;
+                scope.selectedTopicId = topicService.selectedTopicId;
+                scope.editedTopicId = topicService.editedTopicId;
+            }
+            modelChanged(); // Init scope
+
+            function setSnippetPanelWidth(width) {
+                $('#snippetPanel').css({
+                    'width': width
+                });
+            }
         }
     }
 }])
@@ -384,8 +415,8 @@ someCodeApp.service('topicService', function() {
                 console.log('mousemove: x = ' + x + ": dx = " + dx);
                  */
 
-                //setComponentsWidth(newTopicPanelWidth + 'px', (snippetBlockWidth - newTopicPanelWidth) + 'px');
-                setComponentsWidth(newTopicPanelWidthPercent * 100 + '%', ((1 - newTopicPanelWidthPercent) * 100) + '%');
+                setComponentsWidth(newTopicPanelWidth + 'px', (snippetBlockWidth - newTopicPanelWidth) + 'px');
+                //setComponentsWidth((newTopicPanelWidthPercent * 100) + '%', ((1 - newTopicPanelWidthPercent) * 100) + '%');
 
                 startX = x;
             }
