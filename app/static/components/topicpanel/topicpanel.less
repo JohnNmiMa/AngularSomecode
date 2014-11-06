@@ -4,37 +4,21 @@
     display:inline-block;
     position:relative;
     margin-top: 10px;
-//    width: @default-topicpanel-width;
     max-height:800px;
     min-width:125px;
     background: #eee;
 }
-    #topicPanel a.resizeSelector {
+    #topicPanel .resizeSelector {
         position:absolute;
-        display: block;
         top:50%;
-        right:-11px;
-        width:21px;
-        height:14px;
+        right:-8px;
         color:@icon-color;
     }
-        #topicPanel a.resizeSelector:hover {
+        #topicPanel .resizeSelector:hover {
             color:@icon-hover-color;
         }
-        #topicPanel a.resizeSelector:active {
+        #topicPanel .resizeSelector:active {
             color:@icon-color-selected;
-        }
-        #topicPanel .leftResizeSelector,
-        #topicPanel .rightResizeSelector {
-            position:absolute;
-            top:0;
-            color:inherit;
-        }
-        #topicPanel .leftResizeSelector {
-            left:0;
-        }
-        #topicPanel .rightResizeSelector {
-            right:0;
         }
     #topicPanel .panel-heading {
         position: relative;
