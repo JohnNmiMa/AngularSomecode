@@ -85,6 +85,8 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
+            var hasTopicPanel = (attrs.snippetBlockSizer === "hasTopicPanel");
+
             $(window).on('resize', function() {
                 scope.$apply(function () {
                     console.log("Here in the topicPanel sizeit");
@@ -109,16 +111,20 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
             }
 
             function setComponentsWidth(topicPanelWidth, snippetPanelWidth) {
-                // Adjust the topicPanel's width
-                scope.topicPanelStyle = {'width': topicPanelWidth};
-                topicService.topicPanelWidth = topicPanelWidth;
+                if(hasTopicPanel) {
+                    // Adjust the topicPanel's width
+                    scope.topicPanelStyle = {'width': topicPanelWidth};
+                    topicService.topicPanelWidth = topicPanelWidth;
 
-                // Adjust the snippetPanel's width
-                scope.snippetPanelStyle = {'width': snippetPanelWidth};
-                topicService.snippetPanelWidth = snippetPanelWidth;
+                    // Adjust the snippetPanel's width
+                    scope.snippetPanelStyle = {'width': snippetPanelWidth};
+                    topicService.snippetPanelWidth = snippetPanelWidth;
+                } else {
+                    // There is not topicPanel, to make the snippetPanel 100% wide
+                    scope.snippetPanelStyle = {'width': "100%"};
+                }
+
             }
-            var tw = topicService.topicPanelWidth;
-            var sw = topicService.snippetPanelWidth;
             setComponentsWidth(topicService.topicPanelWidth, topicService.snippetPanelWidth);
 
             function resizeOnScrollbarHack() {
