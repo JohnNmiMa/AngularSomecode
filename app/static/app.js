@@ -122,7 +122,7 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
                     scope.snippetPanelStyle = {'width': snippetPanelWidth};
                     topicService.snippetPanelWidth = snippetPanelWidth;
                 } else {
-                    // There is not topicPanel, to make the snippetPanel 100% wide
+                    // There is no topicPanel, so make the snippetPanel 100% wide
                     scope.snippetPanelStyle = {'width': "100%"};
                 }
 
@@ -157,8 +157,6 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
                 document.body.appendChild(iframe);
             }
             //resizeOnScrollbarHack();
-
-            //updateSnippetBlockComponentSizes();
         }
     }
 }]);
