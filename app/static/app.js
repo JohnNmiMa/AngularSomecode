@@ -81,11 +81,13 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
 }])
 
 
-.directive('snippetBlockSizer', ['$document', 'topicService', function($document, topicService) {
+.directive('snippetBlockSizer', ['oauthLibrary', 'topicService',
+                         function(oauth,          topicService) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
-            var hasTopicPanel = (attrs.snippetBlockSizer === "hasTopicPanel");
+            // The topic panel doesn't exist when logged out
+            var hasTopicPanel = oauth.isAuthenticated();
 
             $(window).on('resize', function() {
                 scope.$apply(function () {
