@@ -56,29 +56,39 @@
             }
     #topicPanel .panel-body {
         padding:5px 5px;
+        padding:0;
         padding-right:12px;
+        background-color:white;
     }
     #topicPanel #topicAddNameField {
-        padding:3px 6px;
+//        padding:3px 6px;
     }
         #topicPanel #topicAddNameField::-webkit-input-placeholder {
             font-size: 0.85em;
         }
         #topicPanel #topicEditForm #topicEditNameField {
+            height:28px;
             padding:3px 6px;
         }
         #topicPanel .panel-body span.badge.sit-right {
             position:absolute;
             top:4px;
-            right:5px;
+            right:3px;
         }
     #topicPanel ul {
-        padding: 0;
+//        padding: 0;
+        margin-bottom:0;
     }
         #topicPanel ul li {
-            padding: 3px 5px;
+//            padding: 3px 5px;
+            padding: 3px 0 3px 5px;
+            border-right:none;
+            border-left:none;
             overflow: hidden;
         }
+            #topicPanel ul li:first-child {
+                border-top:none;
+            }
             #topicPanel ul li.active {
                 color:white;
             }

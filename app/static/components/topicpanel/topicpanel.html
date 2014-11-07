@@ -9,7 +9,8 @@
     <div class='panel-body'>
         <ul class='list-group'>
             <topic-add-form ng-show="isAddingTopic"></topic-add-form>
-
+        </ul>
+        <ul>
             <topic ng-repeat="topic in topics"></topic>
 
             <topic-delete-dialog></topic-delete-dialog>
