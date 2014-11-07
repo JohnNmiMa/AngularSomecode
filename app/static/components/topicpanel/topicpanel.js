@@ -421,6 +421,11 @@ someCodeApp.service('topicService', function() {
                 startX = x;
             }
 
+            function mouseup() {
+                $document.unbind('mousemove', mousemove);
+                $document.unbind('mouseup', mouseup);
+            }
+
             function setComponentsWidth(topicPanelWidth, snippetPanelWidth) {
                 // Adjust the topicPanel's width
                 $('#topicPanel').css({
@@ -433,11 +438,6 @@ someCodeApp.service('topicService', function() {
                     'width': snippetPanelWidth
                 });
                 topicService.snippetPanelWidth = snippetPanelWidth;
-            }
-
-            function mouseup() {
-                $document.unbind('mousemove', mousemove);
-                $document.unbind('mouseup', mouseup);
             }
         }
     }
