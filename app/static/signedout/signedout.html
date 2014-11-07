@@ -1,13 +1,4 @@
 <div id='snippetBlock' snippet-block-sizer>
-    <!--{% block topicPanel %}-->
-
-    <div id='snippetPanel' ng-style="snippetPanelStyle">
-        <snippet-bar></snippet-bar>
-
-        <div id='snippetContainer' class='container-fluid'>
-            <div id='userSnippets'>
-                <snippet ng-repeat="snip in snippets"></snippet>
-            </div>
-        </div>
-    </div>
+    <!--<topic-panel ng-style="topicPanelStyle"></topic-panel>&lt;!&ndash;-->
+    <snippet-panel ng-style="snippetPanelStyle"></snippet-panel>
 </div>

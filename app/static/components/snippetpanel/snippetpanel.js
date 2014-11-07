@@ -3,12 +3,20 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
     $scope.SnippetsCtrlScope = "SnippetsCtrlScope";
 }])
 
+.directive('snippetPanel', [function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: './static/components/snippetpanel/snippetpanel.html'
+    }
+}])
+
 .directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary',
                function($sce,   snippetBarService,   oauth) {
     return {
         restrict: 'E',
         scope: true,
-        templateUrl: './static/components/snippets/snippets.html',
+        templateUrl: './static/components/snippetpanel/snippet.html',
         controller: function($scope, $element, $attrs) {
             $scope.layout = snippetBarService.snippetLayout;
 
@@ -44,7 +52,7 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
     return {
         require: '?^snippet',
         restrict: 'E',
-        templateUrl: './static/components/snippets/snippetPopup.html',
+        templateUrl: './static/components/snippetpanel/snippetPopup.html',
         link: function(scope, element, attrs, snippetCtrl) {
             scope.setLayout = function(layout) {
                 snippetCtrl.setLayout(layout);
