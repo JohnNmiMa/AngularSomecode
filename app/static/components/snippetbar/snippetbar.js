@@ -8,8 +8,8 @@ someCodeApp.service('snippetBarService', function() {
     }
 })
 
-.directive('snippetBar', ['topicService', 'snippetBarService',
-                  function(topicService,   snippetBar) {
+.directive('snippetBar', ['topicService', 'snippetBarService', 'snippetService',
+                  function(topicService,   snippetBar,          snippetService) {
     return {
         restrict: 'E',
         templateUrl: './static/components/snippetbar/snippetbar.html',
@@ -25,6 +25,9 @@ someCodeApp.service('snippetBarService', function() {
             scope.toggleTopicPanel = function() {
                 topicService.isVisible = !topicService.isVisible;
                 scope.isToggled = !scope.isToggled;
+            };
+            scope.snippetAdd = function() {
+                snippetService.isAddingSnippet = !snippetService.isAddingSnippet;
             };
             scope.setLayout = function(layout) {
                 snippetBar.snippetLayout = layout;
