@@ -2,7 +2,7 @@ angular.module('snippetLibrary', [])
 
 //.constant('API_PREFIX', 'http://api.geonames.org')
 
-.service('snippetService', function() {
+.service('snippetLibraryService', function() {
     var snippets = {},
         topics = [];
 

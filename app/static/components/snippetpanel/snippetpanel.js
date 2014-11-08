@@ -1,13 +1,22 @@
-viewsModule.controller('SnippetsCtrl', ['$scope',
-                                function($scope) {
-    $scope.SnippetsCtrlScope = "SnippetsCtrlScope";
+viewsModule.service('snippetService', [function() {
+
 }])
 
 .directive('snippetPanel', [function() {
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: './static/components/snippetpanel/snippetpanel.html'
+        scope: true,
+        templateUrl: './static/components/snippetpanel/snippetpanel.html',
+        controller: function($scope, $element, $attrs, snippetService, snippetLibraryService) {
+            $scope.SnippetPanelDirectiveCtrlScope = "SnippetPanelDirectiveCtrlScope";
+
+            // The snippets model
+            $scope.snippets = {};
+            $scope.$on('updateSnippets', function(event) {
+                $scope.snippets = snippetLibraryService.snippets;
+            })
+        }
     }
 }])
 
@@ -25,6 +34,10 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
             });
             this.setLayout = function(snippetLayout) {
                 $scope.layout = snippetLayout;
+            }
+            this.snippetEdit = function(snippet) {
+                $scope.isEditing = true;
+                console.log("Edit snippet " + snippet.id);
             }
         },
         link: function(scope, element, attrs, snippetCtrl) {
@@ -48,15 +61,33 @@ viewsModule.controller('SnippetsCtrl', ['$scope',
     }
 }])
 
-.directive('snippetPopup', function() {
+.directive('snippetPopup', [function() {
     return {
         require: '?^snippet',
         restrict: 'E',
+        scope: true,
         templateUrl: './static/components/snippetpanel/snippetPopup.html',
+        controller: function($scope, $element, $attrs) {
+        },
         link: function(scope, element, attrs, snippetCtrl) {
             scope.setLayout = function(layout) {
                 snippetCtrl.setLayout(layout);
+            };
+
+            scope.snippetEdit = function(snippet) {
+                snippetCtrl.snippetEdit(snippet)
             }
         }
     }
-});
+}])
+
+.directive('snippetEditForm', [
+                       function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: true,   // there's one of these forms for each topic
+        templateUrl: './static/components/snippetpanel/snippetEditForm.html'
+    }
+}]);
+

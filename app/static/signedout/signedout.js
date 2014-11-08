@@ -1,10 +1,5 @@
-viewsModule.controller('SignedoutCtrl', ['$scope', '$sce', 'snippetService',
-                                 function($scope,   $sce,   snippetService) {
+viewsModule.controller('SignedoutCtrl', ['$scope', '$sce',
+                                 function($scope,   $sce) {
     $scope.SignedOutCtrlScope = "SignedOutCtrlScope";
-
-    $scope.snippets = {};
-    $scope.$on('updateSnippets', function(event) {
-        $scope.snippets = snippetService.snippets;
-    })
 }]);
 

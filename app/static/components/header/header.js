@@ -1,10 +1,10 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetService',
-                              function($scope,   oauth,          snippetSearch,   snippetService) {
+someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetLibraryService',
+                              function($scope,   oauth,          snippetSearch,   snippetLibraryService) {
     $scope.HeaderCtrlScope = "HeaderCtrlScope";
     $scope.searchSubmit = function() {
         var searchAccess = oauth.isAuthenticated() ? 'private' : 'public';
         snippetSearch(searchAccess, $scope.searchString).then(function(results) {
-            snippetService.setSnippets(results, $scope);
+            snippetLibraryService.setSnippets(results, $scope);
             $scope.$emit('updateSearchString', $scope.searchString);
             $scope.searchString = "";
         });

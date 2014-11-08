@@ -4,7 +4,7 @@
 //}])
 
 
-someCodeApp.service('topicService', function() {
+someCodeApp.service('topicService', [function() {
     var topicPanelScope = undefined,
         isVisibleDefault = true,
         topicPanelWidthDefault = "20%",
@@ -61,7 +61,7 @@ someCodeApp.service('topicService', function() {
         // Public functions
         register:register
     }
-})
+}])
 
 
 .directive('topicPanel', ['topicService', function(topicService) {
@@ -70,13 +70,13 @@ someCodeApp.service('topicService', function() {
         replace: true,
         scope: true,
         templateUrl: './static/components/topicpanel/topicpanel.html',
-        controller: function ($scope, $element, $attrs, topicService, displayTopicSnippets, snippetService) {
+        controller: function ($scope, $element, $attrs, topicService, displayTopicSnippets, snippetLibraryService) {
             $scope.TopicPanelDirectiveCtrlScope = "TopicPanelDirectiveCtrlScope";
 
             // The topics model
-            $scope.topics = snippetService.topics.topics;
+            $scope.topics = snippetLibraryService.topics.topics;
             $scope.$on('updateTopics', function(event) {
-                $scope.topics = snippetService.topics.topics;
+                $scope.topics = snippetLibraryService.topics.topics;
             });
 
 
@@ -94,7 +94,7 @@ someCodeApp.service('topicService', function() {
                     } else {
                         // Display topic snippets
                         displayTopicSnippets(topicName).then(function(results) {
-                            snippetService.setSnippets(results, $scope);
+                            snippetLibraryService.setSnippets(results, $scope);
                             $scope.$emit('updateTopicString', topicName);
                         });
                         topicService.selectedTopicId = topic.id;
@@ -171,8 +171,8 @@ someCodeApp.service('topicService', function() {
 }])
 
 
-.directive('topicAddForm', ['topicService', 'snippetService', 'createTopic',
-                    function(topicService,   snippetService,   createTopic) {
+.directive('topicAddForm', ['topicService', 'snippetLibraryService', 'createTopic',
+                    function(topicService,   snippetLibraryService,   createTopic) {
     return {
         restrict: 'E',
         replace: true,
@@ -217,7 +217,7 @@ someCodeApp.service('topicService', function() {
             scope.topicAddSubmit = function() {
                 if (scope.topicAddForm.$valid) {
                     createTopic(scope.topicAddString).then(function(newTopic) {
-                        snippetService.addTopic(newTopic, scope);
+                        snippetLibraryService.addTopic(newTopic, scope);
                         topicAddFormCtrl.resetForm();
                     });
                 } else {
@@ -236,8 +236,8 @@ someCodeApp.service('topicService', function() {
 }])
 
 
-.directive('topicEditForm', ['topicService', 'snippetService', 'editTopic',
-                     function(topicService,   snippetService,   editTopic) {
+.directive('topicEditForm', ['topicService', 'snippetLibraryService', 'editTopic',
+                     function(topicService,   snippetLibraryService,   editTopic) {
     return {
         restrict: 'E',
         replace: true,
@@ -285,7 +285,7 @@ someCodeApp.service('topicService', function() {
             scope.topicEditSubmit = function() {
                 if (scope.topicEditForm.$valid) {
                     editTopic(scope.topic.id, scope.topicEditString).then(function(editedTopic) {
-                        snippetService.editTopic(editedTopic, scope);
+                        snippetLibraryService.editTopic(editedTopic, scope);
                         topicEditFormCtrl.resetForm(editedTopic);
                         topicService.isEditingTopicName = false;
                     });
@@ -298,7 +298,7 @@ someCodeApp.service('topicService', function() {
 }])
 
 
-.directive('topicDeleteDialog', ['snippetService', function(snippetService) {
+.directive('topicDeleteDialog', ['snippetLibraryService', function(snippetLibraryService) {
     return {
         restrict: 'E',
         replace: true,
@@ -318,7 +318,7 @@ someCodeApp.service('topicService', function() {
             $scope.doTopicDelete = function() {
                 if (topicToDelete) {
                     deleteTopic(topicToDelete.id).then(function(results) {
-                        snippetService.deleteTopic(results.id, $scope);
+                        snippetLibraryService.deleteTopic(results.id, $scope);
                     });
                     topicToDelete = undefined;
                 }
@@ -328,14 +328,14 @@ someCodeApp.service('topicService', function() {
     }
 }])
 
-.factory('topicNameValidatorService', ['snippetService', function(snippetService) {
+.factory('topicNameValidatorService', ['snippetLibraryService', function(snippetLibraryService) {
     return function(attrs, ngModelCtrl, topicName) {
         // Return false (don't validate) if the topicName already exists
         // We don't want to add or edit a topic if it is already in the list of topics
         var topics = [];
 
         if (topicName != undefined) {
-            topics = snippetService.topics.topics;
+            topics = snippetLibraryService.topics.topics;
             for (var topic in topics) {
                 if (topicName.toLowerCase() === topics[topic].name.toLowerCase()) {
                     return false;

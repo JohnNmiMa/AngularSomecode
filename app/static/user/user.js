@@ -1,10 +1,6 @@
-viewsModule.controller('UserCtrl', ['$scope', 'topics', 'snippetService',
-                            function($scope,   topics,   snippetService) {
+viewsModule.controller('UserCtrl', ['$scope', 'topics', 'snippetLibraryService',
+                            function($scope,   topics,   snippetLibraryService) {
     $scope.UserCtrlScope = "UserCtrlScope";
 
-    $scope.snippets = {};
-    snippetService.setTopics(topics, $scope);
-    $scope.$on('updateSnippets', function(event) {
-        $scope.snippets = snippetService.snippets;
-    })
+    snippetLibraryService.setTopics(topics, $scope);
 }]);
