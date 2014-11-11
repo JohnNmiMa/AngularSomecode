@@ -6,7 +6,7 @@
 
 someCodeApp.service('topicService', [function() {
     var topicPanelScope = undefined,
-        isVisibleDefault = true,
+        isTopicPanelVisibleDefault = true,
         topicPanelWidthDefault = "20%",
         snippetPanelWidthDefault = "80%",
         isAddingTopic = false,
@@ -26,13 +26,13 @@ someCodeApp.service('topicService', [function() {
 
     return {
         // Getters and setters
-        get isVisible()                 {
+        get isTopicPanelVisible()                 {
             if(localStorage['isTopicPanelVisible'] === undefined) {
-                localStorage['isTopicPanelVisible'] = isVisibleDefault;
+                localStorage['isTopicPanelVisible'] = isTopicPanelVisibleDefault;
             }
             return localStorage['isTopicPanelVisible'] === 'true' ? true : false;
         },
-        set isVisible(bool)             { localStorage['isTopicPanelVisible'] = bool; changed(); },
+        set isTopicPanelVisible(bool)   { localStorage['isTopicPanelVisible'] = bool; changed(); },
         get isAddingTopic()             { return isAddingTopic; },
         set isAddingTopic(bool)         { isAddingTopic = bool; changed(); },
         get isEditingTopic()            { return isEditingTopic; },
@@ -133,8 +133,8 @@ someCodeApp.service('topicService', [function() {
             });
             function modelChanged() {
                 // update scope
-                scope.isVisible = topicService.isVisible;
-                if (topicService.isVisible) {
+                scope.isVisible = topicService.isTopicPanelVisible;
+                if (topicService.isTopicPanelVisible) {
                     setSnippetPanelWidth(topicService.snippetPanelWidth);
                 } else {
                     setSnippetPanelWidth("100%");
@@ -441,6 +441,25 @@ someCodeApp.service('topicService', [function() {
             }
         }
     }
+}])
+
+
+.directive('topicPanelSizer', ['oauthLibrary', 'topicService',
+                       function(oauth,          topicService) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            // The topic panel doesn't exist when logged out
+            var hasTopicPanel = oauth.isAuthenticated();
+
+            function setComponentsWidth(topicPanelWidth) {
+                if(hasTopicPanel) {
+                    // Adjust the topicPanel's width
+                    scope.topicPanelStyle = {'width': topicPanelWidth};
+                    topicService.topicPanelWidth = topicPanelWidth;
+                }
+            }
+            setComponentsWidth(topicService.topicPanelWidth);
+        }
+    }
 }]);
-
-

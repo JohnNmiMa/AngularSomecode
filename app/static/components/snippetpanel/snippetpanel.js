@@ -31,7 +31,7 @@ viewsModule.service('snippetService', [function() {
                 function() {
                     var topicPanelExists = $('#topicPanel').length;
                     if (!topicPanelExists) return false;
-                    return topicService.isVisible;
+                    return topicService.isTopicPanelVisible;
                 },
                 function(newVal, oldVal) {
                     $scope.isFullScreen = newVal;
@@ -159,5 +159,83 @@ viewsModule.service('snippetService', [function() {
             }
         }
     }
-}]);
+}])
 
+
+.directive('snippetPanelSizer', ['oauthLibrary', 'topicService',
+                         function(oauth,          topicService) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                // The topic panel doesn't exist when logged out
+                var hasTopicPanel = oauth.isAuthenticated();
+
+                $(window).on('resize', function() {
+                    scope.$apply(function () {
+                        console.log("Here in the snippetPanelSizer");
+                        updateSnippetBlockComponentSizes();
+                    })
+                });
+
+                function  updateSnippetBlockComponentSizes() {
+                    var snippetBlockWidth = parseFloat($('#snippetBlock').width()),
+                        topicPanelWidth = parseFloat(topicService.topicPanelWidth),
+                        snippetPanelWidth = snippetBlockWidth - topicPanelWidth;
+
+                    /*
+                     console.log("snippetBlockWidth = " + snippetBlockWidth +
+                     ": topicPanelWidth = " + topicPanelWidth +
+                     ": snippetPanelWidth = " + snippetPanelWidth);
+                     */
+
+                    setWidth(snippetPanelWidth + 'px');
+                }
+
+                function setWidth(snippetPanelWidth) {
+                    if(hasTopicPanel) {
+                        // Adjust the snippetPanel's width
+                        if (topicService.isTopicPanelVisible) {
+                            scope.snippetPanelStyle = {'width': snippetPanelWidth};
+                        } else {
+                            scope.snippetPanelStyle = {'width': "100%"};
+                        }
+                        topicService.snippetPanelWidth = snippetPanelWidth;
+                    } else {
+                        // There is no topicPanel, so make the snippetPanel 100% wide
+                        scope.snippetPanelStyle = {'width': "100%"};
+                    }
+
+                }
+                updateSnippetBlockComponentSizes();
+
+                function resizeOnScrollbarHack() {
+                    // Demo: http://jsfiddle.net/pFaSx/
+
+                    // Create an invisible iframe
+                    var iframe = document.createElement('iframe');
+                    iframe.id = "hacky-scrollbar-resize-listener";
+                    iframe.style.cssText = 'height: 0; background-color: transparent; margin: 0; padding: 0; overflow: hidden; border-width: 0; position: absolute; width: 100%;';
+
+                    // Register our event when the iframe loads
+                    iframe.onload = function() {
+                        // The trick here is that because this iframe has 100% width
+                        // it should fire a window resize event when anything causes it to
+                        // resize (even scrollbars on the outer document)
+                        iframe.contentWindow.addEventListener('resize', function() {
+                            try {
+                                console.log("In iframe resizer!");
+                                //var evt = document.createEvent('UIEvents');
+                                //evt.initUIEvent('resize', true, false, window, 0);
+                                //window.dispatchEvent(evt);
+                                updateSnippetBlockComponentSizes();
+                            } catch(e) {}
+                        });
+                    };
+
+                    // Stick the iframe somewhere out of the way
+                    document.body.appendChild(iframe);
+                }
+                //resizeOnScrollbarHack();
+            }
+        }
+    }]);

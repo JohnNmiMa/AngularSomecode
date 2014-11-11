@@ -46,11 +46,11 @@ someCodeApp.service('snippetBarService', function() {
             }
             modelChanged();
 
-            if (topicService.isVisible) {
+            if (topicService.isTopicPanelVisible) {
                 scope.isToggled = true;
             }
             scope.toggleTopicPanel = function() {
-                topicService.isVisible = !topicService.isVisible;
+                topicService.isTopicPanelVisible = !topicService.isTopicPanelVisible;
                 scope.isToggled = !scope.isToggled;
             };
 
