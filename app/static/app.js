@@ -47,6 +47,7 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
             $scope.username = oauth.username();
             $scope.hideSignin();
         }
+        $('#navbarCollapse').collapse('hide');
     });
 
     $scope.showSignin = function() {
