@@ -1,36 +1,70 @@
 someCodeApp.service('snippetBarService', function() {
-    var snippetLayout = "column";
+    var snippetBarScope = undefined,
+        isAddingSnippet = false,
+        snippetLayoutDefault = "column";
+
+    var changed = function() {
+        if (snippetBarScope != undefined) {
+            snippetBarScope.$broadcast('snippetBarModelChanged');
+        }
+    };
+    var register = function(scope) {
+        snippetBarScope = scope;
+    };
 
     return {
         // Getters and setters
-        get snippetLayout()       { return snippetLayout; },
-        set snippetLayout(layout) { snippetLayout = layout; }
+        get isAddingSnippet() { return isAddingSnippet; },
+        set isAddingSnippet(bool)  { isAddingSnippet = bool; changed(); },
+        get snippetLayout() {
+            if(localStorage['snippetLayout'] === undefined) {
+                localStorage['snippetLayout'] = snippetLayoutDefault;
+            }
+            return  localStorage['snippetLayout'];
+        },
+        set snippetLayout(layout) { localStorage['snippetLayout'] = layout; changed(); },
+
+        // Public functions
+        register:register
     }
 })
 
-.directive('snippetBar', ['topicService', 'snippetBarService', 'snippetService',
-                  function(topicService,   snippetBar,          snippetService) {
+.directive('snippetBar', ['topicService', 'snippetBarService',
+                  function(topicService,   snippetBar) {
     return {
         restrict: 'E',
         templateUrl: './static/components/snippetbar/snippetbar.html',
         link: function(scope, element, attrs) {
             scope.SnippetBarDirectiveScope = "SnippetBarDirectiveScope";
+
+            snippetBar.register(scope);
+            scope.$on('snippetBarModelChanged', function() {
+                modelChanged();
+            });
+            function modelChanged() {
+                scope.isAddingSnippet = snippetBar.isAddingSnippet;
+            }
+            modelChanged();
+
             if (topicService.isVisible) {
                 scope.isToggled = true;
             }
-            scope.topicOrSearchString = "";
-            scope.$on('topicOrSearchString', function(event, searchStr) {
-                scope.topicOrSearchString = searchStr;
-            });
             scope.toggleTopicPanel = function() {
                 topicService.isVisible = !topicService.isVisible;
                 scope.isToggled = !scope.isToggled;
             };
+
+            scope.topicOrSearchString = "";
+            scope.$on('topicOrSearchString', function(event, searchStr) {
+                scope.topicOrSearchString = searchStr;
+            });
+
             scope.snippetAdd = function() {
-                if (snippetService.isAddingSnippet === false) {
-                    snippetService.isAddingSnippet = !snippetService.isAddingSnippet;
+                if (snippetBar.isAddingSnippet === false) {
+                    snippetBar.isAddingSnippet = !snippetBar.isAddingSnippet;
                 }
             };
+
             scope.setLayout = function(layout) {
                 snippetBar.snippetLayout = layout;
                 scope.$emit('snippetLayoutChange', layout);

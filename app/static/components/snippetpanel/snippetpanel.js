@@ -1,6 +1,5 @@
 viewsModule.service('snippetService', [function() {
-    var snippetPanelScope = undefined,
-        isAddingSnippet = false;
+    var snippetPanelScope = undefined;
 
     var changed = function() {
         if (snippetPanelScope != undefined) {
@@ -13,15 +12,14 @@ viewsModule.service('snippetService', [function() {
 
     return {
         // getters/setters
-        get isAddingSnippet()      { return isAddingSnippet; },
-        set isAddingSnippet(bool)  { isAddingSnippet = bool; changed(); },
 
         // Public function
         register:register
     }
 }])
 
-.directive('snippetPanel', ['snippetService', function(snippetService) {
+.directive('snippetPanel', ['snippetBarService',
+                    function(snippetBar) {
     return {
         restrict: 'E',
         replace: true,
@@ -47,26 +45,21 @@ viewsModule.service('snippetService', [function() {
             });
         },
         link: function(scope, element, attrs, snippetCtrl) {
-            snippetService.register(scope);
-            scope.$on('snippetPanelModelChanged', function() {
-                modelChanged();
+            scope.$on('snippetBarModelChanged', function() {
+                scope.isAddingSnippet = snippetBar.isAddingSnippet;
             });
-            function modelChanged() {
-                scope.isAddingSnippet = snippetService.isAddingSnippet;
-            }
-            modelChanged();
         }
     }
 }])
 
 .directive('snippet', ['$sce', 'snippetBarService',
-               function($sce,   snippetBarService) {
+               function($sce,   snippetBar) {
     return {
         restrict: 'E',
         scope: true,
         templateUrl: './static/components/snippetpanel/snippet.html',
         controller: function($scope, $element, $attrs, oauthLibrary) {
-            $scope.layout = snippetBarService.snippetLayout;
+            $scope.layout = snippetBar.snippetLayout;
             $scope.snippetPopupVisible = false;
 
             $scope.$on('snippetLayout', function(event, snippetLayout) {
@@ -134,7 +127,8 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippetForm', ['snippetService', 'snippetBarService', function(snippetService, snippetBarService) {
+.directive('snippetForm', ['snippetService', 'snippetBarService',
+                   function(snippetService,   snippetBar) {
     return {
         require: ['?^snippetPanel', '?^snippet'],
         restrict: 'E',
@@ -147,7 +141,7 @@ viewsModule.service('snippetService', [function() {
 
             scope.$watch(
                 function() {
-                    return snippetBarService.snippetLayout;
+                    return snippetBar.snippetLayout;
                 },
                 function(newVar, oldVar) {
                     scope.layout = newVar;
@@ -157,7 +151,7 @@ viewsModule.service('snippetService', [function() {
             scope.snippetCancel = function(snippet) {
                 if (snippet === undefined) {
                     // We must be cancelling a snippet add
-                    snippetService.isAddingSnippet = !snippetService.isAddingSnippet;
+                    snippetBar.isAddingSnippet = !snippetBar.isAddingSnippet;
                 } else {
                     // We must be cancelling a snippet edit
                     snippetCtrl.snippetCancelEditing(snippet);
