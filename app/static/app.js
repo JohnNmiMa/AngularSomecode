@@ -36,8 +36,8 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
     });
 }])
 
-.controller('SomeCodeCtrl', ['$scope', '$location', 'oauthLibrary', 'snippetLogout',
-                     function($scope,   $location,   oauth,          snippetLogout) {
+.controller('SomeCodeCtrl', ['$scope', '$location', 'oauthLibrary', 'snippetLogout', 'topicService',
+                     function($scope,   $location,   oauth,          snippetLogout,   topicService) {
     $scope.SomeCodeCtrlScope = "SomeCodeCtrlScope";
     $scope.$watch(function() {
         return $scope.isAuthenticated();
@@ -46,6 +46,7 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
         if (newVal) {
             $scope.username = oauth.username();
             $scope.hideSignin();
+            topicService.isTopicPanelVisible = true;
         }
         $('#navbarCollapse').collapse('hide');
     });
