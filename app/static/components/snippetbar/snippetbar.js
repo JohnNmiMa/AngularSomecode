@@ -27,7 +27,9 @@ someCodeApp.service('snippetBarService', function() {
                 scope.isToggled = !scope.isToggled;
             };
             scope.snippetAdd = function() {
-                snippetService.isAddingSnippet = !snippetService.isAddingSnippet;
+                if (snippetService.isAddingSnippet === false) {
+                    snippetService.isAddingSnippet = !snippetService.isAddingSnippet;
+                }
             };
             scope.setLayout = function(layout) {
                 snippetBar.snippetLayout = layout;

@@ -6,26 +6,30 @@
                              'glyphicon-eye-close': !snip.access}"></span>
         </a>
     </div>
-    <div class="snippetContent">
+    <div class="snippetContent container-fluid">
         <snippet-popup></snippet-popup>
 
-        <div class="snippetTitle" ng-hide="isEditing">
-        <!--<span ng-hide="isEditing && (editedSnippetId == snippet.id)">-->
-            <h5 class="snippetTitleText">{{snip.title}}</h5>
+        <!--<span ng-hide="isEditing && (editedSnippetId == snip.id)">-->
+        <span ng-hide="isEditing">
+            <div class="snippetTitle">
+                <h5 class="snippetTitleText">{{snip.title}}</h5>
+            </div>
             <div class="snippetTextAreas">
                 <div ng-show="layout != 'titlesonly'" ng-bind-html="getTrustedHtml(snip.description)"
                      class="snippetDesText snippetDesStyle"
                      ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
                 </div>
-                <div ng-show="layout != 'titlesonly'" ng-bind-html="getTrustedHtml(snip.code)"
-                     class="snippetCodeText snippetCodeStyle snippetCodeLayout"
-                     ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row',
-                                'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
-                                'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}">
+                <div ng-show="layout != 'titlesonly'"
+                     ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row'}">
+                    <div ng-bind-html="getTrustedHtml(snip.code)"
+                         class="snippetCodeText snippetCodeStyle"
+                         ng-class="{'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
+                                    'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}">
+                    </div>
                 </div>
             </div>
-        </div>
+        </span>
         <snippet-form ng-show="isEditing"></snippet-form>
-        <!--<snippet-form ng-show="isEditing && (editedSnippetId == snippet.id)"></snippet-form>-->
+        <!--<snippet-form ng-show="isEditing && (editedSnippetId == snip.id)"></snippet-form>-->
     </div>
 </div>

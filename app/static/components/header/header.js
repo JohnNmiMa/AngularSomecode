@@ -1,9 +1,17 @@
 someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetLibraryService',
                               function($scope,   oauth,          snippetSearch,   snippetLibraryService) {
     $scope.HeaderCtrlScope = "HeaderCtrlScope";
+    $scope.$watch(
+        function() {
+            return oauth.isAuthenticated();
+        },
+        function(newVal, oldVal) {
+            $scope.searchAccess = oauth.isAuthenticated() ? 'personal' : 'public';
+        }
+    );
+
     $scope.searchSubmit = function() {
-        var searchAccess = oauth.isAuthenticated() ? 'private' : 'public';
-        snippetSearch(searchAccess, $scope.searchString).then(function(results) {
+        snippetSearch($scope.searchAccess, $scope.searchString).then(function(results) {
             snippetLibraryService.setSnippets(results, $scope);
             $scope.$emit('updateSearchString', $scope.searchString);
             $scope.searchString = "";
@@ -11,7 +19,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
     }
 }])
 
-.directive('snippetSearch', function() {
+.directive('snippetSearch', [function() {
     return {
         restrict: 'E',
         templateUrl: 'static/components/header/snippetSearch.html',
@@ -20,11 +28,15 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             // $scope is HeaderCtrl's scope
             $scope.computeLayout = function() {
                 if ($scope.isSignedIn) {
-                    return {'min-width':'290px'};
+                    return {'min-width': '290px'};
                 } else {
-                    return {'min-width':'220px'};
+                    return {'min-width': '220px'};
                 }
-            }
+            };
+
+            $scope.setSearchAccess = function(access) {
+                $scope.searchAccess = access;
+            };
         },
         link: function ($scope, element, attrs, snippetSearchController) {
             var searchField = element.find('#snippetSearchField');
@@ -43,7 +55,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             });
         }
     }
-})
+}])
 
 // The 'searchSizer' attribute directive will attempt to keep the
 // search input width at a percentage of the page width. This

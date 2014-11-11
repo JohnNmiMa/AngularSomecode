@@ -106,6 +106,10 @@ angular.module('oauthLibrary', [])
         return tokenService.username();
     };
 
+    oauthService.userid = function() {
+        return tokenService.userid();
+    };
+
     oauthService.logout = function() {
         tokenService.logout();
     };
@@ -194,6 +198,15 @@ angular.module('oauthLibrary', [])
         }
         return "";
     };
+
+    tokenService.userid = function() {
+        var tokenRec = $window.localStorage[config.tokenName];
+        if (tokenRec) {
+            tokenRec=JSON.parse(tokenRec);
+            return tokenRec.userid;
+        }
+        return "";
+     };
 
     return tokenService;
 }])

@@ -27,8 +27,18 @@ viewsModule.service('snippetService', [function() {
         replace: true,
         scope: true,
         templateUrl: './static/components/snippetpanel/snippetpanel.html',
-        controller: function($scope, $element, $attrs, snippetLibraryService) {
+        controller: function($scope, $element, $attrs, snippetLibraryService, topicService) {
             $scope.SnippetPanelDirectiveCtrlScope = "SnippetPanelDirectiveCtrlScope";
+            $scope.$watch(
+                function() {
+                    var topicPanelExists = $('#topicPanel').length;
+                    if (!topicPanelExists) return false;
+                    return topicService.isVisible;
+                },
+                function(newVal, oldVal) {
+                    $scope.isFullScreen = newVal;
+                }
+            );
 
             // The snippets model
             $scope.snippets = {};
@@ -64,7 +74,7 @@ viewsModule.service('snippetService', [function() {
             });
 
             $scope.isSnippetOwnedByCurrentUser = function(creatorId) {
-                return oauthLibrary.isAuthenticated() ? true : false;
+                return oauthLibrary.userid() == creatorId;
             };
             $scope.getTrustedHtml = function(htmlStr) {
                 return $sce.trustAsHtml(htmlStr);
@@ -124,7 +134,7 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippetForm', ['snippetService', function(snippetService) {
+.directive('snippetForm', ['snippetService', 'snippetBarService', function(snippetService, snippetBarService) {
     return {
         require: ['?^snippetPanel', '?^snippet'],
         restrict: 'E',
@@ -134,6 +144,15 @@ viewsModule.service('snippetService', [function() {
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0];
             var snippetCtrl = controllers[1];
+
+            scope.$watch(
+                function() {
+                    return snippetBarService.snippetLayout;
+                },
+                function(newVar, oldVar) {
+                    scope.layout = newVar;
+                }
+            )
 
             scope.snippetCancel = function(snippet) {
                 if (snippet === undefined) {

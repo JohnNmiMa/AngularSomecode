@@ -1,7 +1,7 @@
-<div id='snippetPanel'>
+<div id='snippetPanel' ng-class="{'withTopicPanel':isFullScreen}">
     <snippet-bar></snippet-bar>
 
-    <div id='snippetContainer' class='container-fluid'>
+    <div id='snippetContainer'>
         <snippet-add ng-show="isAddingSnippet"></snippet-add>
         <div id='userSnippets'>
             <snippet ng-repeat="snip in snippets"></snippet>

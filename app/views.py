@@ -230,9 +230,9 @@ def snippets(topic):
             return jsonify(id=0)
 
 
-@app.route('/snippets/search/private', methods = ['GET'])
+@app.route('/snippets/search/personal', methods = ['GET'])
 @login_required
-def search_private():
+def search_personal():
     topics = g.user.topics
     query = request.args['search']
 
@@ -365,7 +365,7 @@ def facebook_authorized():
     # log the user in
     login_user(user)
     token = create_jwt_token(g.user)
-    reply = {'token':token, 'username':user.name}
+    reply = {'token':token, 'username':user.name, 'userid':user.id}
     return jsonify(reply)
 
 ###
@@ -415,7 +415,7 @@ def google_authorized():
     # log the user in
     login_user(user)
     token = create_jwt_token(g.user)
-    reply = {'token':token, 'username':user.name}
+    reply = {'token':token, 'username':user.name, 'userid':user.id}
     return jsonify(reply)
 
 ###
@@ -454,7 +454,7 @@ def twitter_authorized():
         # Log the user in
         login_user(user)
         token = create_jwt_token(g.user)
-        reply = {'token':token, 'username':user.name}
+        reply = {'token':token, 'username':user.name, 'userid':user.id}
         return jsonify(reply)
     else:
         oauth = OAuth1(twitter['consumer_key'],

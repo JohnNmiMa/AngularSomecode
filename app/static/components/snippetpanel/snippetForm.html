@@ -1,26 +1,30 @@
 <form id='snippetForm' role="form">
     <div id="snippetFormBar">
-        <button id="snippetSave" type="button" name="snippetSave" tabindex="4" ng-click="snippetSave()">Save</button>
-        <button id="snippetCancel" type="button" name="snippetCancel" tabindex="-1" ng-click="snippetCancel(snip)">Cancel</button>
-        <button id="snippetAccess" type="button" name="snippetAccess" tabindex="-1" ng-click="toggleSnippetAccess()">
-            <span class="glyphicon glyphicon-eye-close"></span>
-        </button>
-        <input id='snippetAccessField' type="checkbox" name="access" tabindex=-1 style="visibility:hidden">
+        <div id="snippetFormBarContainer">
+            <button id="snippetSave" type="button" name="snippetSave" tabindex="4" ng-click="snippetSave()">Save</button>
+            <button id="snippetCancel" type="button" name="snippetCancel" tabindex="-1" ng-click="snippetCancel(snip)">Cancel</button>
+            <button id="snippetAccess" type="button" name="snippetAccess" tabindex="-1" ng-click="toggleSnippetAccess()">
+                <span class="glyphicon glyphicon-eye-close"></span>
+            </button>
+            <input id='snippetAccessField' type="checkbox" name="access" tabindex=-1 style="visibility:hidden">
+        </div>
     </div>
     <div class="snippetTitle">
         <div id='titleDiv'>
             <input id='titleField' type="text" name="title" class="form-control" autocomplete="off"
                    autofocus tabindex="1" placeholder="Add snippet title here">
         </div>
-        <div id='formContent' class="snippetTextAreas">
-            <div class="snippetDes-col">
-                <textarea id='desField' name="description" class="form-control snippetDesStyle"
-                          placeholder="Add snippet description here" tabindex="2"></textarea>
-            </div>
-            <div class="snippetCode-col">
-                <textarea id='codeField' name="code" class="form-control snippetCodeStyle owned"
-                          placeholder="Add snippet code here" tabindex="3"></textarea>
-            </div>
+    </div>
+    <div id='formContent' class="snippetTextAreas">
+        <div ng-show="layout != 'titlesonly'"
+             ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
+            <textarea id='desField' name="description" class="form-control snippetDesStyle"
+                      placeholder="Add snippet description here" tabindex="2"></textarea>
+        </div>
+        <div ng-show="layout != 'titlesonly'"
+             ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row'}">
+            <textarea id='codeField' name="code" class="form-control snippetCodeStyle owned"
+                      placeholder="Add snippet code here" tabindex="3"></textarea>
         </div>
     </div>
 </form>
