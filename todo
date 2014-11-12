@@ -82,34 +82,34 @@ Implement signed-in view
     !- Investigate Custom Sort Order
       !- how to move items in list and keep track of index
       !- add custom sort order field in DB
-    - TopicBar ToggleIcon
-      !- investigate ngAnimate
+    - TopicBar ToggleIcon - DONE
+      !- investigate ngAnimate - DONE (tough to animate)
       !- how to rotate icon?
 - Create TopicBar
-  !- how to resize topicbar?
+  !- how to resize topicbar? - DID & DONE :-)
   !- how to keep topicbar fixed as snippet container scrolls?
   - ngRepeat for list of topics - DONE
     - display all snippets for a selected topic - DONE
-  - Topic CRUD
+  - Topic CRUD - DONE
     - Create - DONE
-    - Edit
-    - Delete
-- Create CRUD Form
-  - Implement SnippetBar Create Icon
-  - Add Save/Cancel buttons
+    - Edit - DONE
+    - Delete - DONE
+- Create Snippet CRUD Form
+  - Implement SnippetBar Create Icon - DONE
+  - Add Save/Cancel buttons - DONE
     - Update DB if snippet is added
-  - Add public/private selector
+  - Add public/private selector - DONE
     - Update DB to proper public/private state
-  - Add topic selector
+  - Add topic selector - DONE
   - Add language selector
-- Create Snippet Container
-  - Display all snippets in a topic
-  - Implement SnippetBar Layout Icons
-- Create Snippet Selector
-  - Render Snip-it, layout, edit, and delete icons
-  - Implement layout icons
-  - Implement edit icon
-    - Show Snippet CRUD Form
+- Create Snippet Container - DONE
+  - Display all snippets in a topic - DONE
+  - Implement SnippetBar Layout Icons - DONE
+- Create Snippet Selector - DONE
+  - Render Snip-it, layout, edit, and delete icons - DONE
+  - Implement layout icons - DONE
+  - Implement edit icon - DONE
+    - Show Snippet CRUD Form - DONE
   - Implement delete icon
     - add delete dialog
 !- Implement CodeMirror Snippet Code Text-Area

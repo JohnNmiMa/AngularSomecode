@@ -1,7 +1,7 @@
 someCodeApp.service('snippetBarService', function() {
     var snippetBarScope = undefined,
         isAddingSnippet = false,
-        snippetLayoutDefault = "column";
+        snippetLayoutDefault = "row";
 
     var changed = function() {
         if (snippetBarScope != undefined) {
@@ -67,7 +67,6 @@ someCodeApp.service('snippetBarService', function() {
 
             scope.setLayout = function(layout) {
                 snippetBar.snippetLayout = layout;
-                scope.$emit('snippetLayoutChange', layout);
             };
             scope.getLayout = function() {
                 return snippetBar.snippetLayout;

@@ -21,9 +21,6 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ui
     $rootScope.$on('updateTopicString', function(event, topicStr) {
         $rootScope.$broadcast('topicOrSearchString', ('\"' + topicStr + '\" topic'));
     });
-    $rootScope.$on('snippetLayoutChange', function(event, layout) {
-        $rootScope.$broadcast('snippetLayout', layout);
-    });
     $rootScope.$on('updateSnippetsEvent', function(event) {
         $rootScope.$broadcast('updateSnippets');
     });
