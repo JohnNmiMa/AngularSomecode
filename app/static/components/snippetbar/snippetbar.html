@@ -16,14 +16,14 @@
                 <span class="fa fa-plus fa-2x" ng-class="{'selected':isAddingSnippet}"></span>
             </a>
         </li>
-        <li id='snippetColIcon' class='hidden-xs'>
-            <a href="javascript:void(0)" ng-click="setLayout('column')">
-                <span class="fa fa-minus-square-o fa-rotate-90 fa-2x" ng-class="{'active':getLayout() === 'column'}"></span>
-            </a>
-        </li>
         <li id='snippetRowIcon'>
             <a href="javascript:void(0)" ng-click="setLayout('row')">
                 <span class="fa fa-minus-square-o fa-2x" ng-class="{'active':getLayout() === 'row'}"></span>
+            </a>
+        </li>
+        <li id='snippetColIcon' class='hidden-xs'>
+            <a href="javascript:void(0)" ng-click="setLayout('column')">
+                <span class="fa fa-minus-square-o fa-rotate-90 fa-2x" ng-class="{'active':getLayout() === 'column'}"></span>
             </a>
         </li>
         <li id='snippetTitleOnlyIcon' ng-click="setLayout('titlesonly')">

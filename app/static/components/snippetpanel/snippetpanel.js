@@ -170,7 +170,6 @@ viewsModule.service('snippetService', [function() {
 
                 $(window).on('resize', function() {
                     scope.$apply(function () {
-                        console.log("Here in the snippetPanelSizer");
                         updateSnippetBlockComponentSizes();
                     })
                 });
