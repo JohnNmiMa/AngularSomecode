@@ -1,35 +1,16 @@
 <div class="snippet" ng-mouseleave="hideSnippetPopup()">
     <div class="snippetSelector" ng-mouseenter="showSnippetPopup()">
-        <a href="javascript:void(0)">
-            <span class="glyphicon fa-2x"
-                  ng-class="{'glyphicon-eye-open':   snip.access,
-                             'glyphicon-eye-close': !snip.access}"></span>
-        </a>
+        <span class="glyphicon fa-2x"
+              ng-class="{'glyphicon-eye-open':snip.access, 'glyphicon-eye-close':!snip.access}"></span>
     </div>
     <div class="snippetContent container-fluid">
-        <snippet-popup></snippet-popup>
+        <snippet-popup ng-show="snippetPopupVisible"></snippet-popup>
 
-        <!--<span ng-hide="isEditing && (editedSnippetId == snip.id)">-->
-        <span ng-hide="isEditing">
-            <div class="snippetTitle">
-                <h5 class="snippetTitleText">{{snip.title}}</h5>
-            </div>
-            <div class="snippetTextAreas">
-                <div ng-show="layout != 'titlesonly'" ng-bind-html="getTrustedHtml(snip.description)"
-                     class="snippetDesText snippetDesStyle"
-                     ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
-                </div>
-                <div ng-show="layout != 'titlesonly'"
-                     ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row'}">
-                    <div ng-bind-html="getTrustedHtml(snip.code)"
-                         class="snippetCodeText snippetCodeStyle"
-                         ng-class="{'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
-                                    'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}">
-                    </div>
-                </div>
-            </div>
-        </span>
-        <snippet-form ng-show="isEditing"></snippet-form>
-        <!--<snippet-form ng-show="isEditing && (editedSnippetId == snip.id)"></snippet-form>-->
+        <snippet-form-bar ng-show="isEditing"></snippet-form-bar>
+
+        <div class="snippetTitle" ng-hide="isEditing">
+            <h5 class="snippetTitleText">{{snip.title}}</h5>
+        </div>
+        <snippet-form></snippet-form>
     </div>
 </div>

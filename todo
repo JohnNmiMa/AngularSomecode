@@ -113,7 +113,22 @@ Implement signed-in view
   - Implement delete icon
     - add delete dialog
 !- Implement CodeMirror Snippet Code Text-Area
-  - investigate other code input tools
+  - Create separate test textarea with full implementation - DONE
+  - Port test to somecode
+    - make form part of snippet, not something separate when editing
+      - this means to just have a textarea, not a div and textarea where we
+        flip back and forth depending upon if we are editing or not.
+    - add ui-codemirror and ui-codemirror-opts to textarea
+      - add codemirror editor options in directive
+    - Show code border when editing
+    - Show textarea outline fuzz when textarea is selected
+    - add cancelEdit to directive
+    - get textarea ngModel loading and persisting from/to server
+    - implement select for different languages
+      - enhance server model to save away snippet language
+    - implement toggling of line numbers
+    - implement toggling of line wrapping
+    - implement toggling of scrolling
 !- Implement Snippet Description/Note Text-Area
   - Add WYSYWIG JavaScript HTML editor for snippet description text-area
 

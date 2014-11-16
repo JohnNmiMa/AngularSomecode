@@ -5,7 +5,7 @@ someCodeApp.service('snippetBarService', function() {
 
     var changed = function() {
         if (snippetBarScope != undefined) {
-            snippetBarScope.$broadcast('snippetBarModelChanged');
+            snippetBarScope.$emit('snippetBarModelChangedEvent');
         }
     };
     var register = function(scope) {
@@ -33,6 +33,7 @@ someCodeApp.service('snippetBarService', function() {
                   function(topicService,   snippetBar) {
     return {
         restrict: 'E',
+        scope: true,
         templateUrl: './static/components/snippetbar/snippetbar.html',
         link: function(scope, element, attrs) {
             scope.SnippetBarDirectiveScope = "SnippetBarDirectiveScope";

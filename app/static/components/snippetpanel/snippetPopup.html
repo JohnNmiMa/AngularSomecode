@@ -1,4 +1,4 @@
-<div class="snippetPopup" ng-show="snippetPopupVisible === true">
+<div class="snippetPopup">
     <button type="button" class="btn btn-danger btn-xs layout snip-it">Snip it</button>
     <div class="layout snippetRowLayout" ng-click="setLayout('row')">
         <span class="fa fa-minus-square-o fa-2x"
@@ -13,6 +13,7 @@
               ng-class="{'active':layout === 'titlesonly'}"></span>
     </div>
     <div ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)" class="layout snippetEdit" ng-click="snippetEdit(snip)">
+    <!--<div class="layout snippetEdit" ng-click="snippetEdit(snip)">-->
         <span class="fa fa-pencil-square-o fa-2x"></span>
     </div>
     <div ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)" class="layout snippetDelete">

@@ -1,30 +1,27 @@
 <form id='snippetForm' role="form">
-    <div id="snippetFormBar">
-        <div id="snippetFormBarContainer">
-            <button id="snippetSave" type="button" name="snippetSave" tabindex="4" ng-click="snippetSave()">Save</button>
-            <button id="snippetCancel" type="button" name="snippetCancel" tabindex="-1" ng-click="snippetCancel(snip)">Cancel</button>
-            <button id="snippetAccess" type="button" name="snippetAccess" tabindex="-1" ng-click="toggleSnippetAccess()">
-                <span class="glyphicon glyphicon-eye-close"></span>
-            </button>
-            <input id='snippetAccessField' type="checkbox" name="access" tabindex=-1 style="visibility:hidden">
-        </div>
-    </div>
-    <div class="snippetTitle">
+    <div class="snippetTitle" ng-show="(isEditing || isAddingSnippet)">
         <div id='titleDiv'>
-            <input id='titleField' type="text" name="title" class="form-control" autocomplete="off"
-                   autofocus tabindex="1" placeholder="Add snippet title here">
+            <input id='titleField'
+                   type="text" name="title" autocomplete="off"
+                   autofocus tabindex="1" placeholder="Add snippet title here"
+                   class="form-control"
+                   ng-model="snip.title">
         </div>
     </div>
     <div id='formContent' class="snippetTextAreas">
         <div ng-show="layout != 'titlesonly'"
              ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
             <textarea id='desField' name="description" class="form-control snippetDesStyle"
-                      placeholder="Add snippet description here" tabindex="2"></textarea>
+                      placeholder="Add snippet description here" tabindex="2"
+                      ng-model="snip.description"></textarea>
         </div>
         <div ng-show="layout != 'titlesonly'"
              ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row'}">
-            <textarea id='codeField' name="code" class="form-control snippetCodeStyle owned"
-                      placeholder="Add snippet code here" tabindex="3"></textarea>
+            <textarea id='codeField' name="code" class="form-control snippetCodeStyle"
+                      ng-class="{'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
+                                 'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}"
+                      placeholder="Add snippet code here" tabindex="3"
+                      ng-model="snip.code"></textarea>
         </div>
     </div>
 </form>

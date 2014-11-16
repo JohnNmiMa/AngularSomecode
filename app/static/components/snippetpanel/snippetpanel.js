@@ -45,8 +45,8 @@ viewsModule.service('snippetService', [function() {
             });
         },
         link: function(scope, element, attrs, snippetCtrl) {
-            scope.$on('snippetBarModelChanged', function() {
-                scope.isAddingSnippet = snippetBar.isAddingSnippet;
+            scope.$on('snippetBarModelChangedEvent', function(event) {
+                scope.$broadcast('snippetBarModelChanged');
             });
         }
     }
@@ -60,6 +60,7 @@ viewsModule.service('snippetService', [function() {
         templateUrl: './static/components/snippetpanel/snippet.html',
         controller: function($scope, $element, $attrs, oauthLibrary) {
 
+            $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.layout = snippetBar.snippetLayout;
             $scope.$on('snippetBarModelChanged', function() {
                 $scope.layout = snippetBar.snippetLayout;
@@ -99,11 +100,26 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
+.directive('snippetAdd', ['snippetBarService',
+                  function(snippetBar) {
+    return {
+        require: '?^snippet',
+        restrict: 'E',
+        replace: true,
+        scope: true,
+        templateUrl: './static/components/snippetpanel/snippetAdd.html',
+        controller: function($scope, $element, $attrs) {
+            $scope.$on('snippetBarModelChanged', function() {
+                $scope.isAddingSnippet = snippetBar.isAddingSnippet;
+            });
+        }
+    }
+}])
+
 .directive('snippetPopup', [function() {
     return {
         require: '?^snippet',
         restrict: 'E',
-        scope: true,
         templateUrl: './static/components/snippetpanel/snippetPopup.html',
         controller: function($scope, $element, $attrs) {
         },
@@ -119,13 +135,24 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippetAdd', [function() {
+.directive('snippetFormBar', ['snippetService', 'snippetBarService',
+                      function(snippetService,   snippetBar) {
     return {
         require: '?^snippet',
         restrict: 'E',
         replace: true,
-        scope: true,
-        templateUrl: './static/components/snippetpanel/snippetAddForm.html'
+        templateUrl: './static/components/snippetpanel/snippetFormBar.html',
+        link: function(scope, element, attrs, snippetCtrl) {
+            scope.snippetCancel = function(snippet) {
+                if (scope.isAddingSnippet) {
+                    // We must be cancelling a snippet add
+                    snippetBar.isAddingSnippet = false;
+                } else  if (scope.isEditing) {
+                    // We must be cancelling a snippet edit
+                    snippetCtrl.snippetCancelEditing(snippet);
+                }
+            }
+        }
     }
 }])
 
@@ -135,7 +162,6 @@ viewsModule.service('snippetService', [function() {
         require: ['?^snippetPanel', '?^snippet'],
         restrict: 'E',
         replace: true,
-        scope: true,
         templateUrl: './static/components/snippetpanel/snippetForm.html',
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0];
@@ -145,20 +171,9 @@ viewsModule.service('snippetService', [function() {
             scope.$on('snippetBarModelChanged', function() {
                 scope.layout = snippetBar.snippetLayout;
             });
-
-            scope.snippetCancel = function(snippet) {
-                if (snippet === undefined) {
-                    // We must be cancelling a snippet add
-                    snippetBar.isAddingSnippet = !snippetBar.isAddingSnippet;
-                } else {
-                    // We must be cancelling a snippet edit
-                    snippetCtrl.snippetCancelEditing(snippet);
-                }
-            }
         }
     }
 }])
-
 
 .directive('snippetPanelSizer', ['oauthLibrary', 'topicService',
                          function(oauth,          topicService) {
