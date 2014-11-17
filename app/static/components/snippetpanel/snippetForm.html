@@ -14,7 +14,8 @@
                       placeholder="Add snippet description here" tabindex="2"
                       ng-model="snip.description"></textarea>
         </div>
-        <div ng-show="layout != 'titlesonly' && snip.code !== ''" class="snippetCodeStyle"
+        <div ng-show="layout != 'titlesonly' && !(snip.code === '' && !(isEditing || isAddingSnippet))"
+             class="snippetCodeStyle"
              ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row',
                         'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
                         'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}">

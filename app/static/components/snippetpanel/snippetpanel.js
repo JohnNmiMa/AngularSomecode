@@ -100,15 +100,19 @@ viewsModule.service('snippetService', [function() {
             };
         },
         link: function(scope, element, attrs, snippetCtrl) {
-            var cmElement = element.find('.CodeMirror');
+            var cmElement = element.find('.CodeMirror'),
+                tmpSnippetModel = {};
 
             scope.snippetEdit = function(snippet) {
+                angular.copy(snippet, tmpSnippetModel);
                 scope.isEditing = true;
                 scope.snippetPopupVisible = false;
                 scope.codeEditorOptions.readOnly = false;
                 cmElement.addClass('isEditing');
             };
             scope.snippetCancel = function(snippet) {
+                scope.snip = tmpSnippetModel;
+                tmpSnippetModel = {};
                 if (scope.isAddingSnippet) {
                     // We must be cancelling a snippet add
                     snippetBar.isAddingSnippet = false;
