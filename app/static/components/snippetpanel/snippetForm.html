@@ -1,26 +1,26 @@
 <form id='snippetForm' role="form">
     <div class="snippetTitle" ng-show="(isEditing || isAddingSnippet)">
-        <div id='titleDiv'>
-            <input id='titleField'
+        <div class='titleDiv'>
+            <input class='titleField form-control'
                    type="text" name="title" autocomplete="off"
                    autofocus tabindex="1" placeholder="Add snippet title here"
-                   class="form-control"
                    ng-model="snip.title">
         </div>
     </div>
     <div id='formContent' class="snippetTextAreas">
-        <div ng-show="layout != 'titlesonly'"
+        <div ng-show="layout != 'titlesonly' && snip.description !== ''" class="snippetDesStyle"
              ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
-            <textarea id='desField' name="description" class="form-control snippetDesStyle"
+            <textarea id='desField' name="description" class="form-control"
                       placeholder="Add snippet description here" tabindex="2"
                       ng-model="snip.description"></textarea>
         </div>
-        <div ng-show="layout != 'titlesonly'"
-             ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row'}">
-            <textarea id='codeField' name="code" class="form-control snippetCodeStyle"
-                      ng-class="{'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
-                                 'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}"
+        <div ng-show="layout != 'titlesonly' && snip.code !== ''" class="snippetCodeStyle"
+             ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row',
+                        'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
+                        'notOwned':!isSnippetOwnedByCurrentUser(snip.creator_id)}">
+            <textarea id='codeField' name="code" class="form-control"
                       placeholder="Add snippet code here" tabindex="3"
+                      ui-codemirror="{ onLoad: codeTextAreaLoaded }" ui-codemirror-opts="codeEditorOptions"
                       ng-model="snip.code"></textarea>
         </div>
     </div>

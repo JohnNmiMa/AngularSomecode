@@ -2,9 +2,9 @@
     <snippet-bar></snippet-bar>
 
     <div id='snippetContainer'>
-        <snippet-add ng-show="isAddingSnippet"></snippet-add>
+        <snippet snippet-usage="forAdding" ng-show="isAddingSnippet"></snippet>
         <div id='userSnippets'>
-            <snippet ng-repeat="snip in snippets"></snippet>
+            <snippet snippet-usage="forEditing" ng-repeat="snip in snippets"></snippet>
         </div>
     </div>
 </div>

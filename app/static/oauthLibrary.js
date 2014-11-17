@@ -163,7 +163,8 @@ angular.module('oauthLibrary', [])
     tokenService.saveToken = function(response) {
         var record = {
             token:    response.data['token'],
-            userName: response.data['username']
+            userName: response.data['username'],
+            userid: response.data['userid']
         };
         if (!record.token) {
             throw new Error('Expecting a token named "' + config.tokenName +
