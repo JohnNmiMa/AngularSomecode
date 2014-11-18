@@ -64,7 +64,7 @@ viewsModule.service('snippetService', [function() {
             $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.layout = snippetBar.snippetLayout;
             $scope.lineWrapping = false;
-            $scope.lineNumbers = false;
+            $scope.lineNumbers = true;
 
             $scope.languages = CodeMirror.modeInfo;
             if ($scope.snip) {
@@ -83,9 +83,7 @@ viewsModule.service('snippetService', [function() {
 
             $scope.snippetPopupVisible = false;
             $scope.showSnippetPopup = function() {
-                if (!$scope.isEditing) {
-                    $scope.snippetPopupVisible = true;
-                }
+                $scope.snippetPopupVisible = true;
             };
             $scope.hideSnippetPopup = function() {
                 $scope.snippetPopupVisible = false;
@@ -94,7 +92,16 @@ viewsModule.service('snippetService', [function() {
         link: function(scope, element, attrs, snippetCtrl) {
             var snippetUsage = attrs.snippetUsage,
                 cmElement = element.find('.CodeMirror'),
-                tmpSnippetModel = {};
+                cmScrollElement = element.find('.CodeMirror-scroll'),
+                tmpSnippetModel = {},
+                scrolling = true,
+                textDecorationNoneStyle = {'text-decoration':'none'},
+                textDecorationLineThroughStyle = {'text-decoration':'line-through'};
+
+            scope.refreshIt = true;
+            scope.scrollStrikeStyle = textDecorationNoneStyle;
+            scope.wrapStrikeStyle = textDecorationLineThroughStyle;
+            scope.lineNumberStrikeStyle = textDecorationNoneStyle;
 
             scope.setLayout = function(layout) {
                 scope.layout = layout;
@@ -130,6 +137,46 @@ viewsModule.service('snippetService', [function() {
                     scope.codeEditorOptions.readOnly = 'nocursor';
                     cmElement.removeClass('isEditing');
                 }
+            };
+
+            scope.toggleLineWrap = function() {
+                scope.lineWrapping = !scope.lineWrapping;
+                scope.wrapStrikeStyle =
+                    scope.lineWrapping ? textDecorationNoneStyle : textDecorationLineThroughStyle;
+                if (scope.lineWrapping) {
+                    scope.codeEditorOptions.lineWrapping = true;
+                } else {
+                    scope.codeEditorOptions.lineWrapping = false;
+                }
+            };
+
+            scope.toggleLineNumbers = function() {
+                scope.lineNumbers = !scope.lineNumbers;
+                scope.codeEditorOptions.lineNumbers = scope.lineNumbers;
+                scope.lineNumberStrikeStyle =
+                    scope.lineNumbers ? textDecorationNoneStyle : textDecorationLineThroughStyle;
+            };
+
+            scope.toggleScroll = function() {
+                scrolling = !scrolling;
+                scope.scrollStrikeStyle =
+                    scrolling ? textDecorationNoneStyle : textDecorationLineThroughStyle;
+                if (scrolling) {
+                    // Set CodeMirror scroll element to scroll in window of max-height = 400px
+                    cmScrollElement.css({
+                        'overflow':'auto',
+                        'max-height':'400px'
+                    })
+                } else {
+                    // Set CodeMirror scroll element to expand to code size
+                    cmScrollElement.css({
+                        'overflow-x':'auto',
+                        'overflow-y':'hidden',
+                        'height':'auto',
+                        'max-height':'none'
+                    })
+                }
+                scope.refreshIt = !scope.refreshIt;
             };
         }
     }

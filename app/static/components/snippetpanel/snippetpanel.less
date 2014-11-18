@@ -54,13 +54,28 @@
                         //font-family: 'Rochester', cursive;
                         font-family: cursive;
                         font-size:14px;
-                        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                        outline: none;
+                    }
+                    .snippetPopup .layout.toggleLineWrap,
+                    .snippetPopup .layout.toggleScroll,
+                    .snippetPopup .layout.toggleLineNumbers {
+                        margin-top:1px;
+                        margin-left:5px;
+                        padding:1px 2px;
+                        float:left;
+                        outline: none;
+                    }
+                    .snippetPopup .layout.toggleLineWrap {
+                        margin-left:10px;
                     }
                         .snippetPopup .layout span {
                             color:darken(@icon-color, 15%);
                         }
                         .snippetPopup .layout.snippetRowLayout span {
-                            margin-left:10px;
+                            margin-left:2px;
+                        }
+                        .snippetPopup .layout.snippetColLayout {
+                            margin-left:2px;
                         }
                         .snippetPopup .layout.snippetColLayout span {
                             margin-top:-2px;
@@ -174,6 +189,12 @@
                 .snippetCodeStyle.notOwned .CodeMirror {
                     background-color:@public-snippet-code-color;
                 }
+                .snippetCodeStyle.owned .CodeMirror-gutters {
+                    background-color:@user-snippet-code-color;
+                }
+                .snippetCodeStyle.notOwned .CodeMirror-gutters {
+                    background-color:@public-snippet-code-color;
+                }
                     .snippetCodeStyle pre {
                         background-color: transparent;
                         padding:0;
@@ -213,9 +234,6 @@
                         [contentEditable=true]:empty:not(:focus):before{
                             content:attr(data-ph)
                         }
-                    }
-                    .CodeMirror-gutters {
-                        background-color:@user-snippet-code-color;
                     }
 
             #snippetForm {
