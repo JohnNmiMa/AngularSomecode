@@ -8,13 +8,14 @@
         </div>
     </div>
     <div id='formContent' class="snippetTextAreas">
-        <div ng-show="layout != 'titlesonly' && snip.description !== ''" class="snippetDesStyle"
+        <div ng-hide="layout === 'titlesonly' || (snip.description === '' && !(isEditing || isAdding))"
+             class="snippetDesStyle"
              ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
             <textarea id='desField' name="description" class="form-control"
                       placeholder="Add snippet description here" tabindex="2"
                       ng-model="snip.description"></textarea>
         </div>
-        <div ng-show="layout != 'titlesonly' && !(snip.code === '' && !(isEditing || isAdding))"
+        <div ng-hide="layout === 'titlesonly' || (snip.code === '' && !(isEditing || isAdding))"
              class="snippetCodeStyle"
              ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row',
                         'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),

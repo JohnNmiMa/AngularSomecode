@@ -142,15 +142,16 @@ def snippets(topic):
         if topic is None:
             return jsonify(error=404, text='Invalid topic name'), 404
 
-        # Get the snippet data from the form
-        if (request.form):
-            form = request.form.to_dict()
+        # Get the snippet data from the request
+        if (request.data):
+            data = json.loads(request.data)
         access = ACCESS_PRIVATE;
-        if form.get('access') == 'on':
+        if data.get('access') == 'on':
             access = ACCESS_PUBLIC;
-        title = form['title']
-        description = form['description']
-        code = form['code']
+        title = data['title']
+        description = data['description']
+        code = data['code']
+        language = data['language']
 
         # Persist the snippet to the users topic
         snippet = Snippet(title = title, description = description, code = code,
@@ -162,7 +163,7 @@ def snippets(topic):
 
     elif request.method == 'PUT':
         """ Update an existing snippet """
-        snippet_id = topic
+        snippet_id = int(topic)
         topics = g.user.topics
         snippet = None
         for topic in topics:
@@ -173,21 +174,22 @@ def snippets(topic):
         if snippet == None:
             return jsonify(error=404, text='Invalid snippet ID'), 404
 
-        if (request.form):
-            form = request.form.to_dict()
+        if (request.data):
+            data = json.loads(request.data)
         access = ACCESS_PRIVATE;
-        if form.get('access') == 'on':
+        if data.get('access') == 'on':
             access = ACCESS_PUBLIC;
-        title = form['title']
-        language = form['language']
-        description = form['description']
-        code = form['code']
 
-        snippet.title = title;
-        snippet.description = description;
-        snippet.code = code;
-        snippet.access = access;
-        snippet.language = language;
+        if data['title']:
+            snippet.title = data['title'];
+        if data['description']:
+            snippet.description = data['description'];
+        if data['code']:
+            snippet.code = data['code'];
+        if data['access']:
+            snippet.access = data['access'];
+        if data['language']:
+            snippet.language = data['language'];
         db.session.commit()
         return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
 

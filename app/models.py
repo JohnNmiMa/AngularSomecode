@@ -77,6 +77,7 @@ class Snippet(db.Model):
 
     def __repr__(self):
         return '<ID:%r, title:%r, description:%r, code:%r, timestamp:%r, ref_count:%r, access:%r, creator_id:%r>' % \
-                (self.id, self.title, self.description, self.code, self.timestamp, self.ref_count, self.access, self.creator_id)
+                (self.id, self.title, self.description, self.code, self.timestamp,
+                 self.ref_count, self.language, self.access, self.creator_id)
 
 whooshalchemy.whoosh_index(app, Snippet)

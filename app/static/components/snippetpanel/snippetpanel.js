@@ -52,13 +52,15 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary',
-               function($sce,   snippetBar,          oauth) {
+.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary', 'createSnippet', 'editSnippet',
+               function($sce,   snippetBar,          oauth,          createSnippet,   editSnippet) {
     return {
         restrict: 'E',
         scope: true,
         templateUrl: './static/components/snippetpanel/snippet.html',
         controller: function($scope, $element, $attrs) {
+            var snippetUsage = $attrs.snippetUsage;
+
             $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.isEditing = false;
             $scope.isAdding = false;
@@ -67,10 +69,13 @@ viewsModule.service('snippetService', [function() {
             $scope.layout = snippetBar.snippetLayout;
 
             $scope.languages = CodeMirror.modeInfo;
-            if ($scope.snip) {
-                $scope.language = $.grep($scope.languages, function(e){ return e.name === $scope.snip.language; })[0];
+            if (snippetUsage === 'forAdding') {
+                $scope.language = {name:'JavaScript', mode:'javascript'};
             } else {
-                $scope.language = {name:'bogus', mode:'javascript'};
+                if ($scope.snip.language === 'bogus') {
+                    $scope.snip.language = 'JavaScript';
+                }
+                $scope.language = $.grep($scope.languages, function(e){ return e.name === $scope.snip.language; })[0];
             }
         },
         link: function(scope, element, attrs, snippetCtrl) {
@@ -78,6 +83,7 @@ viewsModule.service('snippetService', [function() {
                 cmElement = element.find('.CodeMirror'),
                 cmScrollElement = element.find('.CodeMirror-scroll'),
                 tmpSnippetModel = {},
+                addSnippetModel = {title:"", code:"", description:"", language:"JavaScript"},
                 scrolling = true,
                 textDecorationNoneStyle = {'text-decoration':'none'},
                 textDecorationLineThroughStyle = {'text-decoration':'line-through'};
@@ -86,6 +92,11 @@ viewsModule.service('snippetService', [function() {
             scope.scrollStrikeStyle = textDecorationNoneStyle;
             scope.wrapStrikeStyle = textDecorationLineThroughStyle;
             scope.lineNumberStrikeStyle = textDecorationNoneStyle;
+
+            if (snippetUsage === 'forAdding') {
+                scope.snip = {};
+                angular.copy(addSnippetModel, scope.snip);
+            }
 
             scope.isSnippetOwnedByCurrentUser = function(creatorId) {
                 return oauth.userid() == creatorId;
@@ -111,6 +122,7 @@ viewsModule.service('snippetService', [function() {
                 if (snippetUsage === 'forAdding') {
                     scope.isAdding = snippetBar.isAddingSnippet;
                     if (scope.isAdding) {
+                        scope.refreshIt = !scope.refreshIt;
                         scope.codeEditorOptions.readOnly = false;
                     } else {
                         scope.codeEditorOptions.readOnly = 'nocursor';
@@ -126,16 +138,34 @@ viewsModule.service('snippetService', [function() {
                 cmElement.addClass('isEditing');
             };
             scope.snippetCancel = function(snippet) {
-                scope.snip = tmpSnippetModel;
-                tmpSnippetModel = {};
                 if (scope.isAdding) {
                     // We must be cancelling a snippet add
+                    angular.copy(addSnippetModel, scope.snip);
                     snippetBar.isAddingSnippet = false;
                 } else  if (scope.isEditing) {
                     // We must be cancelling a snippet edit
+                    scope.snip = tmpSnippetModel;
+                    tmpSnippetModel = {};
                     scope.isEditing = false;
                     scope.codeEditorOptions.readOnly = 'nocursor';
                     cmElement.removeClass('isEditing');
+                }
+            };
+            scope.snippetSave = function(snippet) {
+                if (scope.language !== undefined) {
+                    snippet.language = scope.language.name;
+                }
+
+                if (scope.isAdding) {
+                    createSnippet(snippet, "General").then(function(result) {
+                        snippetBar.isAddingSnippet = false;
+                        console.log(result);
+                    });
+                } else  if (scope.isEditing) {
+                    editSnippet(snippet).then(function(result) {
+                        scope.isEditing = false;
+                        console.log(result);
+                    });
                 }
             };
 

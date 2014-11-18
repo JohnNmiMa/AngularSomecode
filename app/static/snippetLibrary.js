@@ -198,6 +198,56 @@ angular.module('snippetLibrary', [])
 }])
 
 
+.factory('createSnippet', ['$http', '$q',
+                   function($http,   $q) {
+    return function(snippet, topic) {
+        var defer = $q.defer(),
+            path = "/snippets/" + topic,
+            data = angular.toJson(snippet);
+
+        $http.post(path, data)
+            .success(function(reply) {
+                defer.resolve(angular.fromJson(reply));
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+}])
+
+
+.factory('editSnippet', ['$http', '$q',
+                 function($http,   $q) {
+    return function(snippet) {
+        var defer = $q.defer(),
+            path = "/snippets/" + snippet.id,
+            data = angular.toJson(snippet);
+
+        $http.put(path, data)
+            .success(function(reply) {
+                defer.resolve(angular.fromJson(reply));
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+}])
+
+
 .factory('snippetLogout', ['$http', '$q',
                    function($http,   $q) {
     return function() {
