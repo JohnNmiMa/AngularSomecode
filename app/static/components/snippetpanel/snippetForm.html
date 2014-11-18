@@ -22,7 +22,7 @@
             <textarea id='codeField' name="code" class="form-control"
                       placeholder="Add snippet code here" tabindex="3"
                       ui-codemirror="{ onLoad: codeTextAreaLoaded }" ui-codemirror-opts="codeEditorOptions"
-                      ng-model="snip.code"></textarea>
+                      ng-model="snip.code" ui-refresh="refreshIt"></textarea>
         </div>
     </div>
 </form>

@@ -52,19 +52,19 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippet', ['$sce', 'snippetBarService',
-               function($sce,   snippetBar) {
+.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary',
+               function($sce,   snippetBar,          oauth) {
     return {
         restrict: 'E',
         scope: true,
         templateUrl: './static/components/snippetpanel/snippet.html',
-        controller: function($scope, $element, $attrs, oauthLibrary) {
+        controller: function($scope, $element, $attrs) {
+            $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.isEditing = false;
             $scope.isAdding = false;
-            $scope.SnippetDirectiveController = "SnippetDirectiveController";
-            $scope.layout = snippetBar.snippetLayout;
             $scope.lineWrapping = false;
             $scope.lineNumbers = true;
+            $scope.layout = snippetBar.snippetLayout;
 
             $scope.languages = CodeMirror.modeInfo;
             if ($scope.snip) {
@@ -72,22 +72,6 @@ viewsModule.service('snippetService', [function() {
             } else {
                 $scope.language = {name:'bogus', mode:'javascript'};
             }
-
-            $scope.isSnippetOwnedByCurrentUser = function(creatorId) {
-                return oauthLibrary.userid() == creatorId;
-            };
-
-            $scope.getTrustedHtml = function(htmlStr) {
-                return $sce.trustAsHtml(htmlStr);
-            };
-
-            $scope.snippetPopupVisible = false;
-            $scope.showSnippetPopup = function() {
-                $scope.snippetPopupVisible = true;
-            };
-            $scope.hideSnippetPopup = function() {
-                $scope.snippetPopupVisible = false;
-            };
         },
         link: function(scope, element, attrs, snippetCtrl) {
             var snippetUsage = attrs.snippetUsage,
@@ -102,6 +86,22 @@ viewsModule.service('snippetService', [function() {
             scope.scrollStrikeStyle = textDecorationNoneStyle;
             scope.wrapStrikeStyle = textDecorationLineThroughStyle;
             scope.lineNumberStrikeStyle = textDecorationNoneStyle;
+
+            scope.isSnippetOwnedByCurrentUser = function(creatorId) {
+                return oauth.userid() == creatorId;
+            };
+
+            scope.getTrustedHtml = function(htmlStr) {
+                return $sce.trustAsHtml(htmlStr);
+            };
+
+            scope.snippetPopupVisible = false;
+            scope.showSnippetPopup = function() {
+                scope.snippetPopupVisible = true;
+            };
+            scope.hideSnippetPopup = function() {
+                scope.snippetPopupVisible = false;
+            };
 
             scope.setLayout = function(layout) {
                 scope.layout = layout;
