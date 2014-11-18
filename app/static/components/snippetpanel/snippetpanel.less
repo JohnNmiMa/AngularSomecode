@@ -229,43 +229,55 @@
                     margin-bottom:5px;
                     .make-xs-column(12);
                 }
-                    #snippetSave, #snippetCancel, #snippetAccess {
+                    .snippetSave, .snippetCancel, .snippetAccess, .languageSelect {
                         float:right;
-                        width:46px;
                         height:24px;
-                        border:none;
                         border-radius: 4px;
-                        color:#fff;
                         font-size:11px;
                         vertical-align: top;
                     }
-                    #snippetSave, #snippetCancel {
+                    .snippetSave, .snippetCancel, .snippetAccess {
+                        border:none;
+                    }
+                    .snippetSave, .snippetCancel {
+                        color:#fff;
+                        width:46px;
                         outline: none;
                     }
-                    #snippetAccess {
+                    .snippetAccess {
                         margin-right:10px;
+                        padding:0;
                         font-size: 14px;
                         color:@icon-color;
                         background-color:#fff;
                     }
-                        #snippetAccess:hover {
+                        .snippetAccess:hover {
                             color:darken(@icon-color, 9%);
                         }
-                        #snippetAccess:focus {
+                        .snippetAccess:focus {
                             outline:0;
                         }
-                    #snippetCancel {
+                    .snippetCancel {
                         margin-right:10px;
                         background-color:@brand-danger;
                     }
-                        #snippetCancel:hover {
+                        .snippetCancel:hover {
                             background-color:darken(@brand-danger, 9%);
                         }
-                    #snippetSave {
+                    .snippetSave {
                         background-color:@icon-color-selected;
                     }
-                        #snippetSave:hover {
+                        .snippetSave:hover {
                             background-color:darken(@icon-color-selected, 9%);
                         }
+                    .languageSelect {
+                        margin-right:10px;
+                        padding-left:6px;
+                        border-color: #ccc;
+                        outline: none !important;
+                        background: url(./components/snippetpanel/arrow-down.png) no-repeat right;
+                        background-size: 34px 34px;
+                        -webkit-appearance: none;
+                    }
 
 

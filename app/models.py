@@ -53,6 +53,7 @@ class Snippet(db.Model):
     code =        db.Column(db.Text)
     timestamp =   db.Column(db.DateTime)
     ref_count =   db.Column(db.Integer)
+    language  =   db.Column(db.String(30))
     access =      db.Column(db.Boolean)
     creator_id =  db.Column(db.Integer)
     topic_id  =   db.Column(db.Integer, db.ForeignKey('topic.id'))

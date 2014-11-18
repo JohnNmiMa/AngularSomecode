@@ -190,6 +190,9 @@ viewsModule.service('snippetService', [function() {
             var codeMirrorEditor = {},
                 codeMirrorDocument = {};
 
+            $scope.languages = CodeMirror.modeInfo;
+            //$scope.snip.language = {name:'bogus', mode:'javascript'}; // use this to init the select tag
+
             $scope.lineWrapping = false;
             $scope.lineNumbers = false;
 
@@ -202,6 +205,16 @@ viewsModule.service('snippetService', [function() {
                 readOnly: 'nocursor',
                 mode: 'javascript'
             };
+
+            $scope.$watch('snip.language', function(data) {
+                if (data === undefined) return;
+                $scope.codeEditorOptions.mode = data.mode;
+                // This uses the CodeMirror loadmode.js module to
+                // lazy load the proper language mode module. This is way cool,
+                // as you don't need to add all of the codemirror/mode/*/*.js mode files
+                // in <script> tags. There ~85 of them.
+                CodeMirror.autoLoadMode(codeMirrorEditor, data.mode);
+            });
 
             $scope.codeTextAreaLoaded = function(editor) {
                 codeMirrorEditor = editor;

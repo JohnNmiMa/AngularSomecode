@@ -155,7 +155,7 @@ def snippets(topic):
         # Persist the snippet to the users topic
         snippet = Snippet(title = title, description = description, code = code,
                           timestamp = datetime.utcnow(), topic = topic,
-                          creator_id = g.user.id, access = access)
+                          creator_id = g.user.id, access = access, language = language)
         db.session.add(snippet)
         db.session.commit()
         return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
@@ -179,6 +179,7 @@ def snippets(topic):
         if form.get('access') == 'on':
             access = ACCESS_PUBLIC;
         title = form['title']
+        language = form['language']
         description = form['description']
         code = form['code']
 
@@ -186,6 +187,7 @@ def snippets(topic):
         snippet.description = description;
         snippet.code = code;
         snippet.access = access;
+        snippet.language = language;
         db.session.commit()
         return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
 
@@ -201,7 +203,7 @@ def snippets(topic):
         reply = {}
         for i, snip in enumerate(snippets):
             d = dict(title = snip.title, description = snip.description, code = snip.code,
-                     access = snip.access, creator_id = snip.creator_id, id = snip.id)
+                     access = snip.access, language = snip.language, creator_id = snip.creator_id, id = snip.id)
             reply[i] = d
 
         #return jsonify(reply)

@@ -1,0 +1,7 @@
+Do the following to populate the app.db with data from the di.py script:
+
+$ rm -rf app.db db_repository/
+$ python
+>>> from app import db, models
+>>> import di
+>>> di.populate_db()
