@@ -6,9 +6,9 @@
     <div class="snippetContent container-fluid">
         <snippet-popup ng-show="snippetPopupVisible"></snippet-popup>
 
-        <snippet-form-bar ng-show="isEditing || isAddingSnippet"></snippet-form-bar>
+        <snippet-form-bar ng-show="isEditing || isAdding"></snippet-form-bar>
 
-        <div class="snippetTitle" ng-hide="isEditing">
+        <div class="snippetTitle" ng-if="!(isEditing || isAdding)">
             <h5 class="snippetTitleText">{{snip.title}}</h5>
         </div>
         <snippet-form></snippet-form>

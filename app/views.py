@@ -155,7 +155,7 @@ def snippets(topic):
         # Persist the snippet to the users topic
         snippet = Snippet(title = title, description = description, code = code,
                           timestamp = datetime.utcnow(), topic = topic,
-                          creator_id = g.user.id, access = access, language = language)
+                          creator_id = g.user.id, language = language, access = access)
         db.session.add(snippet)
         db.session.commit()
         return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
@@ -203,7 +203,7 @@ def snippets(topic):
         reply = {}
         for i, snip in enumerate(snippets):
             d = dict(title = snip.title, description = snip.description, code = snip.code,
-                     access = snip.access, language = snip.language, creator_id = snip.creator_id, id = snip.id)
+                     language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
             reply[i] = d
 
         #return jsonify(reply)
@@ -245,7 +245,7 @@ def search_personal():
         snippets = Snippet.query.filter_by(topic_id=topic.id).whoosh_search(query).all()
         for snip in snippets:
             d = dict(title = snip.title, description = snip.description, code = snip.code,
-                     access = snip.access, creator_id = snip.creator_id, id = snip.id)
+                     language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
             reply[i] = d
             i += 1;
 
@@ -261,7 +261,7 @@ def search_public():
     reply = {}
     for i, snip in enumerate(snippets):
         d = dict(title = snip.title, description = snip.description, code = snip.code,
-                 access = snip.access, creator_id = snip.creator_id, id = snip.id)
+                 language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
         reply[i] = d
     return Response(json.dumps(reply), 200, mimetype="application/json")
 
@@ -312,7 +312,8 @@ def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
     snippets.reverse()
     for snip in snippets:
         s = Snippet(title=snip.title, description=snip.description, code=snip.code,
-                            timestamp=snip.timestamp, topic=topic, creator_id=snip.id, access=ACCESS_PRIVATE)
+                    timestamp=snip.timestamp, topic=topic, creator_id=snip.id,
+                    language=snip.language, access=ACCESS_PRIVATE)
         db.session.add(s)
 
     db.session.commit()

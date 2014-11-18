@@ -59,23 +59,19 @@ viewsModule.service('snippetService', [function() {
         scope: true,
         templateUrl: './static/components/snippetpanel/snippet.html',
         controller: function($scope, $element, $attrs, oauthLibrary) {
-            var snippetUsage = $attrs.snippetUsage;
-
             $scope.isEditing = false;
+            $scope.isAdding = false;
             $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.layout = snippetBar.snippetLayout;
+            $scope.lineWrapping = false;
+            $scope.lineNumbers = false;
 
-            $scope.$on('snippetBarModelChanged', function() {
-                $scope.layout = snippetBar.snippetLayout;
-                if (snippetUsage === 'forAdding') {
-                    $scope.isAddingSnippet = snippetBar.isAddingSnippet;
-                    if ($scope.isAddingSnippet) {
-                        $scope.codeEditorOptions.readOnly = false;
-                    } else {
-                        $scope.codeEditorOptions.readOnly = 'nocursor';
-                    }
-                }
-            });
+            $scope.languages = CodeMirror.modeInfo;
+            if ($scope.snip) {
+                $scope.language = $.grep($scope.languages, function(e){ return e.name === $scope.snip.language; })[0];
+            } else {
+                $scope.language = {name:'bogus', mode:'javascript'};
+            }
 
             $scope.isSnippetOwnedByCurrentUser = function(creatorId) {
                 return oauthLibrary.userid() == creatorId;
@@ -94,14 +90,26 @@ viewsModule.service('snippetService', [function() {
             $scope.hideSnippetPopup = function() {
                 $scope.snippetPopupVisible = false;
             };
-
-            this.setLayout = function(snippetLayout) {
-                $scope.layout = snippetLayout;
-            };
         },
         link: function(scope, element, attrs, snippetCtrl) {
-            var cmElement = element.find('.CodeMirror'),
+            var snippetUsage = attrs.snippetUsage,
+                cmElement = element.find('.CodeMirror'),
                 tmpSnippetModel = {};
+
+            scope.setLayout = function(layout) {
+                scope.layout = layout;
+            };
+            scope.$on('snippetBarModelChanged', function() {
+                scope.layout = snippetBar.snippetLayout;
+                if (snippetUsage === 'forAdding') {
+                    scope.isAdding = snippetBar.isAddingSnippet;
+                    if (scope.isAdding) {
+                        scope.codeEditorOptions.readOnly = false;
+                    } else {
+                        scope.codeEditorOptions.readOnly = 'nocursor';
+                    }
+                }
+            });
 
             scope.snippetEdit = function(snippet) {
                 angular.copy(snippet, tmpSnippetModel);
@@ -113,7 +121,7 @@ viewsModule.service('snippetService', [function() {
             scope.snippetCancel = function(snippet) {
                 scope.snip = tmpSnippetModel;
                 tmpSnippetModel = {};
-                if (scope.isAddingSnippet) {
+                if (scope.isAdding) {
                     // We must be cancelling a snippet add
                     snippetBar.isAddingSnippet = false;
                 } else  if (scope.isEditing) {
@@ -127,34 +135,11 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippetAdd', ['snippetBarService',
-                  function(snippetBar) {
-    return {
-        require: '?^snippet',
-        restrict: 'E',
-        replace: true,
-        scope: true,
-        templateUrl: './static/components/snippetpanel/snippetAdd.html',
-        controller: function($scope, $element, $attrs) {
-            $scope.$on('snippetBarModelChanged', function() {
-                $scope.isAddingSnippet = snippetBar.isAddingSnippet;
-            });
-        }
-    }
-}])
-
 .directive('snippetPopup', [function() {
     return {
         require: '?^snippet',
         restrict: 'E',
-        templateUrl: './static/components/snippetpanel/snippetPopup.html',
-        controller: function($scope, $element, $attrs) {
-        },
-        link: function(scope, element, attrs, snippetCtrl) {
-            scope.setLayout = function(layout) {
-                snippetCtrl.setLayout(layout);
-            };
-        }
+        templateUrl: './static/components/snippetpanel/snippetPopup.html'
     }
 }])
 
@@ -164,18 +149,7 @@ viewsModule.service('snippetService', [function() {
         require: '?^snippet',
         restrict: 'E',
         replace: true,
-        templateUrl: './static/components/snippetpanel/snippetFormBar.html',
-        link: function(scope, element, attrs, snippetCtrl) {
-            scope.snippetCancel = function(snippet) {
-                if (scope.isAddingSnippet) {
-                    // We must be cancelling a snippet add
-                    snippetBar.isAddingSnippet = false;
-                } else  if (scope.isEditing) {
-                    // We must be cancelling a snippet edit
-                    snippetCtrl.snippetCancelEditing(snippet);
-                }
-            }
-        }
+        templateUrl: './static/components/snippetpanel/snippetFormBar.html'
     }
 }])
 
@@ -190,12 +164,6 @@ viewsModule.service('snippetService', [function() {
             var codeMirrorEditor = {},
                 codeMirrorDocument = {};
 
-            $scope.languages = CodeMirror.modeInfo;
-            //$scope.snip.language = {name:'bogus', mode:'javascript'}; // use this to init the select tag
-
-            $scope.lineWrapping = false;
-            $scope.lineNumbers = false;
-
             // The codemirror editor options must be done in a controller
             // (won't work in the link function)
             $scope.codeEditorOptions = {
@@ -203,17 +171,17 @@ viewsModule.service('snippetService', [function() {
                 indentUnit: 4,
                 lineNumbers: $scope.lineNumbers,
                 readOnly: 'nocursor',
-                mode: 'javascript'
+                mode: $scope.language.mode
             };
 
-            $scope.$watch('snip.language', function(data) {
-                if (data === undefined) return;
-                $scope.codeEditorOptions.mode = data.mode;
+            $scope.$watch('language', function(language) {
+                if (language === undefined) return;
+                $scope.codeEditorOptions.mode = language.mode;
                 // This uses the CodeMirror loadmode.js module to
                 // lazy load the proper language mode module. This is way cool,
                 // as you don't need to add all of the codemirror/mode/*/*.js mode files
                 // in <script> tags. There ~85 of them.
-                CodeMirror.autoLoadMode(codeMirrorEditor, data.mode);
+                CodeMirror.autoLoadMode(codeMirrorEditor, language.mode);
             });
 
             $scope.codeTextAreaLoaded = function(editor) {
@@ -227,11 +195,6 @@ viewsModule.service('snippetService', [function() {
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0],
                 snippetCtrl = controllers[1];
-
-            scope.layout = snippetBar.snippetLayout;
-            scope.$on('snippetBarModelChanged', function() {
-                scope.layout = snippetBar.snippetLayout;
-            });
         }
     }
 }])

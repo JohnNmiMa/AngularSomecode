@@ -283,7 +283,8 @@ def add_wsnips():
     # Create and add the 'Welcome' snippets
     for snip in w_snippets:
         s = models.Snippet(title = snip['title'], description = snip['des'], code = snip['code'],
-                           timestamp = datetime.utcnow(), topic=wt, creator_id=user.id, access=snip['access'])
+                           timestamp = datetime.utcnow(), topic=wt, creator_id=user.id,
+                           access=snip['access'], language = snip['language'])
         db.session.add(s)
     db.session.commit()
 
@@ -295,7 +296,8 @@ def add_gsnips():
     # Create and add the 'General' snippets
     for snip in g_snippets:
         s = models.Snippet(title = snip['title'], description = snip['des'], code = snip['code'],
-                           timestamp = datetime.utcnow(), topic=gt, creator_id=user.id, access=snip['access'])
+                           timestamp = datetime.utcnow(), topic=gt, creator_id=user.id,
+                           access=snip['access'], language=snip['language'])
         db.session.add(s)
     db.session.commit()
 
@@ -314,7 +316,8 @@ def add_usersnips(user):
     snippets.reverse()
     for snip in snippets:
         s = models.Snippet(title = snip.title, description = snip.description, code = snip.code,
-                           timestamp = datetime.utcnow(), topic=gt, creator_id=user.id, access=models.ACCESS_PRIVATE)
+                           timestamp = datetime.utcnow(), topic=gt, creator_id=user.id,
+                           language=snip.language, access=models.ACCESS_PRIVATE)
         db.session.add(s)
     db.session.commit()
 

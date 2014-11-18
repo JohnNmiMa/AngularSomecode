@@ -58,12 +58,13 @@ class Snippet(db.Model):
     creator_id =  db.Column(db.Integer)
     topic_id  =   db.Column(db.Integer, db.ForeignKey('topic.id'))
 
-    def __init__(self, title, description, code, timestamp, topic, creator_id, access=ACCESS_PRIVATE):
+    def __init__(self, title, description, code, timestamp, topic, creator_id, language, access=ACCESS_PRIVATE):
         self.title = title
         self.description = description
         self.code = code
         self.timestamp = timestamp
         self.ref_count = 1
+        self.language = language
         self.access = access
         self.creator_id = creator_id
         self.topic = topic

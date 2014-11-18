@@ -1,5 +1,5 @@
 <form id='snippetForm' role="form">
-    <div class="snippetTitle" ng-show="(isEditing || isAddingSnippet)">
+    <div class="snippetTitle" ng-show="(isEditing || isAdding)">
         <div class='titleDiv'>
             <input class='titleField form-control'
                    type="text" name="title" autocomplete="off"
@@ -14,7 +14,7 @@
                       placeholder="Add snippet description here" tabindex="2"
                       ng-model="snip.description"></textarea>
         </div>
-        <div ng-show="layout != 'titlesonly' && !(snip.code === '' && !(isEditing || isAddingSnippet))"
+        <div ng-show="layout != 'titlesonly' && !(snip.code === '' && !(isEditing || isAdding))"
              class="snippetCodeStyle"
              ng-class="{'snippetCode-col':layout === 'column', 'snippetCode-row':layout === 'row',
                         'owned':    isSnippetOwnedByCurrentUser(snip.creator_id),
