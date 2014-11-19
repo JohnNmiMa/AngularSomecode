@@ -182,16 +182,12 @@ def snippets(topic):
         if data.get('access') == 'on':
             access = ACCESS_PUBLIC;
 
-        if data['title']:
-            snippet.title = data['title'];
-        if data['description']:
-            snippet.description = data['description'];
-        if data['code']:
-            snippet.code = data['code'];
-        if data['access']:
-            snippet.access = data['access'];
-        if data['language']:
-            snippet.language = data['language'];
+        #pdb.set_trace()
+        snippet.title = data['title'];
+        snippet.description = data['description'];
+        snippet.code = data['code'];
+        snippet.access = data['access'];
+        snippet.language = data['language'];
         db.session.commit()
         return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
 

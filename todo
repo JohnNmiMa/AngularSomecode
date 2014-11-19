@@ -110,25 +110,25 @@ Implement signed-in view
   - Implement layout icons - DONE
   - Implement edit icon - DONE
     - Show Snippet CRUD Form - DONE
-  - Implement delete icon
+  - Implement delete icon - DONE
     - add delete dialog
-!- Implement CodeMirror Snippet Code Text-Area
+- Implement CodeMirror Snippet Code Text-Area
   - Create separate test textarea with full implementation - DONE
-  - Port test to somecode
-    - make form part of snippet, not something separate when editing
+  - Port test to somecode - DONE (WOW, the implementation worked out great!)
+    - make form part of snippet, not something separate when editing - DONE
       - this means to just have a textarea, not a div and textarea where we
-        flip back and forth depending upon if we are editing or not.
-    - add ui-codemirror and ui-codemirror-opts to textarea
-      - add codemirror editor options in directive
-    - Show code border when editing
-    - Show textarea outline fuzz when textarea is selected
-    - add cancelEdit to directive
-    - get textarea ngModel loading and persisting from/to server
-    - implement select for different languages
-      - enhance server model to save away snippet language
-    - implement toggling of line numbers
-    - implement toggling of line wrapping
-    - implement toggling of scrolling
+        flip back and forth depending upon if we are editing or not. - DONE
+    - add ui-codemirror and ui-codemirror-opts to textarea - DONE
+      - add codemirror editor options in directive - DONE
+    - Show code border when editing - DONE
+    - Show textarea outline fuzz when textarea is selected - DONE
+    - add cancelEdit to directive - DONE
+    - get textarea ngModel loading and persisting from/to server - DONE
+    - implement select for different languages - DONE
+      - enhance server model to save away snippet language - DONE
+    - implement toggling of line numbers - DONE
+    - implement toggling of line wrapping - DONE
+    - implement toggling of scrolling - DONE
 !- Implement Snippet Description/Note Text-Area
   - Add WYSYWIG JavaScript HTML editor for snippet description text-area
 
