@@ -1,7 +1,5 @@
 angular.module('snippetLibrary', [])
 
-//.constant('API_PREFIX', 'http://api.geonames.org')
-
 .service('snippetLibraryService', function() {
     var snippets = [],
         topics = [];
@@ -32,15 +30,27 @@ angular.module('snippetLibrary', [])
         snippets = snippetList;
         scope.$emit('updateSnippetsEvent');
     };
-
-    var addSnippet = function(snippet, scope) {
+    var addSnippet = function(snippet, topicName, scope) {
         snippets.unshift(snippet);
+        updateTopicCount(topicName, true);
         scope.$emit('updateSnippetsEvent');
     };
-    var deleteSnippet = function(deletedSnippetId, scope) {
+    var deleteSnippet = function(deletedSnippetId, selectedTopicName, scope) {
         snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippetId))});
+        if (selectedTopicName !== undefined) {
+            updateTopicCount(selectedTopicName, false);
+        }
         scope.$emit('updateSnippetsEvent');
     };
+    function updateTopicCount(topicName, increment) {
+        for (topic in topics.topics) {
+            t = topics.topics[topic];
+            if (t.name === topicName) {
+                t.count = increment ? t.count + 1: t.count - 1;
+            }
+            break;
+        }
+    }
 
     return {
         // Getters and setters

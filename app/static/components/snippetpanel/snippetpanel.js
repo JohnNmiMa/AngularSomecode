@@ -163,7 +163,7 @@ viewsModule.service('snippetService', [function() {
                         topicName = selectedTopic.name;
                     }
                     createSnippet(snippet, topicName).then(function(results) {
-                        snippetLibraryService.addSnippet(results, scope);
+                        snippetLibraryService.addSnippet(results, topicName, scope);
                         angular.copy(addSnippetModel, scope.snip);
                         snippetBar.isAddingSnippet = false;
                     });
@@ -174,8 +174,9 @@ viewsModule.service('snippetService', [function() {
                 }
             };
             scope.snippetDelete = function(snippet) {
+                var topicName = topicService.selectedTopic ? topicService.selectedTopic.name : undefined;
                 deleteSnippet(snippet).then(function(results) {
-                    snippetLibraryService.deleteSnippet(results.id, scope);
+                    snippetLibraryService.deleteSnippet(results.id, topicName, scope);
                     scope.snippetPopupVisible = false;
                     scope.isEditing = false;
                 });
