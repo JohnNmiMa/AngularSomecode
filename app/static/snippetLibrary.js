@@ -3,7 +3,7 @@ angular.module('snippetLibrary', [])
 //.constant('API_PREFIX', 'http://api.geonames.org')
 
 .service('snippetLibraryService', function() {
-    var snippets = {},
+    var snippets = [],
         topics = [];
 
     var setTopics = function(topicList, scope) {
@@ -33,6 +33,15 @@ angular.module('snippetLibrary', [])
         scope.$emit('updateSnippetsEvent');
     };
 
+    var addSnippet = function(snippet, scope) {
+        snippets.unshift(snippet);
+        scope.$emit('updateSnippetsEvent');
+    };
+    var deleteSnippet = function(deletedSnippetId, scope) {
+        snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippetId))});
+        scope.$emit('updateSnippetsEvent');
+    };
+
     return {
         // Getters and setters
         get snippets()      { return snippets; },
@@ -43,7 +52,9 @@ angular.module('snippetLibrary', [])
         addTopic:addTopic,
         editTopic:editTopic,
         deleteTopic:deleteTopic,
-        setSnippets:setSnippets
+        setSnippets:setSnippets,
+        addSnippet:addSnippet,
+        deleteSnippet:deleteSnippet
     }
 })
 
@@ -231,6 +242,30 @@ angular.module('snippetLibrary', [])
             data = angular.toJson(snippet);
 
         $http.put(path, data)
+            .success(function(reply) {
+                defer.resolve(angular.fromJson(reply));
+            })
+            .error(function(data, status, headers, config) {
+                var error = {
+                    html : data,
+                    statusCode : status,
+                    url : config.url
+                };
+                defer.reject(error);
+            });
+
+        return defer.promise;
+    }
+}])
+
+
+.factory('deleteSnippet', ['$http', '$q',
+                 function($http,   $q) {
+    return function(snippet) {
+        var defer = $q.defer(),
+            path = "/snippets/" + snippet.id;
+
+        $http.delete(path)
             .success(function(reply) {
                 defer.resolve(angular.fromJson(reply));
             })

@@ -159,7 +159,9 @@ def snippets(topic):
                           creator_id = g.user.id, language = language, access = access)
         db.session.add(snippet)
         db.session.commit()
-        return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
+        d = dict(title = snippet.title, description = snippet.description, code = snippet.code,
+                 language = snippet.language, access = snippet.access, creator_id = snippet.creator_id, id = snippet.id)
+        return Response(json.dumps(d), 200, mimetype="application/json")
 
     elif request.method == 'PUT':
         """ Update an existing snippet """
@@ -202,18 +204,17 @@ def snippets(topic):
 
         # Get all snippets in the topic
         snippets = topic.snippets.order_by(Snippet.timestamp.desc()).all()
-        reply = {}
+        snippetList = []
         for i, snip in enumerate(snippets):
             d = dict(title = snip.title, description = snip.description, code = snip.code,
                      language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
-            reply[i] = d
+            snippetList.append(d)
 
-        #return jsonify(reply)
-        return Response(json.dumps(reply), 200, mimetype="application/json")
+        return Response(json.dumps(snippetList), 200, mimetype="application/json")
 
     elif request.method == 'DELETE':
         """ Delete a snippet """
-        snippet_id = topic
+        snippet_id = int(topic)
         topics = g.user.topics
         snippet = None
         for topic in topics:
@@ -231,7 +232,7 @@ def snippets(topic):
         else:
             snippet.dec_ref()
             db.session.commit()
-            return jsonify(id=0)
+            return jsonify({id:snippet_id})
 
 
 @app.route('/snippets/search/personal', methods = ['GET'])
@@ -241,17 +242,17 @@ def search_personal():
     query = request.args['search']
 
     # Get all user's snippets that match the search
-    reply = {}
+    snippetList = []
     i = 0;
     for topic in topics:
         snippets = Snippet.query.filter_by(topic_id=topic.id).whoosh_search(query).all()
         for snip in snippets:
             d = dict(title = snip.title, description = snip.description, code = snip.code,
                      language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
-            reply[i] = d
+            snippetList.append(d)
             i += 1;
 
-    return Response(json.dumps(reply), 200, mimetype="application/json")
+    return Response(json.dumps(snippetList), 200, mimetype="application/json")
 
 
 @app.route('/snippets/search/public', methods = ['GET'])
@@ -260,12 +261,12 @@ def search_public():
 
     # Get all public snippets that match the search
     snippets = Snippet.query.whoosh_search(query).filter_by(access=ACCESS_PUBLIC).all()
-    reply = {}
+    snippetList = []
     for i, snip in enumerate(snippets):
         d = dict(title = snip.title, description = snip.description, code = snip.code,
                  language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
-        reply[i] = d
-    return Response(json.dumps(reply), 200, mimetype="application/json")
+        snippetList.append(d)
+    return Response(json.dumps(snippetList), 200, mimetype="application/json")
 
 
 @app.route('/logout')

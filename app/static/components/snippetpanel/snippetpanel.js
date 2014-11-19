@@ -39,7 +39,7 @@ viewsModule.service('snippetService', [function() {
             );
 
             // The snippets model
-            $scope.snippets = {};
+            $scope.snippets = snippetLibraryService.snippets;
             $scope.$on('updateSnippets', function(event) {
                 $scope.snippets = snippetLibraryService.snippets;
             });
@@ -52,8 +52,8 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary', 'createSnippet', 'editSnippet',
-               function($sce,   snippetBar,          oauth,          createSnippet,   editSnippet) {
+.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary', 'createSnippet', 'editSnippet', 'deleteSnippet', 'snippetLibraryService',
+               function($sce,   snippetBar,          oauth,          createSnippet,   editSnippet,   deleteSnippet,   snippetLibraryService) {
     return {
         restrict: 'E',
         scope: true,
@@ -83,7 +83,7 @@ viewsModule.service('snippetService', [function() {
                 cmElement = element.find('.CodeMirror'),
                 cmScrollElement = element.find('.CodeMirror-scroll'),
                 tmpSnippetModel = {},
-                addSnippetModel = {title:"", code:"", description:"", language:"JavaScript"},
+                addSnippetModel = {title:"", code:"", description:"", language:"JavaScript", creator_id:oauth.userid()},
                 scrolling = true,
                 textDecorationNoneStyle = {'text-decoration':'none'},
                 textDecorationLineThroughStyle = {'text-decoration':'line-through'};
@@ -157,16 +157,23 @@ viewsModule.service('snippetService', [function() {
                 }
 
                 if (scope.isAdding) {
-                    createSnippet(snippet, "General").then(function(result) {
+                    createSnippet(snippet, "General").then(function(results) {
+                        snippetLibraryService.addSnippet(results, scope);
+                        angular.copy(addSnippetModel, scope.snip);
                         snippetBar.isAddingSnippet = false;
-                        console.log(result);
                     });
                 } else  if (scope.isEditing) {
                     editSnippet(snippet).then(function(result) {
                         scope.isEditing = false;
-                        console.log(result);
                     });
                 }
+            };
+            scope.snippetDelete = function(snippet) {
+                deleteSnippet(snippet).then(function(results) {
+                    snippetLibraryService.deleteSnippet(results.id, scope);
+                    scope.snippetPopupVisible = false;
+                    scope.isEditing = false;
+                });
             };
 
             scope.toggleLineWrap = function() {
