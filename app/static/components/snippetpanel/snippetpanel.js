@@ -52,8 +52,8 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary', 'createSnippet', 'editSnippet', 'deleteSnippet', 'snippetLibraryService',
-               function($sce,   snippetBar,          oauth,          createSnippet,   editSnippet,   deleteSnippet,   snippetLibraryService) {
+.directive('snippet', ['$sce', 'snippetBarService', 'oauthLibrary', 'createSnippet', 'editSnippet', 'deleteSnippet', 'snippetLibraryService', 'topicService',
+               function($sce,   snippetBar,          oauth,          createSnippet,   editSnippet,   deleteSnippet,   snippetLibraryService,   topicService) {
     return {
         restrict: 'E',
         scope: true,
@@ -155,12 +155,14 @@ viewsModule.service('snippetService', [function() {
                 }
             };
             scope.snippetSave = function(snippet) {
-                if (scope.language !== undefined) {
-                    snippet.language = scope.language.name;
-                }
+                var topicName = "General",
+                    selectedTopic = topicService.selectedTopic;
 
                 if (scope.isAdding) {
-                    createSnippet(snippet, "General").then(function(results) {
+                    if (selectedTopic !== undefined) {
+                        topicName = selectedTopic.name;
+                    }
+                    createSnippet(snippet, topicName).then(function(results) {
                         snippetLibraryService.addSnippet(results, scope);
                         angular.copy(addSnippetModel, scope.snip);
                         snippetBar.isAddingSnippet = false;

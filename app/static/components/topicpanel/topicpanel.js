@@ -12,7 +12,7 @@ someCodeApp.service('topicService', [function() {
         isAddingTopic = false,
         isEditingTopic = false,
         isEditingTopicName = false,
-        selectedTopicId = undefined,
+        selectedTopic = undefined,
         editedTopicId = undefined;
 
     var changed = function() {
@@ -39,8 +39,8 @@ someCodeApp.service('topicService', [function() {
         set isEditingTopic(bool)        { isEditingTopic = bool; changed(); },
         get isEditingTopicName()        { return isEditingTopicName; },
         set isEditingTopicName(bool)    { isEditingTopicName = bool; changed(); },
-        get selectedTopicId()           { return selectedTopicId; },
-        set selectedTopicId(id)         { selectedTopicId = id; changed(); },
+        get selectedTopic()             { return selectedTopic; },
+        set selectedTopic(topic)        { selectedTopic = topic; changed(); },
         get editedTopicId()             { return editedTopicId; },
         set editedTopicId(id)           { editedTopicId = id; changed(); },
         get topicPanelWidth()           {
@@ -97,7 +97,7 @@ someCodeApp.service('topicService', [function() {
                             snippetLibraryService.setSnippets(results, $scope);
                             $scope.$emit('updateTopicString', topicName);
                         });
-                        topicService.selectedTopicId = topic.id;
+                        topicService.selectedTopic = topic;
                     }
                 }
             };
@@ -142,7 +142,9 @@ someCodeApp.service('topicService', [function() {
                 scope.isAddingTopic = topicService.isAddingTopic;
                 scope.isEditingTopic = topicService.isEditingTopic;
                 scope.isEditingTopicName = topicService.isEditingTopicName;
-                scope.selectedTopicId = topicService.selectedTopicId;
+                if (topicService.selectedTopic !== undefined) {
+                    scope.selectedTopicId = topicService.selectedTopic.id;
+                }
                 scope.editedTopicId = topicService.editedTopicId;
             }
             modelChanged(); // Init scope
