@@ -66,6 +66,9 @@ viewsModule.service('snippetService', [function() {
             $scope.isAdding = false;
             $scope.lineWrapping = false;
             $scope.lineNumbers = true;
+            if (snippetUsage === 'forAdding') {
+                $scope.lineNumbers = false;
+            }
             $scope.layout = snippetBar.snippetLayout;
 
             $scope.languages = CodeMirror.modeInfo;
