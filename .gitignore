@@ -1,6 +1,7 @@
 .idea/
 node_modules/
 venv.keep/
+build/
 todo~
 
 *.pyc
@@ -48,3 +49,9 @@ app/static/variables.css
 *.css
 
 app/static/components/topicpanel/topicpanel.css
+
+bower.json~
+
+gulpfile.js-keep
+
+bower.json2
