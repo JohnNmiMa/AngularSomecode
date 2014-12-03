@@ -42,14 +42,21 @@
                 border-radius:6px;
                 background: rgba(245, 245, 245, 0.3);
             }
-                .snippetPopup div.layout {
+                .snippetPopup .layout {
                     float:left;
                     margin-left:5px;
-                    background-color:#fff !important;
                     cursor: pointer;
                 }
-                    .snippetPopup button.layout.snip-it {
-                        float:left;
+                    .snippetPopup .layout span {
+                        color:darken(@icon-color, 15%);
+                    }
+                        .snippetPopup .layout span.active {
+                            color:@icon-color-active;
+                        }
+                        .snippetPopup .layout span:hover {
+                            color:darken(@icon-hover-color, 100%);
+                        }
+                    .snippetPopup .layout.snip-it {
                         color:#fff;
                         //font-family: 'Rochester', cursive;
                         font-family: cursive;
@@ -59,45 +66,34 @@
                     .snippetPopup .layout.toggleLineWrap,
                     .snippetPopup .layout.toggleScroll,
                     .snippetPopup .layout.toggleLineNumbers {
+                        height:22px;
                         margin-top:1px;
                         margin-left:5px;
                         padding:1px 2px;
                         float:left;
                         outline: none;
+                        border: 2px solid darken(@icon-color, 15%);
+                        border-radius: 4px;
                     }
-                    .snippetPopup .layout.toggleLineWrap {
+                        .snippetPopup .layout.toggleLineWrap:hover,
+                        .snippetPopup .layout.toggleScroll:hover,
+                        .snippetPopup .layout.toggleLineNumbers:hover {
+                            border-color:darken(@icon-hover-color, 100%);
+                            background-color: #fff;
+                        }
+                    .snippetPopup .layout.toggleLineWrap,
+                    .snippetPopup .layout.snippetRowLayout,
+                    .snippetPopup .layout.snippetEdit,
+                    .snippetPopup .snippetDelete {
                         margin-left:10px;
                     }
-                        .snippetPopup .layout span {
-                            color:darken(@icon-color, 15%);
-                        }
-                        .snippetPopup .layout.snippetRowLayout span {
-                            margin-left:2px;
-                        }
-                        .snippetPopup .layout.snippetColLayout {
-                            margin-left:2px;
-                        }
-                        .snippetPopup .layout.snippetColLayout span {
-                            margin-top:-2px;
-                        }
-                        .snippetPopup .layout.snippetEdit span {
-                            margin-left:10px;
-                        }
+                    .snippetPopup .layout.snippetColLayout {
+                        margin-left:2px;
+                    }
+                        .snippetPopup .layout.snippetColLayout span,
                         .snippetPopup .layout.snippetDelete span {
                             margin-top:-2px;
-                            margin-left:10px;
                         }
-                            .snippetPopup .layout.snippetColLayout span.active,
-                            .snippetPopup .layout.snippetRowLayout span.active,
-                            .snippetPopup .layout.snippetTitleOnlyLayout span.active {
-                                color:@icon-color-active;
-                            }
-                            .snippetPopup div.layout span:hover {
-                                color:darken(@icon-hover-color, 100%);
-                            }
-                .snippetPopup .snippetDelete {
-                    margin-left:10px;
-                }
 
             .snippetTitle {
                 .make-row();
