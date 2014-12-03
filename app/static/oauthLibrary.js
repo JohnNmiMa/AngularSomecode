@@ -275,7 +275,7 @@ angular.module('oauthLibrary', [])
     };
 }])
 
-.service('oauthLibrary.utils', function() {
+.service('oauthLibrary.utils', [function() {
     this.parseQueryString = function(keyValue) {
         var obj = {}, key, value;
         angular.forEach((keyValue || '').split('&'), function(keyValue) {
@@ -287,5 +287,5 @@ angular.module('oauthLibrary', [])
         });
         return obj;
     };
-});
+}]);
 

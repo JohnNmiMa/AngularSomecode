@@ -64,7 +64,8 @@ someCodeApp.service('topicService', [function() {
 }])
 
 
-.directive('topicPanel', ['topicService', function(topicService) {
+.directive('topicPanel', ['topicService',
+                  function(topicService) {
     return {
         restrict: 'E',
         replace: true,
@@ -300,7 +301,8 @@ someCodeApp.service('topicService', [function() {
 }])
 
 
-.directive('topicDeleteDialog', ['snippetLibraryService', function(snippetLibraryService) {
+.directive('topicDeleteDialog', ['snippetLibraryService',
+                         function(snippetLibraryService) {
     return {
         restrict: 'E',
         replace: true,
@@ -330,7 +332,8 @@ someCodeApp.service('topicService', [function() {
     }
 }])
 
-.factory('topicNameValidatorService', ['snippetLibraryService', function(snippetLibraryService) {
+.factory('topicNameValidatorService', ['snippetLibraryService',
+                               function(snippetLibraryService) {
     return function(attrs, ngModelCtrl, topicName) {
         // Return false (don't validate) if the topicName already exists
         // We don't want to add or edit a topic if it is already in the list of topics
@@ -348,7 +351,8 @@ someCodeApp.service('topicService', [function() {
     }
 }])
 
-.directive('validateTopicName', ['topicNameValidatorService', function(topicNameValidatorService) {
+.directive('validateTopicName', ['topicNameValidatorService',
+                         function(topicNameValidatorService) {
     return {
         restrict: 'A',
         require: ['ngModel', '?^topicAddForm', '?^topicEditForm'],
@@ -374,7 +378,8 @@ someCodeApp.service('topicService', [function() {
     }
 }])
 
-.directive('topicPanelResizeSelector', ['$document', 'topicService', function($document, topicService) {
+.directive('topicPanelResizeSelector', ['$document', 'topicService',
+                                function($document,   topicService) {
     return {
         restrict: 'E',
         templateUrl: './static/components/topicpanel/topicPanelResizeSelector.html',

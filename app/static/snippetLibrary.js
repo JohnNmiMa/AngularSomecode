@@ -1,6 +1,6 @@
 angular.module('snippetLibrary', [])
 
-.service('snippetLibraryService', function() {
+.service('snippetLibraryService', [function() {
     var snippets = [],
         topics = [];
 
@@ -66,11 +66,11 @@ angular.module('snippetLibrary', [])
         addSnippet:addSnippet,
         deleteSnippet:deleteSnippet
     }
-})
+}])
 
 
 .factory('snippetUser', ['$http', '$q',
-                   function($http,   $q) {
+                 function($http,   $q) {
     return function() {
         var defer = $q.defer(),
             path = "/topics";
@@ -118,7 +118,7 @@ angular.module('snippetLibrary', [])
 
 
 .factory('editTopic', ['$http', '$q',
-                 function($http,   $q) {
+               function($http,   $q) {
     return function(topicId, topicName) {
         var defer = $q.defer(),
             path = "/topic/" + topicId,
@@ -196,7 +196,7 @@ angular.module('snippetLibrary', [])
 
 
 .factory('displayTopicSnippets', ['$http', '$q',
-                   function($http,   $q) {
+                          function($http,   $q) {
     return function(topicName) {
         var defer = $q.defer(),
             path = "/snippets/" + topicName;

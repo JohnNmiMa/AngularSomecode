@@ -38,7 +38,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
                 $scope.searchAccess = access;
             };
         },
-        link: function ($scope, element, attrs, snippetSearchController) {
+        link: function ($scope, element, attrs) {
             var searchField = element.find('#snippetSearchField');
             $scope.focused = false;
             $scope.placeholderText = $scope.isSignedIn ? "Search private snippets" : "Search public snippets";
@@ -61,7 +61,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
 // search input width at a percentage of the page width. This
 // will allow for more room to provide search input on
 // larger windows.
-.directive('searchSizer', function() {
+.directive('searchSizer', [function() {
     return {
         link: function($scope, $element, $attrs) {
             var widthPct = 25;
@@ -77,4 +77,4 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             computeSearchInputWidth();
         }
     }
-});
+}]);

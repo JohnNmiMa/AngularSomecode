@@ -1,4 +1,5 @@
-someCodeApp.service('snippetBarService', function() {
+someCodeApp.service('snippetBarService', [function() {
+    //! In snippetBarService
     var snippetBarScope = undefined,
         isAddingSnippet = false,
         snippetLayoutDefault = "row";
@@ -27,7 +28,7 @@ someCodeApp.service('snippetBarService', function() {
         // Public functions
         register:register
     }
-})
+}])
 
 .directive('snippetBar', ['topicService', 'snippetBarService',
                   function(topicService,   snippetBar) {

@@ -3,6 +3,7 @@ var gulp = require('gulp');
 var shell = require('gulp-shell');
 var usemin = require('gulp-usemin');
 var minifyCss = require('gulp-minify-css');
+var annotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var rev = require('gulp-rev');
 var replace = require('gulp-replace');
@@ -34,14 +35,14 @@ gulp.task('copy-files', function() {
 
 gulp.task('usemin', function() {
     return gulp.src('app/templates/index.html')
-    .pipe(usemin({
-        assetsDir: 'app',
-        css: [minifyCss(), 'concat', rev()],
-        js: [uglify({mangle: false}), rev()] // don't mangle names
-        //js: [uglify({preserveComments: 'some'}), rev()] // keep comments that start with !
-        //js: [uglify(), rev()]
-    }))
-    .pipe(gulp.dest('build/app/templates'));
+        .pipe(usemin({
+            assetsDir: 'app',
+            css: [minifyCss(), 'concat', rev()],
+            //js: [uglify({mangle: false}), rev()] // don't mangle names
+            //js: [uglify({preserveComments: 'some'}), rev()] // keep comments that start with !
+            js: [annotate(), uglify(), rev()]
+        }))
+        .pipe(gulp.dest('build/app/templates'));
 });
 
 gulp.task('fix-glyphicon-paths', ['usemin'], function() {
