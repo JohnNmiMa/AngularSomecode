@@ -3,4 +3,5 @@ viewsModule.controller('UserCtrl', ['$scope', 'topics', 'snippetLibraryService',
     $scope.UserCtrlScope = "UserCtrlScope";
 
     snippetLibraryService.setTopics(topics, $scope);
+    snippetLibraryService.setSnippets([], $scope);
 }]);

@@ -129,6 +129,20 @@ Implement signed-in view
     - implement toggling of line numbers - DONE
     - implement toggling of line wrapping - DONE
     - implement toggling of scrolling - DONE
+
+- Get gulp build working - DONE
+  - enable '$ gulp' to start flask server - DONE
+  - enable '$ gulp build' to create release build - DONE
+    - get uglified/minified - DONE
+      - fix all 'explicit function annotation' errors - DONE
+
+- Deploy Flask server to a python service that will work with SQLite
+
+- Get public/personal icon working when editing/creating snippets
+- Get prompt on snippet delete implemented
+- Get snippet count implemented in header search bar
+- Mode "Log Out" selector to gear. - maybe
+
 !- Implement Snippet Description/Note Text-Area
   - Add WYSYWIG JavaScript HTML editor for snippet description text-area
 
@@ -160,5 +174,15 @@ Implement signed-in view
           3) Item three. Notice how the numbering can be continued even though the previous numbering
              was interrupted by a list of bulleted items.
 
-!- Implement backend DB that will persist on heroku - OR
-  Deploy Flask server to a python service that will work with SQLite. - choose this!
+- Move Snippets to topics
+!- Implement menu in snippet create/edit form to put snippet in user selected topic
+
+!- Be able to drag a snippet to a topic
+
+- Pin snippets to topics
+  - Implement the 'Snip It' button
+
+
+-------------------- BUGS ---------------------
+-
+- Don't create snippet if there is no title
