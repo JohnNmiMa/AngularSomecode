@@ -208,7 +208,9 @@ someCodeApp.service('topicService', [function() {
 
             function resetForm() {
                 $scope.topicAddString = "";
-                $scope.topicAddForm.$setPristine();
+                if ($scope.topicAddForm !== undefined) {
+                    $scope.topicAddForm.$setPristine();
+                }
             }
 
             this.triggerTopicAddPopover = function(trigger) {
@@ -277,7 +279,9 @@ someCodeApp.service('topicService', [function() {
 
             function resetForm(topic) {
                 $scope.topicEditString = topic.name;
-                $scope.topicEditForm.$setPristine();
+                if ($scope.topicEditForm !== undefined) {
+                    $scope.topicEditForm.$setPristine();
+                }
             }
 
             this.triggerTopicEditPopover = function(trigger) {

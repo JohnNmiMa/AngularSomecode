@@ -184,5 +184,5 @@ Implement signed-in view
 
 
 -------------------- BUGS ---------------------
--
+- Fix $setPristine on topicPanel forms that don't yet exist - DONE
 - Don't create snippet if there is no title
