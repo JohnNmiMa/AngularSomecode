@@ -25,7 +25,8 @@ viewsModule.service('snippetService', [function() {
         replace: true,
         scope: true,
         templateUrl: './static/components/snippetpanel/snippetpanel.html',
-        controller: function($scope, $element, $attrs, snippetLibraryService, topicService) {
+        controller: ['$scope', '$element', '$attrs', 'snippetLibraryService', 'topicService',
+             function($scope,   $element,   $attrs,   snippetLibraryService,   topicService) {
             $scope.SnippetPanelDirectiveCtrlScope = "SnippetPanelDirectiveCtrlScope";
             $scope.$watch(
                 function() {
@@ -43,7 +44,7 @@ viewsModule.service('snippetService', [function() {
             $scope.$on('updateSnippets', function(event) {
                 $scope.snippets = snippetLibraryService.snippets;
             });
-        },
+        }],
         link: function(scope, element, attrs, snippetCtrl) {
             scope.$on('snippetBarModelChangedEvent', function(event) {
                 scope.$broadcast('snippetBarModelChanged');
@@ -58,7 +59,8 @@ viewsModule.service('snippetService', [function() {
         restrict: 'E',
         scope: true,
         templateUrl: './static/components/snippetpanel/snippet.html',
-        controller: function($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs',
+             function($scope,   $element,   $attrs) {
             var snippetUsage = $attrs.snippetUsage;
 
             $scope.SnippetDirectiveController = "SnippetDirectiveController";
@@ -80,7 +82,7 @@ viewsModule.service('snippetService', [function() {
                 }
                 $scope.language = $.grep($scope.languages, function(e){ return e.name === $scope.snip.language; })[0];
             }
-        },
+        }],
         link: function(scope, element, attrs, snippetCtrl) {
             var snippetUsage = attrs.snippetUsage,
                 cmElement = element.find('.CodeMirror'),
@@ -251,7 +253,8 @@ viewsModule.service('snippetService', [function() {
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/snippetpanel/snippetForm.html',
-        controller: function($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs',
+             function($scope,   $element,   $attrs) {
             var codeMirrorEditor = {},
                 codeMirrorDocument = {};
 
@@ -282,7 +285,7 @@ viewsModule.service('snippetService', [function() {
                 // Set the CodeMirror lazy loader to load modules from here
                 CodeMirror.modeURL = "./static/bower_components/codemirror/mode/%N/%N.js";
             };
-        },
+        }],
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0],
                 snippetCtrl = controllers[1];

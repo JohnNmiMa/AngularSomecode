@@ -24,7 +24,8 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
         restrict: 'E',
         templateUrl: 'static/components/header/snippetSearch.html',
         transclude: false,
-        controller: function($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs',
+             function($scope,   $element,   $attrs) {
             // $scope is HeaderCtrl's scope
             $scope.computeLayout = function() {
                 if ($scope.isSignedIn) {
@@ -37,7 +38,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             $scope.setSearchAccess = function(access) {
                 $scope.searchAccess = access;
             };
-        },
+        }],
         link: function ($scope, element, attrs) {
             var searchField = element.find('#snippetSearchField');
             $scope.focused = false;

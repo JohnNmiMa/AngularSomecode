@@ -71,7 +71,8 @@ someCodeApp.service('topicService', [function() {
         replace: true,
         scope: true,
         templateUrl: './static/components/topicpanel/topicpanel.html',
-        controller: function ($scope, $element, $attrs, topicService, displayTopicSnippets, snippetLibraryService) {
+        controller: ['$scope', '$element', '$attrs', 'topicService', 'displayTopicSnippets', 'snippetLibraryService',
+            function ($scope,   $element,   $attrs,   topicService,   displayTopicSnippets,   snippetLibraryService) {
             $scope.TopicPanelDirectiveCtrlScope = "TopicPanelDirectiveCtrlScope";
 
             // The topics model
@@ -125,7 +126,7 @@ someCodeApp.service('topicService', [function() {
                     }
                 }
             };
-        },
+        }],
         link: function (scope, element, attrs) {
             // The topicPanel model
             topicService.register(scope);
@@ -180,7 +181,8 @@ someCodeApp.service('topicService', [function() {
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/topicpanel/topicAddForm.html',
-        controller: function($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs',
+             function($scope,   $element, $attrs) {
             var inputElement = $element.find('input');
             inputElement.popover({
                 container:'body', trigger:'manual', toggle:'popover', placement:'right',
@@ -215,7 +217,7 @@ someCodeApp.service('topicService', [function() {
             this.resetForm = function() {
                 resetForm();
             };
-        },
+        }],
         link: function (scope, element, attrs, topicAddFormCtrl) {
             scope.topicAddSubmit = function() {
                 if (scope.topicAddForm.$valid) {
@@ -246,7 +248,8 @@ someCodeApp.service('topicService', [function() {
         replace: true,
         scope: true,   // there's one of these forms for each topic
         templateUrl: './static/components/topicpanel/topicEditForm.html',
-        controller: function ($scope, $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs',
+            function ($scope,   $element,   $attrs) {
             var inputElement = $element.find('input');
 
             inputElement.popover({
@@ -283,7 +286,7 @@ someCodeApp.service('topicService', [function() {
             this.resetForm = function(topic) {
                 resetForm(topic);
             };
-        },
+        }],
         link: function(scope, element, attrs, topicEditFormCtrl) {
             scope.topicEditSubmit = function() {
                 if (scope.topicEditForm.$valid) {
@@ -307,7 +310,8 @@ someCodeApp.service('topicService', [function() {
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/topicpanel/topicDeleteDialog.html',
-        controller: function($scope, $element, $attrs, deleteTopic) {
+        controller: ['$scope', '$element', '$attrs', 'deleteTopic',
+             function($scope,   $element,   $attrs,   deleteTopic) {
             var topicToDelete = undefined;
 
             // Setup the topic delete modal dialog
@@ -328,7 +332,7 @@ someCodeApp.service('topicService', [function() {
                 }
                 $('#topicDeleteDialog').modal('hide');
             }
-        }
+        }]
     }
 }])
 
