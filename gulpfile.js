@@ -17,7 +17,7 @@ gulp.task('copy-files', function() {
               './app/static/components/**/*.html',
               './app/static/components/snippetpanel/arrow-down.png',
               '*.py', './app/*.py', 'requirements.txt',
-              'app.db',
+              'app.db', 'search.db/Snippet/*',
               './app/static/bower_components/codemirror/mode/**/*.js',
               './app/static/bower_components/fontawesome/fonts/*.otf',
               './app/static/bower_components/fontawesome/fonts/*.eot',
