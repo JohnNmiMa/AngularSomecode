@@ -11,7 +11,8 @@ angular.module('oauthLibrary', [])
         facebook: {
             authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
             redirectUri: '/signin/facebook_authorized',
-            clientId: '369725386526622',
+            //clientId: '369725386526622',
+            clientId: '1508116866113069',
             // appUri: 'http://somecode.herokuapp.com:5000/',
             appUri: HelperFunctions.currentUrl() + '/',
             popupOptions: { width: 481, height: 269 }

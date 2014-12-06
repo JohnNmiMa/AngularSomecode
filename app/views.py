@@ -467,5 +467,3 @@ def twitter_authorized():
         qs = urlencode(dict(oauth_token=oauth_token['oauth_token']))
         return redirect(twitter['authenticate_url'] + '?' + qs)
 
-
-
