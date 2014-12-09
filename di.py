@@ -20,13 +20,13 @@ g_snipa = {
             <li>Use the <em>pass</em> statement to define a null class.</li>
         </ul>
 """,
-    "code": """<pre>
+    "code": """
 class Dog:
 \"\"\" This is a docstring for the Dog class. \"\"\"
     pass
 >>> d = Dog()
 >>> Dog.__doc__
->>> ' This is a docstring for the Dog class. '</pre>
+>>> ' This is a docstring for the Dog class. '
 """
 }
 g_snipb = {
@@ -40,7 +40,7 @@ g_snipb = {
             <li>If you change the variable through a class instance <em>(big_dog.sound = 'growl')</em> a local variable is created for that instance and added to the instance's dictionary.</li>
         </ul>
 """,
-    "code": """<pre>
+    "code": """
 class Dog:
     sound = 'bark'
 >>> print Dog.sound
@@ -54,7 +54,7 @@ bark bark
 yip yip
 >>> big_dog.sound = 'growl'
 >>> print big_dog.sound, small_dog.sound 
-growl yip</pre>
+growl yip
 """
 }
 g_snipc = {
@@ -141,9 +141,11 @@ w_snipg = {
     'title': "You can view the snippets in three ways",
     'language': 'Python',
     "des": "<p>The three different layout options are:</p>\
-    <ol><li>'Columnar' mode, where the snippet description and code are side-by-side. This can be a handy when viewing many short snippets at once.</li>\
+    <ol>\
+    <li>'Columnar' mode, where the snippet description and code are side-by-side. This can be a handy when viewing many short snippets at once.</li>\
     <li>'Row' mode, where the snippet description is listed in its own row above the snippet code. This is the best layout when looking at larger snippets.</li>\
-    <li>'Title Only' mode, where only the titles of the snippets are shown. This is handy when viewing many snippets at once and then selecting only the snippet of interest. The snippet layout can be changed by clicking on the global or local snippet layout icons.</li></ol>\
+    <li>'Title Only' mode, where only the titles of the snippets are shown. This is handy when viewing many snippets at once and then selecting only the snippet of interest. The snippet layout can be changed by clicking on the global or local snippet layout icons.</li>\
+    </ol>\
     The three snippets layouts can be controlled in the snippet bar, or individually through the snippet selector. The icon with the vertical line represents 'columnar' layout. The icon with the horizontal line is for 'row' layout, and the 'empty' icon is for 'title only' layout.",
     "code": ''
 }
@@ -151,11 +153,13 @@ w_sniph = {
     'access': models.ACCESS_PUBLIC,
     'title': "You can interact with individual snippets",
     'language': 'Python',
-    "des": "<p>Just hover over the Snippet Selector Icon to perform the following tasks:</p><ol>\
+    "des": "<p>Just hover over the Snippet Selector Icon to perform the following tasks:</p>\
+    <ol>\
     <li>'Snip It' (implemented soon) will allow any public or authored snippet to be saved to any of the user's topics. This will allow a snippet created by another user to be saved into any snippet topic. This is similar to pinning a pin in Pinterest. Just select the topic where the snippet is to reside and it will be visible in that topic.</li>\
     <li>Change the snippet layout (columnar, row, title-only)</li>\
     <li>Edit the snippet. The snippet title, description, and code can be changed.</li>\
-    <li>Delete the snippet</li></ol>",
+    <li>Delete the snippet</li>\
+    </ol>",
     "code": ''
 }
 w_snipi = {

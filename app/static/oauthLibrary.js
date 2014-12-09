@@ -14,6 +14,7 @@ angular.module('oauthLibrary', [])
             //clientId: '369725386526622',
             clientId: '1508116866113069',
             // appUri: 'http://somecode.herokuapp.com:5000/',
+            // appUri: 'http://somecode.pythonanywhere.com:5000/',
             appUri: HelperFunctions.currentUrl() + '/',
             popupOptions: { width: 481, height: 269 }
         },
@@ -22,6 +23,7 @@ angular.module('oauthLibrary', [])
             redirectUri: '/signin/google_authorized',
             clientId: '759451918691-6hb8d2up7algbjirfni465bcn743cjjb.apps.googleusercontent.com',
             // appUri: 'http://somecode.herokuapp.com:5000',
+            // appUri: 'http://somecode.pythonanywhere.com:5000/',
             appUri: HelperFunctions.currentUrl(),
             popupOptions: { width: 452, height: 633 }
         },

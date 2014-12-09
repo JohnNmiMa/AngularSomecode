@@ -199,3 +199,4 @@ Implement signed-in view
 - Fix $setPristine on topicPanel forms that don't yet exist - DONE
 - Fix topic counter when adding new snippet
 - Don't create snippet if there is no title
+- Ordered lists only show bullets? Weird!
