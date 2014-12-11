@@ -176,19 +176,17 @@ w_snipj = {
     "des": "<p>The application before you came to life as an MVP project in Thinkful's 'Programming in Python' (Python/Flask) class. It was the author's experience that other code snippet tools have a less than useful UX experience. When creating a snippet, a full page webform is flashed where the data is to be enter. All other information on the page is locked out and the context in which the new snippet is being placed is blocked. Another weaknesses is the display and layout of the snippets. Only a few snippets are displayed on the page, and the ability to see multiple snippets at once is missing. This application was an attempt to add a better UX experience for the user with the addition of functionality not present in other code snippet tools (e.g.: 'Snip It', public vs private searches, authored vs snipped code, etc.</p>\
     <p>To more fully flesh out the application, the following features are envisioned as being useful for a great 'snippet management' experience:</p> \
     <ul>\
-    <li>Transition to a database that is supported on heroku, or whatever cloud PAAS database is supported.</li>\
     <li>Beef up the 'description' textarea. Implement a fast WYSIWYG/Markup strategy.</li>\
     <li>Ability to 'Snip' or share snippets. Just as images in Pinterest can be 'Pinned', with SomeCode 'Snippets' should be able to be 'Snipped'. All public snippets can be snipped. This will require the database to have a many-to-many relationship between a user's topics and the snippets in a topic. In other words, a topic can contain multiple snippets, and a snippet should be able to be in multiple topics, with topics being from the local logged in user or those from any other user on the system.</li>\
-    <li>Beef up the snippet bar. Add a snippet language selector and a topic selector.</li>\
+    <li>Add a topic selector in the snippet bar.</li>\
     <li>Implement the settings dialog. Provide a default snippet layout, default snippet personal/public color, etc.</li>\
     <li>Ability to sort snippets, sorting on time, alphabetically, or custom. In custom sort mode, snippets can be dragged up or down into an order that makes sense for the snippet topic. This is one of the weaknesses of Pinterest - pins can not be moved around in the board. With SomeCode snippets can be placed in any desired order.</li>\
     <li>Ability to filter snippets according to snippet language.</li>\
     <li>Ability to filter snippets according to popularity or number of times snipped. This implies that snippets will be able to be 'liked'.</li>\
     <li>Improve snippet layout so that long snippet descriptions will 'flow' around the snippet code when in columnar mode. This will require a custom (non-Bootstrap) UI.</li>\
-    <li>Improve the Topic Panel to be able to size horizontally.</li>\
     <li>Improve responsivess for mobile devices. At small screen sizes, go into display mode only.</li>\
-    <li>Improve speed of code searches. Try NoSQL database persistence.</li>\
-    <li>Implement in AngularJS to be completely single-page.</li>\
+    <li>Create heirarchical topic levels. Collapse sub-topics under parent topics</li>
+    <li>Port to MySQL to improve speed of code searches.</li>\
     <li>Get UI professionally designed for best/cleanest look. This will likely require a full rewrite of the client side UI code. Although the 'grid' functionality from Twitter Bootstrap is useful, it was pushed to its limits. This app needs a custom built UI.</li>\
     <li>Create mobile apps for Android, iPhone/iPad.</li>\
     <li>Add other modules: Todo, Notes, Projects, Pomodoro, Books, Scrum-like backlog, etc. This will allow the Snippet Topic Panel to be swapped out with a 'Notes' panel or a 'Todo' panel, or whatever module the user wishes to use. When a new module panel is displayed, the central display area will display data according to a format specific to that module.</li>\

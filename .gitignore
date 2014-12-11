@@ -1,5 +1,4 @@
 .idea/
-app/static/bower_components/
 node_modules/
 venv.keep/
 build/

@@ -1,0 +1,88 @@
+@import "../../variables.less";
+
+/* Markdown styling used by SomeCode */
+.MarkDown {
+    font-family:@des-font-family;
+    font-size: small;
+    line-height: 1;
+}
+.MarkDown h1 {
+    margin:0.2em 0;
+}
+.MarkDown h2, .MarkDown h3,
+.MarkDown h4, .MarkDown h5, .MarkDown h6 {
+    margin:0.4em 0 0.2em;
+}
+.MarkDown h4, .MarkDown h5, .MarkDown h6 {
+    font-weight: bold;
+}
+.MarkDown p {
+    margin-top: 0.75em;
+    margin-bottom: 0.1em;
+}
+.MarkDown h1 + p, .MarkDown h2 + p, .MarkDown h3 + p,
+.MarkDown h4 + p, .MarkDown h5 + p, .MarkDown h6 + p {
+    margin-top: 0.1em;
+}
+.MarkDown hr {
+    margin:0.75em 0;
+}
+.MarkDown ul, .MarkDown ol {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    list-style-position: outside;
+}
+.MarkDown ol, .MarkDown ul ol, .MarkDown ul ul ol {
+    list-style-type: decimal;
+    -webkit-padding-start: 20px;
+}
+.MarkDown ul ol ol, .MarkDown ol ol, .MarkDown ol ul ol {
+    list-style-type: lower-alpha;
+}
+.MarkDown ol ol ol {
+    list-style-type: lower-roman;
+}
+.MarkDown ul {
+    list-style-type: disc;
+    -webkit-padding-start: 15px;
+}
+.MarkDown ul ul, .MarkDown ol ul {
+    list-style-type: circle;
+}
+.MarkDown ul ul ul, .MarkDown ul ol ul, .MarkDown ol ul ul, .MarkDown ol ol ul {
+    list-style-type: square;
+}
+.MarkDown blockquote {
+//        padding: 10px 20px;
+//        margin: 0 0 20px;
+//        font-size: inherit;
+//        border-left: 5px solid #ddd;
+    font-size: inherit;
+    margin:0;
+    padding: 0 1em;
+//        padding-left: 1em;
+    border-left: 0.5em #EEE solid;
+}
+.MarkDown pre {
+    padding: 0.5em;
+    font-family:@code-font-family;
+    line-height: 1;
+}
+.MarkDown pre code {
+    font-family:@code-font-family;
+    line-height: 1;
+    font-size: 11px;
+}
+.MarkDown code {
+    font-family:@code-font-family;
+    line-height: 1;
+    font-size: 11px;
+}
+.MarkDown a{ color: #428bca; text-decoration:none;}
+//    .MarkDown a:visited{ color: #0b0080; }
+.MarkDown a:hover{ color: #faa700; }
+.MarkDown a:active{ color:#f66700; }
+//    .MarkDown a:focus{ outline: thin dotted; }
+//    .MarkDown a:hover, a:active{ outline: 0; }

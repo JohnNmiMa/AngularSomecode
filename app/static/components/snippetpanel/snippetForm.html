@@ -11,15 +11,17 @@
         </div>
     </div>
     <div id='formContent' class="snippetTextAreas">
-        <div ng-show="layout != 'titlesonly'" ng-if="!(isEditing || isAdding)"
-             ng-bind-html="getTrustedHtml(snip.description)"
-             class="snippetDesStyle"
-             ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
-        </div>
+        <markdown class="MarkDown snippetDesStyle"
+            ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}"
+            ng-show="layout != 'titlesonly'"
+            ng-if="!(isEditing || isAdding)"
+            markdown-model="snip.description">
+        </markdown>
         <!--<div ng-hide="layout === 'titlesonly' || (snip.description === '' && !(isEditing || isAdding))"-->
-        <div ng-hide="layout === 'titlesonly'" ng-if="(isEditing || isAdding)"
-             class="snippetDesStyle"
-             ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
+        <div class="snippetDesStyle"
+             ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}"
+             ng-hide="layout === 'titlesonly'"
+             ng-if="(isEditing || isAdding)">
             <textarea name="description" class="form-control"
                       placeholder="Add snippet description here" tabindex="2"
                       ng-model="snip.description"></textarea>
