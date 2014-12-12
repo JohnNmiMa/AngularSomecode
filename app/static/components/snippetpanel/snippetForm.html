@@ -11,20 +11,25 @@
         </div>
     </div>
     <div id='formContent' class="snippetTextAreas">
-        <markdown class="MarkDown snippetDesStyle"
-            ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}"
-            ng-show="layout != 'titlesonly'"
-            ng-if="!(isEditing || isAdding)"
-            markdown-model="snip.description">
-        </markdown>
-        <!--<div ng-hide="layout === 'titlesonly' || (snip.description === '' && !(isEditing || isAdding))"-->
-        <div class="snippetDesStyle"
-             ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}"
-             ng-hide="layout === 'titlesonly'"
-             ng-if="(isEditing || isAdding)">
-            <textarea name="description" class="form-control"
+        <div class="snippetDescription"
+             ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}">
+            <div class="snippetDesStyle"
+                 ng-class="{'editMode': (isEditing || isAdding)}"
+                 ng-show="(layout != 'titlesonly') && (!(isEditing || isAdding) || ((isEditing || isAdding) && isPreviewing))">
+                <markdown class="MarkDown" markdown-model="snip.description"></markdown>
+            </div>
+            <!--<div class="snippetDesStyle"-->
+                 <!--ng-show="(layout != 'titlesonly') && (isEditing || isAdding) && !isPreviewing">-->
+            <textarea name="description" class="snippetDesStyle form-control"
+                      ng-class="{'editMode': (isEditing || isAdding)}"
+                      ng-show="(layout != 'titlesonly') && (isEditing || isAdding) && !isPreviewing"
                       placeholder="Add snippet description here" tabindex="2"
-                      ng-model="snip.description"></textarea>
+                      ng-model="snip.description">
+            </textarea>
+            <!--</div>-->
+            <button type="button" class="btn btn-default btn-xs togglePreview"
+                    ng-show="(layout != 'titlesonly') && (isEditing || isAdding)"
+                    ng-click="togglePreview()"> {{isPreviewing ? 'Edit' : 'Preview' }} </button>
         </div>
         <div ng-hide="layout === 'titlesonly' || (snip.code === '' && !(isEditing || isAdding))"
              class="snippetCodeStyle"

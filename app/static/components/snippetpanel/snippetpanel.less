@@ -74,6 +74,8 @@
                         outline: none;
                         border: 2px solid darken(@icon-color, 15%);
                         border-radius: 4px;
+                        -webkit-box-shadow: none;
+                        box-shadow: none;
                     }
                         .snippetPopup .layout.toggleLineWrap:hover,
                         .snippetPopup .layout.toggleScroll:hover,
@@ -121,27 +123,53 @@
             .snippetTextAreas {
                 .make-row();
             }
-                .snippetTextAreas textarea {
-                    margin:5px 0;
-                }
-
                 /* Snippet description textarea field */
+                .snippetDescription {
+                }
+                    .snippetDescription textarea {
+                        font-family:@des-font-family;
+                        font-size: small;
+                        resize: vertical;
+                    }
                 .snippetDesStyle {
+                    padding:0;
                     margin-bottom:0;
                     background-color:white;
+                    margin:5px 0;
                 }
-                .snippetDesStyle textarea {
-                    font-family:@des-font-family;
-                    font-size: small;
-                    resize: vertical;
-                    padding:0 5px;
-                }
+                    .snippetDesStyle.editMode {
+                        padding:5px;
+                        border-radius: 4px;
+                        border:1px solid #ccc;
+                        min-height:40px;
+                    }
                 .snippetDes-col {
                     .make-sm-column(6);
                     padding-right: 5px;
                 }
                 .snippetDes-row {
                     .make-xs-column(12);
+                }
+                .snippetDes-col .togglePreview {
+                    right: 10px;
+                }
+                .snippetDes-row .togglePreview {
+                    right: 20px;
+                }
+                .togglePreview {
+                    position: absolute;
+                    top:10px;
+                    width:56px;
+                    background-color: transparent;
+                    border-radius: 4px;
+                    border-width: 2px;
+                }
+                .togglePreview:active, .togglePreview:focus, .togglePreview:hover,
+                .togglePreview:active:focus {
+                    outline: none;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    background-color: transparent;
                 }
                 @import "markdown.less";
 
@@ -214,10 +242,10 @@
             .snippetForm {
                 z-index: 5100;
             }
-            #snippetFormBar {
+            .snippetFormBar {
                 .make-row();
             }
-                #snippetFormBar #snippetFormBarContainer {
+                .snippetFormBar .snippetFormBarContainer {
                     position:relative;
                     margin-bottom:5px;
                     .make-xs-column(12);

@@ -66,6 +66,7 @@ viewsModule.service('snippetService', [function() {
             $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.isEditing = false;
             $scope.isAdding = false;
+            $scope.isPreviewing = false;
             $scope.lineWrapping = false;
             $scope.lineNumbers = true;
             if (snippetUsage === 'forAdding') {
@@ -155,6 +156,7 @@ viewsModule.service('snippetService', [function() {
                     scope.codeEditorOptions.readOnly = 'nocursor';
                     cmElement.removeClass('isEditing');
                 }
+                scope.isPreviewing = false;
             };
             scope.snippetSave = function(snippet) {
                 var topicName = "General",
@@ -175,6 +177,7 @@ viewsModule.service('snippetService', [function() {
                         scope.isEditing = false;
                     });
                 }
+                scope.isPreviewing = false;
             };
             scope.snippetDelete = function(snippet) {
                 var topicName = topicService.selectedTopic ? topicService.selectedTopic.name : undefined;
@@ -285,6 +288,10 @@ viewsModule.service('snippetService', [function() {
                 // Set the CodeMirror lazy loader to load modules from here
                 CodeMirror.modeURL = "./static/bower_components/codemirror/mode/%N/%N.js";
             };
+
+            $scope.togglePreview = function() {
+                $scope.isPreviewing = !$scope.isPreviewing;
+            }
         }],
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0],
