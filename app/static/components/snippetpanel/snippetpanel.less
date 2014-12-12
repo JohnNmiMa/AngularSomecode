@@ -105,20 +105,22 @@
             .snippetTitle {
                 .make-row();
             }
+                /* Used when not editing */
                 .snippetTitle .snippetTitleText {
                     .make-sm-column(12);
                     font-weight:bold;
                     margin: 4px 0;
                 }
-            .titleDiv {
-                .make-sm-column(12);
-            }
-            .titleField {
-                padding:5px;
-                font-weight: bold;
-                font-size: 14px;
-                font-family: inherit;
-            }
+                /* Used while editing */
+                .titleDiv {
+                    .make-sm-column(12);
+                }
+                    .titleDiv .titleField {
+                        padding:5px;
+                        font-weight: bold;
+                        font-size: 14px;
+                        font-family: inherit;
+                    }
 
             /* Snippet description and code textarea fields */
             .snippetTextAreas {
