@@ -103,24 +103,19 @@
                         }
 
             .snippetTitle {
-                .make-row();
             }
                 /* Used when not editing */
                 .snippetTitle .snippetTitleText {
-                    .make-sm-column(12);
                     font-weight:bold;
                     margin: 4px 0;
                 }
                 /* Used while editing */
-                .titleDiv {
-                    .make-sm-column(12);
+                .snippetTitle .titleField {
+                    padding:5px;
+                    font-weight: bold;
+                    font-size: 14px;
+                    font-family: inherit;
                 }
-                    .titleDiv .titleField {
-                        padding:5px;
-                        font-weight: bold;
-                        font-size: 14px;
-                        font-family: inherit;
-                    }
 
             /* Snippet description and code textarea fields */
             .snippetTextAreas {
@@ -131,11 +126,13 @@
                     margin:5px 0;
                 }
                     .snippetDescription textarea {
-                        height: auto;
                         font-family:@des-font-family;
                         font-size: small;
                         resize: vertical;
                         line-height: 1;
+                        box-sizing: border-box;
+                        min-height: 44px;
+                        max-height:400px;
                     }
                         .snippetDescription textarea:focus {
                             border: 1px solid #cccccc;
@@ -153,7 +150,6 @@
                         padding:5px;
                         border-radius: 4px;
                         border:1px solid #ccc;
-                        min-height:44px;
                     }
                 .snippetDes-col {
                     .make-sm-column(6);
@@ -172,7 +168,7 @@
                     position: absolute;
                     top:5px;
                     width:56px;
-                    background-color: transparent;
+                    background-color: rgba(255,255,255,0.5);
                     border-radius: 4px;
                     border-width: 2px;
                 }
@@ -181,7 +177,7 @@
                     outline: none;
                     -webkit-box-shadow: none;
                     box-shadow: none;
-                    background-color: transparent;
+                    background-color: rgba(255,255,255,0.5);
                 }
                 @import "markdown.less";
 

@@ -23,7 +23,8 @@
     "angular-ui-codemirror": "~0.1.6",
     "animate.css": "~3.2.0",
     "fontawesome": "~4.2.0",
-    "angular-markdown-text": "~0.0.2"
+    "angular-markdown-text": "~0.0.2",
+    "textarea-autosize": "~0.3.0"
   },
   "resolutions": {
     "angular": ">=1",

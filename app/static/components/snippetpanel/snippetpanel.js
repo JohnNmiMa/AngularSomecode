@@ -296,6 +296,9 @@ viewsModule.service('snippetService', [function() {
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0],
                 snippetCtrl = controllers[1];
+            //textareaElement = element.find('.snippetDescription textarea');
+
+            //textareaElement.textareaAutoSize();
         }
     }
 }])

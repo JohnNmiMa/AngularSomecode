@@ -3,12 +3,10 @@
         <h5 class="snippetTitleText">{{snip.title}}</h5>
     </div>
     <div class="snippetTitle" ng-if="(isEditing || isAdding)">
-        <div class='titleDiv'>
-            <input class='titleField form-control'
-                   type="text" name="title" autocomplete="off"
-                   autofocus tabindex="1" placeholder="Add snippet title here"
-                   ng-model="snip.title">
-        </div>
+        <input class='titleField form-control'
+               type="text" name="title" autocomplete="off"
+               autofocus tabindex="1" placeholder="Add snippet title here"
+               ng-model="snip.title">
     </div>
     <div class="snippetTextAreas">
         <div class="snippetDescription"
