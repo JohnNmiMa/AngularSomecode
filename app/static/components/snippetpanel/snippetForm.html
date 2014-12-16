@@ -24,7 +24,7 @@
                       ng-model="snip.description"></textarea>
             <button type="button" class="btn btn-default btn-xs togglePreview"
                     ng-show="(isEditing || isAdding)"
-                    ng-click="togglePreview()"> {{isPreviewing ? 'Preview' : 'Edit' }} </button>
+                    ng-click="togglePreview()"> {{isPreviewing ? 'Previewing' : 'Editing' }} </button>
         </div>
         <div ng-hide="layout === 'titlesonly' || (snip.code === '' && !(isEditing || isAdding))"
              class="snippetCodeStyle"
