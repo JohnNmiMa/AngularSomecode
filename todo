@@ -220,6 +220,8 @@ Implement signed-in view
   in the layout. When the scrollbar is always present, the layout breaks. When it acts as an overlay, the
   layout works fine. The fix is to make the layout work in both scrollbar modes.
 - Make sure font size/style is same in snippet placeholder as in snippet - DONE
-- Fix topic counter when adding new snippet
+- Fix topic counter when adding new snippet - DONE
+- Fix snippet size when only title is added (looks like the description is showing).
+  Titles-only is fine. Columnar or row layout looks bad.
 - Understand logout error - be sure to go to log out screen when authentication fails.
 - Unselect the currently selected topic for snippet searches

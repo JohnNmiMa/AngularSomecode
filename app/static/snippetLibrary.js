@@ -47,8 +47,8 @@ angular.module('snippetLibrary', [])
             t = topics.topics[topic];
             if (t.name === topicName) {
                 t.count = increment ? t.count + 1: t.count - 1;
+                break;
             }
-            break;
         }
     }
 
