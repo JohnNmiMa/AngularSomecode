@@ -21,7 +21,6 @@
                       ng-class="{'editMode': (isEditing || isAdding), 'scrollIt':isScrolling}"
                       ng-show="(isEditing || isAdding) && !isPreviewing"
                       placeholder="Add snippet description here" tabindex="2"
-                      ng-auto-expand
                       ng-model="snip.description"></textarea>
             <button type="button" class="btn btn-default btn-xs togglePreview"
                     ng-show="(isEditing || isAdding)"

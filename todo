@@ -220,3 +220,5 @@ Implement signed-in view
 - Make sure font size/style is same in snippet placeholder as in snippet
 - Fix topic counter when adding new snippet
 - Don't create snippet if there is no title
+- Understand logout error - be sure to go to log out screen when authentication fails.
+- Unselect the currently selected topic for snippet searches
