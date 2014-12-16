@@ -90,10 +90,10 @@ viewsModule.service('snippetService', [function() {
                 cmScrollElement = element.find('.CodeMirror-scroll'),
                 tmpSnippetModel = {},
                 addSnippetModel = {title:"", code:"", description:"", language:"JavaScript", creator_id:oauth.userid()},
-                scrolling = true,
                 textDecorationNoneStyle = {'text-decoration':'none'},
                 textDecorationLineThroughStyle = {'text-decoration':'line-through'};
 
+            scope.isScrolling = true,
             scope.refreshIt = true;
             scope.scrollStrikeStyle = textDecorationNoneStyle;
             scope.wrapStrikeStyle = textDecorationLineThroughStyle;
@@ -207,15 +207,15 @@ viewsModule.service('snippetService', [function() {
             };
 
             scope.toggleScroll = function() {
-                scrolling = !scrolling;
+                scope.isScrolling = !scope.isScrolling;
                 scope.scrollStrikeStyle =
-                    scrolling ? textDecorationNoneStyle : textDecorationLineThroughStyle;
-                if (scrolling) {
+                    scope.isScrolling ? textDecorationNoneStyle : textDecorationLineThroughStyle;
+                if (scope.isScrolling) {
                     // Set CodeMirror scroll element to scroll in window of max-height = 400px
                     cmScrollElement.css({
                         'overflow':'auto',
                         'max-height':'400px'
-                    })
+                    });
                 } else {
                     // Set CodeMirror scroll element to expand to code size
                     cmScrollElement.css({
@@ -223,7 +223,7 @@ viewsModule.service('snippetService', [function() {
                         'overflow-y':'hidden',
                         'height':'auto',
                         'max-height':'none'
-                    })
+                    });
                 }
                 scope.refreshIt = !scope.refreshIt;
             };
@@ -295,10 +295,10 @@ viewsModule.service('snippetService', [function() {
         }],
         link: function(scope, element, attrs, controllers) {
             var snippetPanelCtrl = controllers[0],
-                snippetCtrl = controllers[1];
-            //textareaElement = element.find('.snippetDescription textarea');
+                snippetCtrl = controllers[1],
+            textareaElement = element.find('.snippetDescription textarea');
 
-            //textareaElement.textareaAutoSize();
+            textareaElement.textareaAutoSize();
         }
     }
 }])

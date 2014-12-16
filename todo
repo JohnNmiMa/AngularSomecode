@@ -138,8 +138,9 @@ Implement signed-in view
 
 - Deploy Flask server to a python service that will work with SQLite - DONE
 
-- Implement Snippet Description/Note Text-Area
+- Implement Snippet Description/Note Text-Area - DONE
   - Add Markdown/HTML HTML editor for snippet description text-area
+  - Get the "Scroll" button to work for the description area.
 
     One of the keys to this entire app is to provide a great code and
     description input experience. The description area must offer the following:
@@ -171,8 +172,8 @@ Implement signed-in view
              was interrupted by a list of bulleted items. - Partially DONE. This will work if the
              text interrupting the numbering flow is indented properly.
 
-- Get public/personal icon working when editing/creating snippets
 - Get prompt on snippet delete implemented
+- Get public/personal icon working when editing/creating snippets
 - Get snippet count implemented in header search bar
 - Make the logged in user a menu.
   - Put "Log Out", "Settings", and "?" as items in the menu
@@ -196,7 +197,6 @@ Implement signed-in view
   - Describe what occurs when non-owned snippets are edited. Can they be edited? Use copy-on-write?
 
 - Create snippet filter on snippet language
-
 !!! The above functionality will complete a functional and useful snippet tool.
 
 - Create heirarchical topic levels. This will require many-to-many relationship in the db.
@@ -208,7 +208,15 @@ Implement signed-in view
 
 -------------------- BUGS ---------------------
 - Fix $setPristine on topicPanel forms that don't yet exist - DONE
+- Fix snippetFormBar being obscured when in mobile size - DONE
+- Ordered lists only show bullets? Weird! - DONE
+- Fix vertical scrollbar causing layout to break. Turns out there is a setting in MAC General Settings.
+  If you click "When scrolling", then the scrollbar only shows when scrolling. And the way the
+  scrollbar works seems to change with this setting on. For instance, the scrollbar doesn't take up
+  space on the page. It seems to be overlayed on top of the web page. If the setting is "Always", then
+  the scrollbar is always present and takes up space in the browser window. This is what is causing problems
+  in the layout. When the scrollbar is always present, the layout breaks. When it acts as an overlay, the
+  layout works fine. The fix is to make the layout work in both scrollbar modes.
 - Make sure font size/style is same in snippet placeholder as in snippet
 - Fix topic counter when adding new snippet
 - Don't create snippet if there is no title
-- Ordered lists only show bullets? Weird!

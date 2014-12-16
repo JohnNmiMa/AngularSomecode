@@ -13,19 +13,19 @@
              ng-class="{'snippetDes-col':layout === 'column', 'snippetDes-row':layout === 'row'}"
              ng-show="(layout != 'titlesonly')">
             <div class="snippetDesStyle"
-                 ng-class="{'editMode': (isEditing || isAdding)}"
+                 ng-class="{'editMode': (isEditing || isAdding), 'scrollIt':isScrolling}"
                  ng-show="(!(isEditing || isAdding) || ((isEditing || isAdding) && isPreviewing))">
                 <markdown class="MarkDown" markdown-model="snip.description"></markdown>
             </div>
             <textarea name="description" class="snippetDesStyle form-control"
-                      ng-class="{'editMode': (isEditing || isAdding)}"
+                      ng-class="{'editMode': (isEditing || isAdding), 'scrollIt':isScrolling}"
                       ng-show="(isEditing || isAdding) && !isPreviewing"
                       placeholder="Add snippet description here" tabindex="2"
-                      ng-model="snip.description">
-            </textarea>
+                      ng-auto-expand
+                      ng-model="snip.description"></textarea>
             <button type="button" class="btn btn-default btn-xs togglePreview"
                     ng-show="(isEditing || isAdding)"
-                    ng-click="togglePreview()"> {{isPreviewing ? 'Edit' : 'Preview' }} </button>
+                    ng-click="togglePreview()"> {{isPreviewing ? 'Preview' : 'Edit' }} </button>
         </div>
         <div ng-hide="layout === 'titlesonly' || (snip.code === '' && !(isEditing || isAdding))"
              class="snippetCodeStyle"
