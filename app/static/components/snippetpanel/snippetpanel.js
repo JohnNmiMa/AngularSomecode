@@ -162,6 +162,9 @@ viewsModule.service('snippetService', [function() {
                 var topicName = "General",
                     selectedTopic = topicService.selectedTopic;
 
+                if (snippet.title === "") {
+                    return;
+                }
                 snippet.language = scope.language.name;
                 if (scope.isAdding) {
                     if (selectedTopic !== undefined) {

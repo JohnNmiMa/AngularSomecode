@@ -219,6 +219,7 @@ Implement signed-in view
   layout works fine. The fix is to make the layout work in both scrollbar modes.
 - Make sure font size/style is same in snippet placeholder as in snippet
 - Fix topic counter when adding new snippet
-- Don't create snippet if there is no title
+- Don't create snippet if there is no title - DONE
+  - Add dialog telling user that at minimum, a title is needed to add a new snippet.
 - Understand logout error - be sure to go to log out screen when authentication fails.
 - Unselect the currently selected topic for snippet searches
