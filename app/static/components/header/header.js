@@ -1,6 +1,9 @@
 someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetLibraryService', 'topicService',
                               function($scope,   oauth,          snippetSearch,   snippetLibraryService,   topicService) {
     $scope.HeaderCtrlScope = "HeaderCtrlScope";
+    $scope.personalSnippetCount = 0;
+    $scope.publicSnippetCount = 0;
+
     $scope.$watch(
         function() {
             return oauth.isAuthenticated();
@@ -9,6 +12,12 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             $scope.searchAccess = oauth.isAuthenticated() ? 'personal' : 'public';
         }
     );
+
+    $scope.$on('updateTopics', function(event) {
+        var topics = snippetLibraryService.topics;
+        $scope.personalSnippetCount = topics.personal_count;
+        $scope.publicSnippetCount = topics.public_count;
+    });
 
     $scope.searchSubmit = function() {
         snippetSearch($scope.searchAccess, $scope.searchString).then(function(results) {

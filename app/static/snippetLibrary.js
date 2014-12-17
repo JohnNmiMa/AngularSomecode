@@ -34,6 +34,7 @@ angular.module('snippetLibrary', [])
         snippets.unshift(snippet);
         updateTopicCount(topicName, true);
         scope.$emit('updateSnippetsEvent');
+        scope.$emit('updateTopicsEvent');
     };
     var deleteSnippet = function(deletedSnippetId, selectedTopicName, scope) {
         snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippetId))});
@@ -41,12 +42,19 @@ angular.module('snippetLibrary', [])
             updateTopicCount(selectedTopicName, false);
         }
         scope.$emit('updateSnippetsEvent');
+        scope.$emit('updateTopicsEvent');
     };
     function updateTopicCount(topicName, increment) {
         for (topic in topics.topics) {
             t = topics.topics[topic];
             if (t.name === topicName) {
-                t.count = increment ? t.count + 1: t.count - 1;
+                if (increment) {
+                    t.count = t.count + 1;
+                    topics.personal_count = topics.personal_count + 1;
+                } else {
+                    t.count = t.count - 1;
+                    topics.personal_count = topics.personal_count - 1;
+                }
                 break;
             }
         }

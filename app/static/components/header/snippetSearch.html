@@ -4,9 +4,9 @@
                autocomplete="off" placeholder={{placeholderText}} search-sizer ng-model="searchString"><!--
       --><span id="personalSnippetCounter" class="badge left"
                ng-if="isAuthenticated() == true"
-               ng-class="{selected:searchAccess === 'personal'}" ng-click="setSearchAccess('personal')">134</span><!--
+               ng-class="{selected:searchAccess === 'personal'}" ng-click="setSearchAccess('personal')">{{personalSnippetCount}}</span><!--
       --><span ng-show="isAuthenticated()">&nbsp / &nbsp</span><!--
       --><span id="publicSnippetCounter" class="badge right"
-               ng-class="{selected:searchAccess === 'public'}" ng-click="setSearchAccess('public')">103456</span>
+               ng-class="{selected:searchAccess === 'public'}" ng-click="setSearchAccess('public')">{{publicSnippetCount}}</span>
     </div>
 </form>
