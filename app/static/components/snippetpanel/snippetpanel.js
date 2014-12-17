@@ -85,6 +85,7 @@ viewsModule.service('snippetService', [function() {
             var snippetUsage = attrs.snippetUsage,
                 cmElement = element.find('.CodeMirror'),
                 cmScrollElement = element.find('.CodeMirror-scroll'),
+                snippetDeleteDialog = element.find('.snippetDeleteDialog'),
                 tmpSnippetModel = {},
                 addSnippetModel = {title:"", code:"", description:"", language:"NotChosen", access:false, creator_id:oauth.userid()},
                 textDecorationNoneStyle = {'text-decoration':'none'},
@@ -193,12 +194,18 @@ viewsModule.service('snippetService', [function() {
                 }
                 scope.isPreviewing = false;
             };
+            scope.initiateSnippetDelete = function(snippet) {
+                // Popup modal to prompt user to see if snippet should really be deleted
+                scope.$broadcast('snippetDeleteEvent', snippet);
+            };
             scope.snippetDelete = function(snippet) {
                 var topicName = topicService.selectedTopic ? topicService.selectedTopic.name : undefined;
                 deleteSnippet(snippet).then(function(results) {
                     snippetLibraryService.deleteSnippet(results.id, topicName, scope);
                     scope.snippetPopupVisible = false;
                     scope.isEditing = false;
+                    // Hide the snippet delete dialog
+                    snippetDeleteDialog.modal('hide');
                 });
             };
 
@@ -246,6 +253,28 @@ viewsModule.service('snippetService', [function() {
                 scope.isPreviewing = !scope.isPreviewing;
             };
         }
+    }
+}])
+
+.directive('snippetDeleteDialog', ['snippetLibraryService',
+                           function(snippetLibraryService) {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: './static/components/snippetpanel/snippetDeleteDialog.html',
+        controller: ['$scope', '$element', '$attrs', 'deleteTopic',
+             function($scope,   $element,   $attrs,   deleteTopic) {
+            var deleteButton = $element.find('.snippetDoDelete');
+
+            // Configure the snippet delete modal dialog
+            $element.modal({backdrop:'static', keyboard:false, show:false});
+
+            $scope.$on('snippetDeleteEvent', function(event, snippet) {
+                // Show the snippet delete dialog
+                $element.modal('show');
+                deleteButton.focus();
+            });
+        }]
     }
 }])
 
