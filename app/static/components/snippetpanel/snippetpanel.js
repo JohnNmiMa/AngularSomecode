@@ -294,6 +294,46 @@ viewsModule.service('snippetService', [function() {
 
             $scope.togglePreview = function() {
                 $scope.isPreviewing = !$scope.isPreviewing;
+            };
+
+            $scope.isSnippetDescriptionVisible = function(snippet) {
+                // Don't show the description if the layout is titles-only
+                if ($scope.layout === 'titlesonly') {
+                    return false;
+                }
+
+                // Always show the description if editing or adding a snippet
+                if ($scope.isEditing || $scope.isAdding) {
+                    return true;
+                }
+
+                // Don't show if there is both the description and code text are empty
+                if (snippet.description === "" && snippet.code === "") {
+                    return false;
+                }
+
+                // Don't show if there is no description and the layout is row orientation
+                if (snippet.description === "" && $scope.layout === 'row') {
+                    return false;
+                }
+                return true;
+            };
+
+            $scope.isSnippetCodeVisible = function(snippet) {
+                // Don't show the code if the layout is titles-only
+                if ($scope.layout === 'titlesonly') {
+                    return false;
+                }
+
+                // Always show the code if editing or adding a snippet
+                if ($scope.isEditing || $scope.isAdding) {
+                    return true;
+                }
+
+                // Don't show if there is code text is empty
+                if (snippet.code === "") {
+                    return false;
+                }
             }
         }],
         link: function(scope, element, attrs, controllers) {
