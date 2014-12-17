@@ -172,8 +172,8 @@ Implement signed-in view
              was interrupted by a list of bulleted items. - Partially DONE. This will work if the
              text interrupting the numbering flow is indented properly.
 
+- Get public/personal icon working when editing/creating snippets - DONE
 - Get prompt on snippet delete implemented
-- Get public/personal icon working when editing/creating snippets
 - Get snippet count implemented in header search bar
 !- Make the logged in user a menu.
   - Put "Log Out", "Settings", and "?" as items in the menu
@@ -217,6 +217,7 @@ Implement signed-in view
 - Fix snippet size when only title is added (looks like the description is showing). - DONE
   Titles-only is fine. Columnar or row layout looks bad. - DONE
 - Unselect the currently selected topic for snippet searches - DONE
+- Fix snippet cancel error if the snippet language is changed.
 - Fix vertical scrollbar causing layout to break. Turns out there is a setting in MAC General Settings.
   If you click "When scrolling", then the scrollbar only shows when scrolling. And the way the
   scrollbar works seems to change with this setting on. For instance, the scrollbar doesn't take up

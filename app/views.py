@@ -145,8 +145,9 @@ def snippets(topic):
         # Get the snippet data from the request
         if (request.data):
             data = json.loads(request.data)
+        #pdb.set_trace()
         access = ACCESS_PRIVATE;
-        if data.get('access') == 'on':
+        if data.get('access') == True:
             access = ACCESS_PUBLIC;
         title = data['title']
         description = data['description']
@@ -178,16 +179,16 @@ def snippets(topic):
 
         if (request.data):
             data = json.loads(request.data)
+        #pdb.set_trace()
         access = ACCESS_PRIVATE;
-        if data.get('access') == 'on':
+        if data.get('access') == True:
             access = ACCESS_PUBLIC;
 
-        #pdb.set_trace()
-        snippet.title = data['title'];
-        snippet.description = data['description'];
-        snippet.code = data['code'];
-        snippet.access = data['access'];
-        snippet.language = data['language'];
+        snippet.title = data['title']
+        snippet.description = data['description']
+        snippet.code = data['code']
+        snippet.access = access
+        snippet.language = data['language']
         db.session.commit()
         return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
 

@@ -76,11 +76,8 @@ viewsModule.service('snippetService', [function() {
 
             $scope.languages = CodeMirror.modeInfo;
             if (snippetUsage === 'forAdding') {
-                $scope.language = {name:'JavaScript', mode:'javascript'};
+                $scope.language = null;
             } else {
-                if ($scope.snip.language === 'bogus') {
-                    $scope.snip.language = 'JavaScript';
-                }
                 $scope.language = $.grep($scope.languages, function(e){ return e.name === $scope.snip.language; })[0];
             }
         }],
@@ -89,11 +86,11 @@ viewsModule.service('snippetService', [function() {
                 cmElement = element.find('.CodeMirror'),
                 cmScrollElement = element.find('.CodeMirror-scroll'),
                 tmpSnippetModel = {},
-                addSnippetModel = {title:"", code:"", description:"", language:"JavaScript", creator_id:oauth.userid()},
+                addSnippetModel = {title:"", code:"", description:"", language:"NotChosen", access:false, creator_id:oauth.userid()},
                 textDecorationNoneStyle = {'text-decoration':'none'},
                 textDecorationLineThroughStyle = {'text-decoration':'line-through'};
 
-            scope.isScrolling = true,
+            scope.isScrolling = true;
             scope.refreshIt = true;
             scope.scrollStrikeStyle = textDecorationNoneStyle;
             scope.wrapStrikeStyle = textDecorationLineThroughStyle;
@@ -150,6 +147,11 @@ viewsModule.service('snippetService', [function() {
                     snippetBar.isAddingSnippet = false;
                 } else  if (scope.isEditing) {
                     // We must be cancelling a snippet edit
+                    if (scope.language !== tmpSnippetModel.language) {
+                        scope.language = $.grep(scope.languages, function(e){
+                            return e.name === tmpSnippetModel.language;
+                        })[0];
+                    }
                     scope.snip = tmpSnippetModel;
                     tmpSnippetModel = {};
                     scope.isEditing = false;
@@ -162,10 +164,18 @@ viewsModule.service('snippetService', [function() {
                 var topicName = "General",
                     selectedTopic = topicService.selectedTopic;
 
+                // At minimum a snippet title is required
                 if (snippet.title === "") {
                     return;
                 }
-                snippet.language = scope.language.name;
+
+                if (scope.language === undefined || scope.language === null || scope.language.name === 'NotChosen') {
+                    // If no language was chosen, just set the language to "NotChosen" in the backend DB
+                    snippet.language = 'NotChosen';
+                } else {
+                    snippet.language = scope.language.name;
+                }
+
                 if (scope.isAdding) {
                     if (selectedTopic !== undefined) {
                         topicName = selectedTopic.name;
@@ -174,6 +184,7 @@ viewsModule.service('snippetService', [function() {
                         snippetLibraryService.addSnippet(results, topicName, scope);
                         angular.copy(addSnippetModel, scope.snip);
                         snippetBar.isAddingSnippet = false;
+                        scope.language = null;
                     });
                 } else  if (scope.isEditing) {
                     editSnippet(snippet).then(function(result) {
@@ -252,7 +263,12 @@ viewsModule.service('snippetService', [function() {
         require: '?^snippet',
         restrict: 'E',
         replace: true,
-        templateUrl: './static/components/snippetpanel/snippetFormBar.html'
+        templateUrl: './static/components/snippetpanel/snippetFormBar.html',
+        link: function(scope, element, attrs) {
+            scope.toggleSnippetAccess = function(snippet) {
+                snippet.access = !snippet.access;
+            }
+        }
     }
 }])
 
@@ -266,20 +282,24 @@ viewsModule.service('snippetService', [function() {
         controller: ['$scope', '$element', '$attrs',
              function($scope,   $element,   $attrs) {
             var codeMirrorEditor = {},
-                codeMirrorDocument = {};
+                codeMirrorDocument = {},
+                codeMode = null;
 
             // The codemirror editor options must be done in a controller
             // (won't work in the link function)
+            if ($scope.language !== null && $scope.language !== undefined) {
+                codeMode = $scope.language.mode;
+            }
             $scope.codeEditorOptions = {
                 lineWrapping : $scope.lineWrapping,
                 indentUnit: 4,
                 lineNumbers: $scope.lineNumbers,
                 readOnly: 'nocursor',
-                mode: $scope.language.mode
+                mode: codeMode
             };
 
             $scope.$watch('language', function(language) {
-                if (language === undefined) return;
+                if (language === undefined || language === null) return;
                 $scope.codeEditorOptions.mode = language.mode;
                 // This uses the CodeMirror loadmode.js module to
                 // lazy load the proper language mode module. This is way cool,
