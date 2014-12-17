@@ -146,6 +146,8 @@ someCodeApp.service('topicService', [function() {
                 scope.isEditingTopicName = topicService.isEditingTopicName;
                 if (topicService.selectedTopic !== undefined) {
                     scope.selectedTopicId = topicService.selectedTopic.id;
+                } else if (topicService.selectedTopic === undefined) {
+                    scope.selectedTopicId = -1;
                 }
                 scope.editedTopicId = topicService.editedTopicId;
             }

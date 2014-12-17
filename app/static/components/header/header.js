@@ -1,5 +1,5 @@
-someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetLibraryService',
-                              function($scope,   oauth,          snippetSearch,   snippetLibraryService) {
+someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch', 'snippetLibraryService', 'topicService',
+                              function($scope,   oauth,          snippetSearch,   snippetLibraryService,   topicService) {
     $scope.HeaderCtrlScope = "HeaderCtrlScope";
     $scope.$watch(
         function() {
@@ -13,6 +13,7 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
     $scope.searchSubmit = function() {
         snippetSearch($scope.searchAccess, $scope.searchString).then(function(results) {
             snippetLibraryService.setSnippets(results, $scope);
+            topicService.selectedTopic = undefined;
             $scope.$emit('updateSearchString', $scope.searchString);
             $scope.searchString = "";
         });
