@@ -256,6 +256,14 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
+.directive('snippetPopup', [function() {
+    return {
+        require: '?^snippet',
+        restrict: 'E',
+        templateUrl: './static/components/snippetpanel/snippetPopup.html'
+    }
+}])
+
 .directive('snippetDeleteDialog', [function() {
     return {
         restrict: 'E',
@@ -273,14 +281,6 @@ viewsModule.service('snippetService', [function() {
                 deleteButton.focus();
             });
         }
-    }
-}])
-
-.directive('snippetPopup', [function() {
-    return {
-        require: '?^snippet',
-        restrict: 'E',
-        templateUrl: './static/components/snippetpanel/snippetPopup.html'
     }
 }])
 

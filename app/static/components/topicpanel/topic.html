@@ -1,7 +1,7 @@
 <li class='list-group-item topicItem' ng-class="{active:selectedTopicId === topic.id}">
     <span ng-hide="isEditingTopicName && (editedTopicId == topic.id)">
         <span class="fa topicDelete" ng-class="[editSymbol, invisibleClass]"
-              ng-show="isEditingTopic"" ng-click="initiateTopicDelete(topic)"></span>
+              ng-show="isEditingTopic" ng-click="initiateTopicDelete(topic)"></span>
         <a href="javascript:void(0)" class="topicName"
            ng-click="selectTopic(topic); placeTopicEditForm(topic.name)">{{topic.name}}</a>
         <span class='badge sit-right topicCounter'>{{topic.count}}</span>

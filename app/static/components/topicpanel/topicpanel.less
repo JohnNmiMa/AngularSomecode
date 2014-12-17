@@ -74,30 +74,31 @@
     #topicPanel ul {
         margin-bottom:0;
     }
-        #topicPanel ul li {
+        #topicPanel .topicItem {
+            border-radius: 0;
             padding: 3px 0 3px 5px;
             border-right:none;
             border-left:none;
             overflow: hidden;
         }
-            #topicPanel ul li:first-child {
+            #topicPanel .topicItem:first-child {
                 border-top:none;
             }
-            #topicPanel ul li.active {
+            #topicPanel .topicItem.active {
                 color:white;
             }
-        #topicPanel li a {
+        #topicPanel .topicItem a {
             padding: 0;
             color:inherit;
         }
-            #topicPanel li a:hover, #topicPanel li a:focus {
+            #topicPanel .topicItem a:hover, #topicPanel .topicItem a:focus {
                 text-decoration: none;
             }
-        #topicPanel li span.topicDelete {
+        #topicPanel .topicItem span.topicDelete {
             color:@brand-danger;
             cursor: pointer;
         }
-        #topicPanel li span.invisible {
+        #topicPanel .topicItem span.invisible {
 //            color:white;
 //            opacity:0;
 //            cursor: auto;
