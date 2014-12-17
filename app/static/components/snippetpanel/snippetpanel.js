@@ -256,25 +256,23 @@ viewsModule.service('snippetService', [function() {
     }
 }])
 
-.directive('snippetDeleteDialog', ['snippetLibraryService',
-                           function(snippetLibraryService) {
+.directive('snippetDeleteDialog', [function() {
     return {
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/snippetpanel/snippetDeleteDialog.html',
-        controller: ['$scope', '$element', '$attrs', 'deleteTopic',
-             function($scope,   $element,   $attrs,   deleteTopic) {
-            var deleteButton = $element.find('.snippetDoDelete');
+        link: function(scope, element, attrs) {
+            var deleteButton = element.find('.snippetDoDelete');
 
             // Configure the snippet delete modal dialog
-            $element.modal({backdrop:'static', keyboard:false, show:false});
+            element.modal({backdrop:'static', keyboard:false, show:false});
 
-            $scope.$on('snippetDeleteEvent', function(event, snippet) {
+            scope.$on('snippetDeleteEvent', function(event, snippet) {
                 // Show the snippet delete dialog
-                $element.modal('show');
+                element.modal('show');
                 deleteButton.focus();
             });
-        }]
+        }
     }
 }])
 
