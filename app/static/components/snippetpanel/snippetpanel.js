@@ -230,6 +230,10 @@ viewsModule.service('snippetService', [function() {
                 }
                 scope.refreshIt = !scope.refreshIt;
             };
+
+            scope.togglePreview = function() {
+                scope.isPreviewing = !scope.isPreviewing;
+            };
         }
     }
 }])
@@ -292,10 +296,6 @@ viewsModule.service('snippetService', [function() {
                 CodeMirror.modeURL = "./static/bower_components/codemirror/mode/%N/%N.js";
             };
 
-            $scope.togglePreview = function() {
-                $scope.isPreviewing = !$scope.isPreviewing;
-            };
-
             $scope.isSnippetDescriptionVisible = function(snippet) {
                 // Don't show the description if the layout is titles-only
                 if ($scope.layout === 'titlesonly') {
@@ -334,6 +334,7 @@ viewsModule.service('snippetService', [function() {
                 if (snippet.code === "") {
                     return false;
                 }
+                return true;
             }
         }],
         link: function(scope, element, attrs, controllers) {
