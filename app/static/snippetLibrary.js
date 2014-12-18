@@ -36,6 +36,9 @@ angular.module('snippetLibrary', [])
         updateTopicCount(topicName, true);
         scope.$emit('updateSnippetsEvent');
     };
+    var editSnippet = function(snippet, scope) {
+        scope.$emit('updateSnippetsEvent');
+    };
     var deleteSnippet = function(deletedSnippetId, selectedTopicName, scope) {
         snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippetId))});
         if (selectedTopicName !== undefined) {
@@ -70,6 +73,7 @@ angular.module('snippetLibrary', [])
         deleteTopic:deleteTopic,
         setSnippets:setSnippets,
         addSnippet:addSnippet,
+        editSnippet:editSnippet,
         deleteSnippet:deleteSnippet
     }
 }])
@@ -254,8 +258,8 @@ angular.module('snippetLibrary', [])
 }])
 
 
-.factory('editSnippet', ['$http', '$q',
-                 function($http,   $q) {
+.factory('editSnippet', ['$http', '$q', 'snippetLibraryService',
+                 function($http,   $q,   snippetService) {
     return function(snippet) {
         var defer = $q.defer(),
             path = "/snippets/" + snippet.id,
@@ -263,6 +267,8 @@ angular.module('snippetLibrary', [])
 
         $http.put(path, data)
             .success(function(reply) {
+                snippetService.snippetCounters = reply.snippet_counts;
+                delete reply.snippet_counts;
                 defer.resolve(angular.fromJson(reply));
             })
             .error(function(data, status, headers, config) {
@@ -279,14 +285,16 @@ angular.module('snippetLibrary', [])
 }])
 
 
-.factory('deleteSnippet', ['$http', '$q',
-                 function($http,   $q) {
+.factory('deleteSnippet', ['$http', '$q', 'snippetLibraryService',
+                   function($http,   $q,   snippetService ) {
     return function(snippet) {
         var defer = $q.defer(),
             path = "/snippets/" + snippet.id;
 
         $http.delete(path)
             .success(function(reply) {
+                snippetService.snippetCounters = reply.snippet_counts;
+                delete reply.snippet_counts;
                 defer.resolve(angular.fromJson(reply));
             })
             .error(function(data, status, headers, config) {

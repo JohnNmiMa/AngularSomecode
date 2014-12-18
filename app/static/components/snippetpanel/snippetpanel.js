@@ -189,6 +189,7 @@ viewsModule.service('snippetService', [function() {
                     });
                 } else  if (scope.isEditing) {
                     editSnippet(snippet).then(function(result) {
+                        snippetLibraryService.editSnippet(result, scope);
                         scope.isEditing = false;
                     });
                 }

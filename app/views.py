@@ -199,7 +199,7 @@ def snippets(topic):
         snippet.access = access
         snippet.language = data['language']
         db.session.commit()
-        return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access)
+        return jsonify(id = snippet.id, creator_id = snippet.creator_id, access = snippet.access, snippet_counts = getSnippetCounts())
 
     elif request.method == 'GET':
         """ Find all snippets associated with a topic """
@@ -234,11 +234,10 @@ def snippets(topic):
         if snippet.ref_count == 1:
             db.session.delete(snippet)
             db.session.commit()
-            return jsonify(id=snippet.id)
         else:
             snippet.dec_ref()
             db.session.commit()
-            return jsonify({id:snippet_id})
+        return jsonify({'id':snippet_id, 'snippet_counts':getSnippetCounts()})
 
 
 @app.route('/snippets/search/personal', methods = ['GET'])
