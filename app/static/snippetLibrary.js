@@ -2,27 +2,28 @@ angular.module('snippetLibrary', [])
 
 .service('snippetLibraryService', [function() {
     var snippets = [],
-        topics = [];
+        topics = [],
+        snippetCounters = {personal_count:0, public_count:0};
 
     var setTopics = function(topicList, scope) {
         topics = topicList;
         scope.$emit('updateTopicsEvent');
     };
     var addTopic = function(newTopic, scope) {
-        topics.topics.push(newTopic);
+        topics.push(newTopic);
         scope.$emit('updateTopicsEvent');
     };
     var editTopic = function(editedTopic, scope) {
-        for (topic in topics.topics) {
-            if (topics.topics[topic].id === editedTopic.id) {
-                topics.topics[topic].name = editedTopic.name;
+        for (topic in topics) {
+            if (topics[topic].id === editedTopic.id) {
+                topics[topic].name = editedTopic.name;
                 break;
             }
         }
         scope.$emit('updateTopicsEvent');
     };
     var deleteTopic = function(deletedTopicId, scope) {
-        topics.topics = topics.topics.filter(function(e) {return (e.id != Number(deletedTopicId))});
+        topics = topics.filter(function(e) {return (e.id != Number(deletedTopicId))});
         scope.$emit('updateTopicsEvent');
     };
 
@@ -34,7 +35,6 @@ angular.module('snippetLibrary', [])
         snippets.unshift(snippet);
         updateTopicCount(topicName, true);
         scope.$emit('updateSnippetsEvent');
-        scope.$emit('updateTopicsEvent');
     };
     var deleteSnippet = function(deletedSnippetId, selectedTopicName, scope) {
         snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippetId))});
@@ -42,28 +42,26 @@ angular.module('snippetLibrary', [])
             updateTopicCount(selectedTopicName, false);
         }
         scope.$emit('updateSnippetsEvent');
-        scope.$emit('updateTopicsEvent');
     };
     function updateTopicCount(topicName, increment) {
-        for (topic in topics.topics) {
-            t = topics.topics[topic];
+        for (topic in topics) {
+            t = topics[topic];
             if (t.name === topicName) {
-                if (increment) {
-                    t.count = t.count + 1;
-                    topics.personal_count = topics.personal_count + 1;
-                } else {
-                    t.count = t.count - 1;
-                    topics.personal_count = topics.personal_count - 1;
-                }
+                t.count = increment ? t.count + 1: t.count - 1;
                 break;
             }
         }
     }
+    var setSnippetCounters = function(counts) {
+        snippetCounters = counts;
+    };
 
     return {
         // Getters and setters
-        get snippets()      { return snippets; },
-        get topics()        { return topics; },
+        get snippets()                { return snippets; },
+        get topics()                  { return topics; },
+        get snippetCounters()         { return snippetCounters; },
+        set snippetCounters(counters) { setSnippetCounters(counters); },
 
         // Public functions
         setTopics:setTopics,
@@ -77,15 +75,17 @@ angular.module('snippetLibrary', [])
 }])
 
 
-.factory('snippetUser', ['$http', '$q',
-                 function($http,   $q) {
+.factory('snippetUser', ['$http', '$q', 'snippetLibraryService',
+                 function($http,   $q,   snippetService) {
     return function() {
         var defer = $q.defer(),
             path = "/topics";
 
         $http.get(path)
         .success(function(reply) {
-            defer.resolve(angular.fromJson(reply));
+            snippetService.snippetCounters = reply.snippet_counts;
+            delete reply.snippet_counts;
+            defer.resolve(angular.fromJson(reply.topics));
         })
         .error(function(data, status, headers, config) {
             var error = {
@@ -227,8 +227,8 @@ angular.module('snippetLibrary', [])
 }])
 
 
-.factory('createSnippet', ['$http', '$q',
-                   function($http,   $q) {
+.factory('createSnippet', ['$http', '$q', 'snippetLibraryService',
+                   function($http,   $q,   snippetService) {
     return function(snippet, topic) {
         var defer = $q.defer(),
             path = "/snippets/" + topic,
@@ -236,6 +236,8 @@ angular.module('snippetLibrary', [])
 
         $http.post(path, data)
             .success(function(reply) {
+                snippetService.snippetCounters = reply.snippet_counts;
+                delete reply.snippet_counts;
                 defer.resolve(angular.fromJson(reply));
             })
             .error(function(data, status, headers, config) {

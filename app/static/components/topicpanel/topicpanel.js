@@ -76,9 +76,9 @@ someCodeApp.service('topicService', [function() {
             $scope.TopicPanelDirectiveCtrlScope = "TopicPanelDirectiveCtrlScope";
 
             // The topics model
-            $scope.topics = snippetLibraryService.topics.topics;
+            $scope.topics = snippetLibraryService.topics;
             $scope.$on('updateTopics', function(event) {
-                $scope.topics = snippetLibraryService.topics.topics;
+                $scope.topics = snippetLibraryService.topics;
             });
 
 

@@ -72,6 +72,13 @@ def index():
     #public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
     return render_template('index.html')
 
+def getSnippetCounts():
+    topics = g.user.topics
+    personal_count = 0
+    for i, topic in enumerate(topics):
+        personal_count += topic.snippets.count()
+    public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
+    return {'personal_count':personal_count, 'public_count':public_count}
 
 @app.route('/topics')
 @login_required
@@ -85,7 +92,7 @@ def user():
         topicList.append(d)
     public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
 
-    reply = {'personal_count':personal_count, 'public_count':public_count, 'topics':topicList}
+    reply = {'topics':topicList, 'snippet_counts':{'personal_count':personal_count, 'public_count':public_count}}
     return Response(json.dumps(reply), 200, mimetype="application/json")
 
 
@@ -132,6 +139,7 @@ def topic(atopic):
         reply = dict(id = atopic, new_general_snippets = snippets_added_to_general)
         return Response(json.dumps(reply), 200, mimetype="application/json")
 
+
 @app.route('/snippets/<topic>', methods = ['POST', 'PUT', 'GET', 'DELETE'])
 @login_required
 def snippets(topic):
@@ -145,7 +153,6 @@ def snippets(topic):
         # Get the snippet data from the request
         if (request.data):
             data = json.loads(request.data)
-        #pdb.set_trace()
         access = ACCESS_PRIVATE;
         if data.get('access') == True:
             access = ACCESS_PUBLIC;
@@ -160,8 +167,10 @@ def snippets(topic):
                           creator_id = g.user.id, language = language, access = access)
         db.session.add(snippet)
         db.session.commit()
+
         d = dict(title = snippet.title, description = snippet.description, code = snippet.code,
-                 language = snippet.language, access = snippet.access, creator_id = snippet.creator_id, id = snippet.id)
+                 language = snippet.language, access = snippet.access,
+                 creator_id = snippet.creator_id, id = snippet.id, snippet_counts = getSnippetCounts())
         return Response(json.dumps(d), 200, mimetype="application/json")
 
     elif request.method == 'PUT':

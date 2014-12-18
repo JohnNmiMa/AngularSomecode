@@ -13,10 +13,10 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
         }
     );
 
-    $scope.$on('updateTopics', function(event) {
-        var topics = snippetLibraryService.topics;
-        $scope.personalSnippetCount = topics.personal_count;
-        $scope.publicSnippetCount = topics.public_count;
+    $scope.$on('updateSnippets', function(event) {
+        var counts = snippetLibraryService.snippetCounters;
+        $scope.personalSnippetCount = counts.personal_count;
+        $scope.publicSnippetCount = counts.public_count;
     });
 
     $scope.searchSubmit = function() {
