@@ -32,14 +32,20 @@
 }
 .MarkDown ul, .MarkDown ol {
     -webkit-margin-before: 0;
+    -moz-margin-before: 0;
     -webkit-margin-after: 0;
+    -moz-margin-after: 0;
     -webkit-margin-start: 0px;
+    -moz-margin-start: 0px;
     -webkit-margin-end: 0px;
+    -moz-margin-end: 0px;
     list-style-position: outside;
 }
 .MarkDown ol, .MarkDown ul ol, .MarkDown ul ul ol {
     list-style-type: decimal;
+    -moz-padding-start: 20px;
     -webkit-padding-start: 20px;
+    padding-left: 20px;
 }
 .MarkDown ul ol ol, .MarkDown ol ol, .MarkDown ol ul ol {
     list-style-type: lower-alpha;
@@ -49,7 +55,9 @@
 }
 .MarkDown ul {
     list-style-type: disc;
+    -moz-padding-start: 15px;
     -webkit-padding-start: 15px;
+    padding-left: 15px;
 }
 .MarkDown ul ul, .MarkDown ol ul {
     list-style-type: circle;
