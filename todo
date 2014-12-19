@@ -175,6 +175,8 @@ Implement signed-in view
 - Get public/personal icon working when editing/creating snippets - DONE
 - Get prompt on snippet delete implemented - DONE
 - Get snippet count implemented in header search bar - DONE
+- Get snippet count implemented for logged out screen
+
 !- Make the logged in user a menu.
   - Put "Log Out", "Settings", and "?" as items in the menu
 - Display a dynamic "Busy" indicator while snippets are being retrieved from the server
@@ -218,16 +220,21 @@ Implement signed-in view
   Titles-only is fine. Columnar or row layout looks bad. - DONE
 - Unselect the currently selected topic for snippet searches - DONE
 - Fix snippet cancel error if the snippet language is changed. - DONE
-- Fix markup ordered list styling when scrolling is on.
-- Fix vertical scrollbar causing layout to break. Turns out there is a setting in MAC General Settings.
+- Fix vertical scrollbar causing layout to break. Turns out there is a setting in MAC General Settings. - DONE (Whew)!
   If you click "When scrolling" in the General Preferences, then the scrollbar only shows when scrolling.
   And the way the scrollbar works seems to change with this setting on. For instance, the scrollbar
   doesn't take up space on the page. It seems to be overlayed on top of the web page.
   If the setting is "Always", then the scrollbar is always present and takes up space in the browser window.
   This is what is causing problems in the layout. When the scrollbar is always present, the layout breaks.
   When it acts as an overlay, the layout works fine. The fix is to make the layout work in both scrollbar modes.
+- Fix markdown ordered-list styling when scrolling is on.
+- Fix markdown list styling on Firefox!
+- Can't edit snippet title on Firefox!
 - Understand logout error - be sure to go to log out screen when authentication fails.
 - Fix columnar layout when in mobile mode (narrow window). To reproduce:
   1) Get window in large (non modal) size.
   2) Put layout in columnar mode
   3) Vertically shrink the window. Now, you will see that the code textarea is misaligned.
+- Fix "General" topic counter when a topic is deleted that contained snippets.
+  The snippets from the deleted topic are pushed into the "General" topic. Therefore,
+  the global snippet counters don't change, but the "General" topic counter does.

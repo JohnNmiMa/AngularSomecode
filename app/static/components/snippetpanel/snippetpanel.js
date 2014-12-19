@@ -403,25 +403,18 @@ viewsModule.service('snippetService', [function() {
                 // The topic panel doesn't exist when logged out
                 var hasTopicPanel = oauth.isAuthenticated();
 
-                $(window).on('resize', function() {
-                    scope.$apply(function () {
-                        updateSnippetBlockComponentSizes();
-                    })
-                });
-
-                function  updateSnippetBlockComponentSizes() {
+                function updateSnippetBlockComponentSizes() {
                     var snippetBlockWidth = parseFloat($('#snippetBlock').width()),
                         topicPanelWidth = parseFloat(topicService.topicPanelWidth),
                         snippetPanelWidth = snippetBlockWidth - topicPanelWidth;
 
-                    /*
-                     console.log("snippetBlockWidth = " + snippetBlockWidth +
-                     ": topicPanelWidth = " + topicPanelWidth +
-                     ": snippetPanelWidth = " + snippetPanelWidth);
-                     */
+                     //console.log("snippetBlockWidth = " + snippetBlockWidth +
+                     //": topicPanelWidth = " + topicPanelWidth +
+                     //": snippetPanelWidth = " + snippetPanelWidth);
 
                     setWidth(snippetPanelWidth + 'px');
                 }
+                updateSnippetBlockComponentSizes();
 
                 function setWidth(snippetPanelWidth) {
                     if(hasTopicPanel) {
@@ -436,9 +429,7 @@ viewsModule.service('snippetService', [function() {
                         // There is no topicPanel, so make the snippetPanel 100% wide
                         scope.snippetPanelStyle = {'width': "100%"};
                     }
-
                 }
-                updateSnippetBlockComponentSizes();
 
                 function resizeOnScrollbarHack() {
                     // Demo: http://jsfiddle.net/pFaSx/
@@ -455,11 +446,9 @@ viewsModule.service('snippetService', [function() {
                         // resize (even scrollbars on the outer document)
                         iframe.contentWindow.addEventListener('resize', function() {
                             try {
-                                console.log("In iframe resizer!");
-                                //var evt = document.createEvent('UIEvents');
-                                //evt.initUIEvent('resize', true, false, window, 0);
-                                //window.dispatchEvent(evt);
-                                updateSnippetBlockComponentSizes();
+                                scope.$apply(function() {
+                                    updateSnippetBlockComponentSizes();
+                                });
                             } catch(e) {}
                         });
                     };
@@ -467,7 +456,7 @@ viewsModule.service('snippetService', [function() {
                     // Stick the iframe somewhere out of the way
                     document.body.appendChild(iframe);
                 }
-                //resizeOnScrollbarHack();
+                resizeOnScrollbarHack();
             }
         }
     }]);

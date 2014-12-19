@@ -16,6 +16,14 @@ from datetime import datetime, timedelta
 from sqlalchemy import desc
 
 
+def getSnippetCounts():
+    topics = g.user.topics
+    personal_count = 0
+    for i, topic in enumerate(topics):
+        personal_count += topic.snippets.count()
+    public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
+    return {'personal_count':personal_count, 'public_count':public_count}
+
 def create_jwt_token(user):
     payload = {
         'iss': 'somecode',
@@ -72,13 +80,6 @@ def index():
     #public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
     return render_template('index.html')
 
-def getSnippetCounts():
-    topics = g.user.topics
-    personal_count = 0
-    for i, topic in enumerate(topics):
-        personal_count += topic.snippets.count()
-    public_count = Snippet.query.filter_by(access=ACCESS_PUBLIC).count()
-    return {'personal_count':personal_count, 'public_count':public_count}
 
 @app.route('/topics')
 @login_required
