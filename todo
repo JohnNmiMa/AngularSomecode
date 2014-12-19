@@ -229,6 +229,7 @@ Implement signed-in view
   When it acts as an overlay, the layout works fine. The fix is to make the layout work in both scrollbar modes.
 - Fix markdown list styling on Firefox! - DONE
 - Can't edit snippet title on Firefox! - DONE
+- Fix bug where personal/public snippet (eye) indicator is toggled during edit.
 - Fix markdown ordered-list styling when scrolling is on.
 - Understand logout error - be sure to go to log out screen when authentication fails.
 - Fix columnar layout when in mobile mode (narrow window). To reproduce:

@@ -65,6 +65,7 @@ viewsModule.service('snippetService', [function() {
 
             $scope.SnippetDirectiveController = "SnippetDirectiveController";
             $scope.isEditing = false;
+            $scope.isEditingAccess = false;
             $scope.isAdding = false;
             $scope.isPreviewing = false;
             $scope.lineWrapping = false;
@@ -137,6 +138,7 @@ viewsModule.service('snippetService', [function() {
             scope.snippetEdit = function(snippet) {
                 angular.copy(snippet, tmpSnippetModel);
                 scope.isEditing = true;
+                scope.isEditingAccess = snippet.access;
                 scope.snippetPopupVisible = false;
                 scope.codeEditorOptions.readOnly = false;
                 cmElement.addClass('isEditing');
@@ -159,6 +161,7 @@ viewsModule.service('snippetService', [function() {
                     scope.codeEditorOptions.readOnly = 'nocursor';
                     cmElement.removeClass('isEditing');
                 }
+                scope.isEditingAccess = false;
                 scope.isPreviewing = false;
             };
             scope.snippetSave = function(snippet) {
@@ -177,6 +180,7 @@ viewsModule.service('snippetService', [function() {
                     snippet.language = scope.language.name;
                 }
 
+                snippet.access = scope.isEditingAccess;
                 if (scope.isAdding) {
                     if (selectedTopic !== undefined) {
                         topicName = selectedTopic.name;
@@ -193,6 +197,7 @@ viewsModule.service('snippetService', [function() {
                         scope.isEditing = false;
                     });
                 }
+                scope.isEditingAccess = false;
                 scope.isPreviewing = false;
             };
             scope.initiateSnippetDelete = function(snippet) {
@@ -250,6 +255,10 @@ viewsModule.service('snippetService', [function() {
                 scope.refreshIt = !scope.refreshIt;
             };
 
+            scope.toggleSnippetAccess = function(snippet) {
+                scope.isEditingAccess = !scope.isEditingAccess;
+            };
+
             scope.togglePreview = function() {
                 scope.isPreviewing = !scope.isPreviewing;
             };
@@ -291,12 +300,7 @@ viewsModule.service('snippetService', [function() {
         require: '?^snippet',
         restrict: 'E',
         replace: true,
-        templateUrl: './static/components/snippetpanel/snippetFormBar.html',
-        link: function(scope, element, attrs) {
-            scope.toggleSnippetAccess = function(snippet) {
-                snippet.access = !snippet.access;
-            }
-        }
+        templateUrl: './static/components/snippetpanel/snippetFormBar.html'
     }
 }])
 

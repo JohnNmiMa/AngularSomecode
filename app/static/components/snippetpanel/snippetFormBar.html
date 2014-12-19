@@ -8,7 +8,7 @@
         </select>
         <button class="snippetAccess" type="button" name="snippetAccess" tabindex="-1" ng-click="toggleSnippetAccess(snip)">
             <span class="glyphicon"
-                  ng-class="{'glyphicon-eye-close':snip.access === false, 'glyphicon-eye-open':snip.access === true}"></span>
+                  ng-class="{'glyphicon-eye-open':isEditingAccess, 'glyphicon-eye-close':!isEditingAccess}"></span>
         </button>
     </div>
 </div>
