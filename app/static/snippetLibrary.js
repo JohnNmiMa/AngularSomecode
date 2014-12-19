@@ -22,8 +22,9 @@ angular.module('snippetLibrary', [])
         }
         scope.$emit('updateTopicsEvent');
     };
-    var deleteTopic = function(deletedTopicId, scope) {
-        topics = topics.filter(function(e) {return (e.id != Number(deletedTopicId))});
+    var deleteTopic = function(deletedTopic, scope) {
+        topics = topics.filter(function(e) {return (e.id != Number(deletedTopic.id))});
+        updateTopicCount("General", deletedTopic.new_general_snippets);
         scope.$emit('updateTopicsEvent');
     };
 
@@ -31,26 +32,24 @@ angular.module('snippetLibrary', [])
         snippets = snippetList;
         scope.$emit('updateSnippetsEvent');
     };
-    var addSnippet = function(snippet, topicName, scope) {
+    var addSnippet = function(snippet, scope) {
         snippets.unshift(snippet);
-        updateTopicCount(topicName, true);
+        updateTopicCount(snippet.topic, 1);
         scope.$emit('updateSnippetsEvent');
     };
     var editSnippet = function(snippet, scope) {
         scope.$emit('updateSnippetsEvent');
     };
-    var deleteSnippet = function(deletedSnippetId, selectedTopicName, scope) {
-        snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippetId))});
-        if (selectedTopicName !== undefined) {
-            updateTopicCount(selectedTopicName, false);
-        }
+    var deleteSnippet = function(deletedSnippet, scope) {
+        snippets = snippets.filter(function(e) {return (e.id != Number(deletedSnippet.id))});
+        updateTopicCount(deletedSnippet.topic, -1);
         scope.$emit('updateSnippetsEvent');
     };
-    function updateTopicCount(topicName, increment) {
+    function updateTopicCount(topicName, count) {
         for (topic in topics) {
             t = topics[topic];
             if (t.name === topicName) {
-                t.count = increment ? t.count + 1: t.count - 1;
+                t.count += count;
                 break;
             }
         }

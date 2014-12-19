@@ -171,7 +171,8 @@ def snippets(topic):
 
         d = dict(title = snippet.title, description = snippet.description, code = snippet.code,
                  language = snippet.language, access = snippet.access,
-                 creator_id = snippet.creator_id, id = snippet.id, snippet_counts = getSnippetCounts())
+                 creator_id = snippet.creator_id, id = snippet.id,
+                 topic = snippet.topic.topic, snippet_counts = getSnippetCounts())
         return Response(json.dumps(d), 200, mimetype="application/json")
 
     elif request.method == 'PUT':
@@ -214,7 +215,8 @@ def snippets(topic):
         snippetList = []
         for i, snip in enumerate(snippets):
             d = dict(title = snip.title, description = snip.description, code = snip.code,
-                     language = snip.language, access = snip.access, creator_id = snip.creator_id, id = snip.id)
+                     language = snip.language, access = snip.access,
+                     creator_id = snip.creator_id, id = snip.id, topic = snip.topic.topic)
             snippetList.append(d)
 
         return Response(json.dumps(snippetList), 200, mimetype="application/json")
@@ -232,13 +234,14 @@ def snippets(topic):
         if snippet == None:
             return jsonify(error=404, text='Invalid snippet ID'), 404
 
+        topicName = snippet.topic.topic
         if snippet.ref_count == 1:
             db.session.delete(snippet)
             db.session.commit()
         else:
             snippet.dec_ref()
             db.session.commit()
-        return jsonify({'id':snippet_id, 'snippet_counts':getSnippetCounts()})
+        return jsonify({'id':snippet_id, 'topic':topicName, 'snippet_counts':getSnippetCounts()})
 
 
 @app.route('/snippets/search/personal', methods = ['GET'])

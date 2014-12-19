@@ -146,7 +146,7 @@ someCodeApp.service('topicService', [function() {
                 scope.isEditingTopicName = topicService.isEditingTopicName;
                 if (topicService.selectedTopic !== undefined) {
                     scope.selectedTopicId = topicService.selectedTopic.id;
-                } else if (topicService.selectedTopic === undefined) {
+                } else {
                     scope.selectedTopicId = -1;
                 }
                 scope.editedTopicId = topicService.editedTopicId;
@@ -332,7 +332,7 @@ someCodeApp.service('topicService', [function() {
             $scope.doTopicDelete = function() {
                 if (topicToDelete) {
                     deleteTopic(topicToDelete.id).then(function(results) {
-                        snippetLibraryService.deleteTopic(results.id, $scope);
+                        snippetLibraryService.deleteTopic(results, $scope);
                     });
                     topicToDelete = undefined;
                 }

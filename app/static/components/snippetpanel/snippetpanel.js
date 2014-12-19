@@ -186,7 +186,7 @@ viewsModule.service('snippetService', [function() {
                         topicName = selectedTopic.name;
                     }
                     createSnippet(snippet, topicName).then(function(results) {
-                        snippetLibraryService.addSnippet(results, topicName, scope);
+                        snippetLibraryService.addSnippet(results, scope);
                         angular.copy(addSnippetModel, scope.snip);
                         snippetBar.isAddingSnippet = false;
                         scope.language = null;
@@ -205,9 +205,8 @@ viewsModule.service('snippetService', [function() {
                 scope.$broadcast('snippetDeleteEvent', snippet);
             };
             scope.snippetDelete = function(snippet) {
-                var topicName = topicService.selectedTopic ? topicService.selectedTopic.name : undefined;
                 deleteSnippet(snippet).then(function(results) {
-                    snippetLibraryService.deleteSnippet(results.id, topicName, scope);
+                    snippetLibraryService.deleteSnippet(results, scope);
                     scope.snippetPopupVisible = false;
                     scope.isEditing = false;
                     // Hide the snippet delete dialog
