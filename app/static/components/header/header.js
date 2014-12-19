@@ -49,19 +49,19 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
                 $scope.searchAccess = access;
             };
         }],
-        link: function ($scope, element, attrs) {
+        link: function (scope, element, attrs) {
             var searchField = element.find('#snippetSearchField');
-            $scope.focused = false;
-            $scope.placeholderText = $scope.isSignedIn ? "Search private snippets" : "Search public snippets";
+            scope.focused = false;
+            scope.placeholderText = scope.isSignedIn ? "Search private snippets" : "Search public snippets";
 
             searchField.on('click', function() {
-                $scope.$apply(function() {
-                    $scope.focused = true;
+                scope.$apply(function() {
+                    scope.focused = true;
                 })
             });
             searchField.on('blur', function() {
-                $scope.$apply(function() {
-                    $scope.focused = false;
+                scope.$apply(function() {
+                    scope.focused = false;
                 })
             });
         }

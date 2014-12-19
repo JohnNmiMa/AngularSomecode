@@ -175,7 +175,7 @@ Implement signed-in view
 - Get public/personal icon working when editing/creating snippets - DONE
 - Get prompt on snippet delete implemented - DONE
 - Get snippet count implemented in header search bar - DONE
-- Get snippet count implemented for logged out screen
+- Get snippet count implemented for logged out screen - DONE
 
 !- Make the logged in user a menu.
   - Put "Log Out", "Settings", and "?" as items in the menu
@@ -237,6 +237,6 @@ Implement signed-in view
   1) Get window in large (non modal) size.
   2) Put layout in columnar mode
   3) Vertically shrink the window. Now, you will see that the code textarea is misaligned.
-- Fix "General" topic counter when a topic is deleted that contained snippets.
+- Fix "General" topic counter when a topic is deleted that contained snippets. - DONE
   The snippets from the deleted topic are pushed into the "General" topic. Therefore,
   the global snippet counters don't change, but the "General" topic counter does.
