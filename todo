@@ -227,9 +227,9 @@ Implement signed-in view
   If the setting is "Always", then the scrollbar is always present and takes up space in the browser window.
   This is what is causing problems in the layout. When the scrollbar is always present, the layout breaks.
   When it acts as an overlay, the layout works fine. The fix is to make the layout work in both scrollbar modes.
+- Fix markdown list styling on Firefox! - DONE
+- Can't edit snippet title on Firefox! - DONE
 - Fix markdown ordered-list styling when scrolling is on.
-- Fix markdown list styling on Firefox!
-- Can't edit snippet title on Firefox!
 - Understand logout error - be sure to go to log out screen when authentication fails.
 - Fix columnar layout when in mobile mode (narrow window). To reproduce:
   1) Get window in large (non modal) size.

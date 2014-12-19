@@ -241,6 +241,7 @@
                         max-height:400px;
                         overflow-x:auto;
                     }
+                    /* The following is toggled on and off by the "scroll" toggle button in the snippet popup */
                     //.CodeMirror-scroll {
                     //    height:auto;
                     //    overflow-x:auto;
@@ -256,12 +257,11 @@
                 z-index: 5100;
             }
             .snippetFormBar {
-                .make-row();
+                margin-bottom:5px;
             }
                 .snippetFormBar .snippetFormBarContainer {
                     position:relative;
-                    margin-bottom:5px;
-                    .make-xs-column(12);
+                    overflow: hidden;
                 }
                     .snippetSave, .snippetCancel, .snippetAccess, .languageSelect {
                         float:right;
