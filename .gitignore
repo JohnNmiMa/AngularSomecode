@@ -2,6 +2,8 @@
 node_modules/
 venv.keep/
 build/
+codemirror.orig/
+angular-ui-codemirror/
 todo~
 venvv/
 *.pyc
@@ -61,3 +63,5 @@ somecodelog
 *.js~
 
 app/static/bower_components/textarea-autosize/dist/jquery.textarea_autosize.js~
+
+bower.json.orig
