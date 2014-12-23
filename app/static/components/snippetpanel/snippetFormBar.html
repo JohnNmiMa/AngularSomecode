@@ -2,10 +2,12 @@
     <div class="snippetFormBarContainer">
         <button class="snippetSave" type="button" name="snippetSave" tabindex="4" ng-click="snippetSave(snip)">Save</button>
         <button class="snippetCancel" type="button" name="snippetCancel" tabindex="-1" ng-click="snippetCancel(snip)">Cancel</button>
-        <select class="languageSelect" name="language" ng-model="language"
-                ng-options="lang.name for lang in languages">
-            <option value="">Language</option>
-        </select>
+        <div class="selectContainer">
+            <select class="languageSelect" name="language" ng-model="language"
+                    ng-options="lang.name for lang in languages">
+                <option value="">Language</option>
+            </select>
+        </div>
         <button class="snippetAccess" type="button" name="snippetAccess" tabindex="-1" ng-click="toggleSnippetAccess(snip)">
             <span class="glyphicon"
                   ng-class="{'glyphicon-eye-open':isEditingAccess, 'glyphicon-eye-close':!isEditingAccess}"></span>
