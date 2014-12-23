@@ -81,7 +81,6 @@ someCodeApp.service('topicService', [function() {
                 $scope.topics = snippetLibraryService.topics;
             });
 
-
             // A topic name was selected. This means different things depending upon
             // the state of the topicPanel.
             $scope.selectTopic = function(topic) {
@@ -183,8 +182,7 @@ someCodeApp.service('topicService', [function() {
         restrict: 'E',
         replace: true,
         templateUrl: './static/components/topicpanel/topicAddForm.html',
-        controller: ['$scope', '$element', '$attrs',
-             function($scope,   $element, $attrs) {
+        controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
             var inputElement = $element.find('input');
             inputElement.popover({
                 container:'body', trigger:'manual', toggle:'popover', placement:'right',
@@ -239,7 +237,6 @@ someCodeApp.service('topicService', [function() {
                     //}
                 }
             };
-
         }
     }
 }])
@@ -267,6 +264,11 @@ someCodeApp.service('topicService', [function() {
                     resetForm($scope.topic);
                     triggerTopicEditPopover(false);
                 }
+            });
+
+            // Do stuff when this directive is deleted
+            $element.on('$destroy', function() {
+                triggerTopicEditPopover(false);
             });
 
             function triggerTopicEditPopover(trigger) {
@@ -310,8 +312,7 @@ someCodeApp.service('topicService', [function() {
 }])
 
 
-.directive('topicDeleteDialog', ['snippetLibraryService',
-                         function(snippetLibraryService) {
+.directive('topicDeleteDialog', ['snippetLibraryService', function(snippetLibraryService) {
     return {
         restrict: 'E',
         replace: true,
@@ -342,6 +343,7 @@ someCodeApp.service('topicService', [function() {
     }
 }])
 
+
 .factory('topicNameValidatorService', ['snippetLibraryService',
                                function(snippetLibraryService) {
     return function(attrs, ngModelCtrl, topicName) {
@@ -350,7 +352,7 @@ someCodeApp.service('topicService', [function() {
         var topics = [];
 
         if (topicName != undefined) {
-            topics = snippetLibraryService.topics.topics;
+            topics = snippetLibraryService.topics;
             for (var topic in topics) {
                 if (topicName.toLowerCase() === topics[topic].name.toLowerCase()) {
                     return false;
