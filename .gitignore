@@ -65,3 +65,7 @@ somecodelog
 app/static/bower_components/textarea-autosize/dist/jquery.textarea_autosize.js~
 
 bower.json.orig
+
+todo.keep
+
+app/static/main.less.keep

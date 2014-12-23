@@ -1,4 +1,4 @@
-var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute'])
+var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ng.deviceDetector'])
 
 .run(['$rootScope', '$location', '$route', '$timeout', function ($rootScope, $location, $route, $timeout) {
     $rootScope.$on('$routeChangeStart', function () {

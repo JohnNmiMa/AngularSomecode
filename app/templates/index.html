@@ -15,7 +15,7 @@
     <title>SomeCode App</title>
 </head>
 
-<body ng-controller="SomeCodeCtrl">
+<body ng-controller="SomeCodeCtrl" device-detector>
     <div ng-include src="'./static/components/header/header.html'"></div>
     <div ng-view></div>
     <span public_counter="{{public_count}}" style="display:none"></span>
@@ -29,6 +29,7 @@
         <script type="text/javascript" src="./static/bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="./static/bower_components/angular-route/angular-route.js"></script>
         <script type="text/javascript" src="./static/bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script type="text/javascript" src="./static/bower_components/ng-device-detector/ng-device-detector.js"></script>
 
         <script type="text/javascript" src="./static/bower_components/codemirror/lib/codemirror.js"></script>
         <script type="text/javascript" src="./static/bower_components/codemirror/addon/display/placeholder.js"></script>

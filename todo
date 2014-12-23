@@ -236,6 +236,7 @@ Implement signed-in view
   the global snippet counters don't change, but the "General" topic counter does.
 - Fix bug where orphaned snippet that is deleted does stays displayed. - DONE
 - Fix markdown ordered-list styling when scrolling is on. - DONE
+- Fix bug where the "General" topic can be created.
 - Understand logout error - be sure to go to log out screen when authentication fails.
 - Fix columnar layout when in mobile mode (narrow window). To reproduce:
   1) Get window in large (non modal) size.
