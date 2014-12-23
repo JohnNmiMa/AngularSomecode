@@ -67,15 +67,17 @@ var someCodeApp = angular.module('SomeCodeApp', ['someCodeViews', 'ngRoute', 'ng
     };
 
     $scope.logout = function() {
-        snippetLogout().then(function(response) {
-            //oauth.logout();
-        }, function(error) {
-            console.log(error.url + " failed with status error " + error.statusCode);
-        })
+        if ($scope.isAuthenticated()) {
+            snippetLogout().then(function(response) {
+                //oauth.logout();
+            }, function(error) {
+                console.log(error.url + " failed with status error " + error.statusCode);
+            })
             .finally(function() {
                 oauth.logout();
                 $location.path('/');
             });
+        }
     };
 }]);
 

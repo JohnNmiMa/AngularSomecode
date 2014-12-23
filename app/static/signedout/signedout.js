@@ -2,6 +2,7 @@ viewsModule.controller('SignedoutCtrl', ['$scope', '$sce', 'snippetLibraryServic
                                  function($scope,   $sce,   snippetLibraryService) {
     $scope.SignedOutCtrlScope = "SignedOutCtrlScope";
     snippetLibraryService.setSnippets([], $scope);
+    $scope.logout();
 }])
 
 .directive('publicCounter', ['snippetLibraryService',
