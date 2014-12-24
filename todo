@@ -238,9 +238,7 @@ Implement signed-in view
 - Fix markdown ordered-list styling when scrolling is on. - DONE
 - Fix bug where the "General" topic can be created (the topic validators quit working). - DONE
 - Fix bug where validator dialog from deleted topic is left on the screen. - DONE
-- Understand logout error - be sure to go to log out screen when authentication fails.
-- Fix columnar layout when in mobile mode (narrow window). To reproduce:
-  1) Get window in large (non modal) size.
-  2) Put layout in columnar mode
-  3) Vertically shrink the window. Now, you will see that the code textarea is misaligned.
+- Understand logout error - be sure to go to log out screen when authentication fails. - DONE
+- Remove ability to go to previous webpage when hitting the left or right arrows
+  while editing or previewing snippets.
 

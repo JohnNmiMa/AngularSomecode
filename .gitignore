@@ -69,3 +69,5 @@ bower.json.orig
 todo.keep
 
 app/static/main.less.keep
+
+*.keep
