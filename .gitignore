@@ -1,15 +1,15 @@
 .idea/
 node_modules/
+venv/
 venv.keep/
+venvv/
 build/
 codemirror.orig/
 angular-ui-codemirror/
 todo~
-venvv/
 *.pyc
 
 .bowerrc~
-search.db/
 app/static/header/signin.css
 
 app/static/main.css
