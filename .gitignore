@@ -1,5 +1,8 @@
 .idea/
 node_modules/
+search.db/
+db_repository/
+app.db
 venv/
 venv.keep/
 venvv/
@@ -71,3 +74,7 @@ todo.keep
 app/static/main.less.keep
 
 *.keep
+
+db_repository/manage.py
+
+app.db
