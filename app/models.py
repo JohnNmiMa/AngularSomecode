@@ -32,7 +32,7 @@ class User(db.Model):
             return str(self.id)  # python 3
 
     def __repr__(self):
-        return '<ID:%r, User:%r, email:%r, google_id:%r, fb_id:%r, twitter_id:%r, role:%r>' % \
+        return '<ID:%r, name:%r, email:%r, google_id:%r, fb_id:%r, twitter_id:%r, role:%r>' % \
                 (self.id, self.name, self.email, self.google_id, self.fb_id, self.twitter_id, self.role)
 
 class Topic(db.Model):

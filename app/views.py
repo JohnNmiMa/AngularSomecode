@@ -317,14 +317,15 @@ def createUserInDb(fb_id, goog_id, twit_id, name, email, role):
 
     # Add snippets from SomeCode's 'Welcome' topic
     # to the user's 'Welcome' topic
-    admin_user = User.query.filter_by(name='SomeCode').first()
+    ### admin_user = User.query.filter_by(name='SomeCode').first()
+    admin_user = User.query.filter(User.name.startswith('SomeCode')).first()
     welcome_topic = admin_user.topics.filter_by(topic='Welcome').first()
     welcome_snippets = welcome_topic.snippets
     snippets = welcome_snippets.all()
     snippets.reverse()
     for snip in snippets:
         s = Snippet(title=snip.title, description=snip.description, code=snip.code,
-                    timestamp=snip.timestamp, topic=topic, creator_id=snip.id,
+                    timestamp=snip.timestamp, topic=topic, creator_id=user.id,
                     language=snip.language, access=ACCESS_PRIVATE)
         db.session.add(s)
 

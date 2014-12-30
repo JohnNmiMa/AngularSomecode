@@ -87,7 +87,7 @@ someCodeApp.service('topicService', [function() {
                 var topicName = topic.name;
                 if (topicService.isAddingTopic === false) {
                     if (topicService.isEditingTopic === true) {
-                        if (topicName != "General" && topicName != "Welcome") {
+                        if (topicName != "General") {
                             // Edit the topic name
                             topicService.editedTopicId = topic.id;
                             topicService.isEditingTopicName = true;
@@ -167,10 +167,8 @@ someCodeApp.service('topicService', [function() {
         replace: true,
         templateUrl: './static/components/topicpanel/topic.html',
         link: function(scope, element, attrs) {
-            scope.editSymbol = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
-                'fa-circle' : 'fa-minus-circle';
-            scope.invisibleClass = (scope.topic.name === "General" || scope.topic.name === "Welcome") ?
-                'invisible' : "";
+            scope.editSymbol = (scope.topic.name === "General") ? 'fa-circle' : 'fa-minus-circle';
+            scope.invisibleClass = (scope.topic.name === "General") ? 'invisible' : "";
         }
     }
 }])
