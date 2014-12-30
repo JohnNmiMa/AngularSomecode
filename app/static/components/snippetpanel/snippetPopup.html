@@ -18,10 +18,16 @@
         <span class="fa fa-square-o fa-2x"
               ng-class="{'active':layout === 'titlesonly'}"></span>
     </div>
-    <div ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)" class="layout snippetEdit" ng-click="snippetEdit(snip)">
+    <div class="layout snippetEdit"
+         ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)"
+         ng-hide="isAdding"
+         ng-click="snippetEdit(snip)">
         <span class="fa fa-pencil-square-o fa-2x"></span>
     </div>
-    <div ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)" class="layout snippetDelete" ng-click="initiateSnippetDelete(snip)">
+    <div class="layout snippetDelete"
+         ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)"
+         ng-hide="isAdding"
+         ng-click="initiateSnippetDelete(snip)">
         <span class="fa fa-times fa-2x"></span>
     </div>
 </div>
