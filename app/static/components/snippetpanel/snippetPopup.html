@@ -1,5 +1,6 @@
 <div class="snippetPopup">
-    <button type="button" class="btn btn-danger btn-xs layout snip-it">Snip it</button>
+    <button type="button" class="btn btn-danger btn-xs layout snip-it"
+            ng-hide="isEditing || isAdding">Snip it</button>
     <button type="button" class="btn btn-default btn-xs layout toggleScroll"
             ng-style="scrollStrikeStyle" ng-click="toggleScroll()">Scroll</button>
     <button type="button" class="btn btn-default btn-xs layout toggleLineWrap"
@@ -20,13 +21,13 @@
     </div>
     <div class="layout snippetEdit"
          ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)"
-         ng-hide="isAdding"
+         ng-hide="isEditing || isAdding"
          ng-click="snippetEdit(snip)">
         <span class="fa fa-pencil-square-o fa-2x"></span>
     </div>
     <div class="layout snippetDelete"
          ng-if="isSnippetOwnedByCurrentUser(snip.creator_id)"
-         ng-hide="isAdding"
+         ng-hide="isEditing || isAdding"
          ng-click="initiateSnippetDelete(snip)">
         <span class="fa fa-times fa-2x"></span>
     </div>
