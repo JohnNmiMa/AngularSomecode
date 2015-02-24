@@ -242,3 +242,26 @@ Implement signed-in view
 - Remove ability to go to previous webpage when hitting the left or right arrows
   while editing or previewing snippets.
 
+--------------------------
+Noticed after Version 1.0 deployment
+- The snippet search placeholder value does not toggle between public/personal
+- Fix Markdown layout style for:
+  - Code segements - need a top margin
+  - Inline code - overlaps when code segements overlap vertically
+- Put focus on snippet title when editing or creating snippets
+- The "eye" icon during snippet edit will change back to previous value when saving the snippet
+  - This is not a big deal, but looks strange.
+- Can have multiple AJAX submission in flight, before the first submission has responded
+  - read http://michalostruszka.pl/blog/2013/07/31/double-requests/
+- Can't tell that inflight requests are taking a long time
+- Can't tell when requests fail. Maybe the network is down, or the requests failed on the server
+  - detect authentication timeout.
+  - read http://michalostruszka.pl/blog/2013/09/06/selective_http_errors_handling_in_angularjs/
+- The "code textarea" is editable even when the snippet is not being edited.
+- Markdown "code" blocks, those within the `...` symbols, overlap vertically to be somewhat unreadable.
+- We need new custom built SVG icons. The fontawesome don't work that well across various browsers.
+- Need to get the "hamburger" icon to rotate.
+- Need to fix the Topic Panel - don't scroll off page
+- Need to fix the Snippet Panel - don't scroll off page
+- Update to most recent version of CodeMirror
+  - get "code textarea" to not scroll horizontally

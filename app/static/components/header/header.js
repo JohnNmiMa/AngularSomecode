@@ -48,11 +48,17 @@ someCodeApp.controller('HeaderCtrl', ['$scope', 'oauthLibrary', 'snippetSearch',
             $scope.setSearchAccess = function(access) {
                 $scope.searchAccess = access;
             };
+            $scope.placeholderText = function() {
+                if ($scope.searchAccess === 'personal') {
+                    return "Search private snippets";
+                } else {
+                    return "Search public snippets";
+                }
+            };
         }],
         link: function (scope, element, attrs) {
             var searchField = element.find('#snippetSearchField');
             scope.focused = false;
-            scope.placeholderText = scope.isSignedIn ? "Search private snippets" : "Search public snippets";
 
             searchField.on('click', function() {
                 scope.$apply(function() {

@@ -1,7 +1,7 @@
 <form id="snippetSearchForm" name="snippetSearchForm" role="search" ng-style="computeLayout()" ng-submit="searchSubmit()">
     <div id="snippetSearchContainer" ng-class="{'focused':focused == true}" ui-event="{blur:'blurOut($event)'}">
         <input type="text" id="snippetSearchField" class="form-control reset" name="q"
-               autocomplete="off" placeholder={{placeholderText}} search-sizer ng-model="searchString"><!--
+               autocomplete="off" placeholder={{placeholderText()}} search-sizer ng-model="searchString"><!--
       --><span id="personalSnippetCounter" class="badge left"
                ng-if="isAuthenticated() == true"
                ng-class="{selected:searchAccess === 'personal'}" ng-click="setSearchAccess('personal')">{{personalSnippetCount}}</span><!--
