@@ -245,9 +245,9 @@ Implement signed-in view
 --------------------------
 Noticed after Version 1.0 deployment
 - The snippet search placeholder value does not toggle between public/personal - DONE
-- Fix Markdown layout style for:
-  - Code segements - need a top margin
-  - Inline code - overlaps when code segements overlap vertically
+- Fix Markdown layout style for: - DONE
+  - Code segements - need a top margin - DONE
+  - Inline code - overlaps when code segements overlap vertically - DONE
 - Put focus on snippet title when editing or creating snippets
 - The "eye" icon during snippet edit will change back to previous value when saving the snippet
   - This is not a big deal, but looks strange.
@@ -258,7 +258,6 @@ Noticed after Version 1.0 deployment
   - detect authentication timeout.
   - read http://michalostruszka.pl/blog/2013/09/06/selective_http_errors_handling_in_angularjs/
 - The "code textarea" is editable even when the snippet is not being edited.
-- Markdown "code" blocks, those within the `...` symbols, overlap vertically to be somewhat unreadable.
 - We need new custom built SVG icons. The fontawesome don't work that well across various browsers.
 - Need to get the "hamburger" icon to rotate.
 - Need to fix the Topic Panel - don't scroll off page
